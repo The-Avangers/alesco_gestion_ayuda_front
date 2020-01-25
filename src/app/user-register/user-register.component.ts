@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { LoginComponent } from "../login/login.component";
-import { Router } from "@angular/router";
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from '../login/login.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-register',
@@ -16,7 +16,7 @@ export class UserRegisterComponent implements OnInit {
   }
 
   openAddUserModal() {
-    const modalRef = this.modalService.open(LoginComponent, { centered: true });
+    const modalRef: NgbModalRef = this.modalService.open(LoginComponent, { centered: true });
     modalRef.componentInstance.isClient = true;
   }
 
