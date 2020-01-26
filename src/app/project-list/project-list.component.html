@@ -1,0 +1,89 @@
+<app-side-bar>
+    <ng-container class="body">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Proyectos</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong><a href=""> Projectos</a></strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+                        <div class="ibox-content">
+                            <div class="row border-bottom">
+                                <div class="col-sm-5 m-b-xs">
+                                    <a href="" class="btn btn-primary">Agregar</a>
+                                </div>
+                                <div class="col-sm-2 m-b-xs"></div>
+                                <div class="col-sm-2">
+                                    <form class="input-group" style="margin-bottom: 14px">
+                                        <span class="input-group-append">
+                                        <button type="submit" class="btn btn-sm btn-primary">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </span>
+                                    </form>
+                                </div>
+                                <div class="col-sm-3 m-b-xs">
+                                    <a href="" class="btn btn-primary">Exportar en PDF</a>
+                                </div>
+                            </div>
+                            <p *ngIf="projects.length == 0" style="margin-top: 2.5%">No hay datos disponibles.</p>
+                            <div  *ngIf="projects.length!= 0" class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Codigo</th>
+                                        <th>Titulo</th>
+                                        <th>Fecha de Inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th>Precio</th>
+                                        <th>Pagado</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let project of projects">
+                                        <td><a href="">{{ project.id }}</a></td>
+                                        <td>{{ project.name }}</td>
+                                        <td>{{ project.startDate }}</td>
+                                        <td>{{ project.endDate }}</td>
+                                        <td>{{ project.price }}</td>
+                                        <td>{{ project.paid }}</td>
+                                        <td>
+                                            <a href=""
+                                               class="btn btn-sm btn-outline-warning">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="pagination float-right">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="float-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2018
+            </div>
+        </div>
+    </ng-container>
+</app-side-bar>

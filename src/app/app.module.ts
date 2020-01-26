@@ -5,22 +5,27 @@ import { AppComponent } from './app.component';
 import { UserRegisterComponent } from './user-register/user-register.component';
 import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ProyectsComponent } from './proyects/proyects.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
+import {HttpClientModule} from '@angular/common/http';
+import { ProjectListComponent } from './project-list/project-list.component';
+import {ProjectsService} from './services/project/projects.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserRegisterComponent,
     LoginComponent,
-    ProyectsComponent,
-    SideBarComponent
+    SideBarComponent,
+    ProjectListComponent
   ],
   imports: [
     BrowserModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ProjectsService
+  ],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent]
 })
