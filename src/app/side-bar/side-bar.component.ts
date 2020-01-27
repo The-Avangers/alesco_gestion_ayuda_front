@@ -11,7 +11,9 @@ declare let $: any;
 })
 export class SideBarComponent implements OnInit {
 
-    public ariaExpanded = false;
+    public ariaExpanded = {
+        project: false
+    };
 
     constructor() {
 
@@ -21,8 +23,10 @@ export class SideBarComponent implements OnInit {
         $('#side-menu').metisMenu();
     }
 
-    changeAriaExpanded() {
-        this.ariaExpanded = !this.ariaExpanded;
+    changeAriaExpanded(type: string) {
+        switch (type) {
+            case 'project': this.ariaExpanded.project = !this.ariaExpanded.project;
+        }
     }
 
 }
