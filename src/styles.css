@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~animate.css/animate.css";
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
 
@@ -988,6 +990,11 @@ h5 {
 }
 .nav.navbar-top-links .dropdown-alerts a {
   font-size: 12px;
+}
+.nav-header {
+    padding: 33px 25px;
+    background-color: #2f4050;
+    background-image: url("src/assets/patterns/header-profile.png");
 }
 .caret {
   display: inline-block;
@@ -6000,12 +6007,8 @@ a.compose-mail {
   margin-right: 10px;
 }
 .profile-image {
-  width: 120px;
-  float: left;
-}
-.profile-image img {
-  width: 96px;
-  height: 96px;
+  width: 50px;
+  height: 50px;
 }
 .profile-info {
   margin-left: 120px;
@@ -8702,7 +8705,10 @@ body.rtls.top-navigation .footer.fixed {
 .skin-1 .spin-icon {
   background: #0e9aef !important;
 }
-
+.skin-1 .nav-header {
+    background-color: #0e9aef;
+    background-image: url('src/assets/patterns/header-profile-skin-1.png');
+}
 .skin-1.mini-navbar .nav-second-level {
   background: #3e495f;
 }
@@ -8804,6 +8810,10 @@ body.skin-2 {
 }
 .skin-2 .spin-icon {
   background: #23c6c8 !important;
+}
+.skin-2 .nav-header {
+    background-color: #23c6c8;
+    background-image: url('src/assets/patterns/header-profile-skin-2.png');
 }
 .skin-2.mini-navbar .nav-second-level {
   background: #ededed;
