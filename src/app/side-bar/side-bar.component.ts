@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import 'metismenu';
 import {Router} from '@angular/router';
+import {hasOwnProperty} from 'tslint/lib/utils';
+import {iterator} from 'rxjs/internal-compatibility';
 // tslint:disable-next-line:no-any
 declare let $: any;
 
@@ -12,8 +14,10 @@ declare let $: any;
 })
 export class SideBarComponent implements OnInit {
 
-    public ariaExpanded = {
-        project: false
+    public ariaExpanded =  {
+        project: false,
+        insumos: false
+
     };
     public isAuthenticated = false;
 
@@ -32,6 +36,14 @@ export class SideBarComponent implements OnInit {
     changeAriaExpanded(type: string) {
         switch (type) {
             case 'project': this.ariaExpanded.project = !this.ariaExpanded.project;
+                            this.ariaExpanded.insumos = false;
+                            break;
+            case 'insumos': this.ariaExpanded.insumos = !this.ariaExpanded.insumos;
+                            this.ariaExpanded.project = false;
+                            break;
+            default: for (let value of Object.values(this.ariaExpanded) ) {
+                value = false;
+            }
         }
     }
 
