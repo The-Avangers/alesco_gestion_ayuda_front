@@ -18,7 +18,7 @@
       <div class="form-group">
         <input type="password" class="form-control" placeholder="Contraseña" required="true">
       </div>
-      <button type="submit" class="btn btn-primary block full-width m-b">Registro</button>
+      <button (click)="login()" type="submit" class="btn btn-primary block full-width m-b">Registro</button>
 
       <p class="text-muted text-center"><small>¿Ya tienes una cuenta?</small></p>
       <a (click)="openAddUserModal()" class="btn btn-sm btn-white btn-block">Iniciar sesion</a>
@@ -26,4 +26,5 @@
   </div>
 </div>
 </body>
+
 

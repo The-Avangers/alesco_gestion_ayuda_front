@@ -21,10 +21,10 @@
                 </div>
             </li>
             <li [ngClass]="{'mm-active border-left-green':ariaExpanded.project}" (click)="changeAriaExpanded('project')">
-                <a aria-expanded="false"><i class="fa fa-th-large"></i> <span class="nav-label">Proyectos</span> <span
+                <a  aria-expanded="ariaExpanded.project"><i class="fa fa-th-large"></i> <span class="nav-label">Proyectos</span> <span
                     class="fa arrow"></span></a>
                 <ul class="nav nav-second-level mm-collapse">
-                    <li><a href="index-2.html">Dashboard v.1</a></li>
+                    <li><a [routerLink]="'/projects'">Datos de Projectos</a></li>
                     <li><a href="dashboard_2.html">Dashboard v.2</a></li>
                     <li><a href="dashboard_3.html">Dashboard v.3</a></li>
                     <li><a href="dashboard_4_1.html">Dashboard v.4</a></li>
