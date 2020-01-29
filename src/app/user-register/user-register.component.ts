@@ -10,14 +10,21 @@ import { Router } from '@angular/router';
 })
 export class UserRegisterComponent implements OnInit {
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private router: Router) { }
 
   ngOnInit() {
+      localStorage.removeItem('isAuthenticated');
+      console.log('removed');
   }
 
   openAddUserModal() {
     const modalRef: NgbModalRef = this.modalService.open(LoginComponent, { centered: true });
     modalRef.componentInstance.isClient = true;
+  }
+
+  async login() {
+      localStorage.setItem('isAuthenticated', 'true');
+      this.router.navigate(['/']).then();
   }
 
 }

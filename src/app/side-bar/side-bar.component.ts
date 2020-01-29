@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import 'metismenu';
+import {Router} from '@angular/router';
 // tslint:disable-next-line:no-any
 declare let $: any;
 
@@ -14,12 +15,17 @@ export class SideBarComponent implements OnInit {
     public ariaExpanded = {
         project: false
     };
+    public isAuthenticated = false;
 
-    constructor() {
-
+    constructor(private router: Router) {
     }
 
-    ngOnInit() {
+    async ngOnInit() {
+        this.isAuthenticated = Boolean(localStorage.getItem('isAuthenticated'));
+        console.log(this.isAuthenticated);
+        if (!this.isAuthenticated) {
+            await this.router.navigate(['/register']);
+        }
         $('#side-menu').metisMenu();
     }
 
