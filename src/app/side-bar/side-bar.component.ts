@@ -16,7 +16,7 @@ export class SideBarComponent implements OnInit {
 
     public ariaExpanded =  {
         project: false,
-        insumos: false
+        aid: false
 
     };
     public isAuthenticated = false;
@@ -36,9 +36,9 @@ export class SideBarComponent implements OnInit {
     changeAriaExpanded(type: string) {
         switch (type) {
             case 'project': this.ariaExpanded.project = !this.ariaExpanded.project;
-                            this.ariaExpanded.insumos = false;
+                            this.ariaExpanded.aid = false;
                             break;
-            case 'insumos': this.ariaExpanded.insumos = !this.ariaExpanded.insumos;
+            case 'aid': this.ariaExpanded.aid = !this.ariaExpanded.aid;
                             this.ariaExpanded.project = false;
                             break;
             default: for (let value of Object.values(this.ariaExpanded) ) {

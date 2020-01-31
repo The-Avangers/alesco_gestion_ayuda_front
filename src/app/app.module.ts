@@ -11,6 +11,7 @@ import {ProjectListComponent} from './project-list/project-list.component';
 import {ProjectsService} from './services/project/projects.service';
 import {RouterModule} from '@angular/router';
 import { AidListComponent } from './aid-list/aid-list.component';
+import {AidService} from './services/aid/aid.service';
 
 @NgModule({
     declarations: [
@@ -29,10 +30,12 @@ import { AidListComponent } from './aid-list/aid-list.component';
             {path: 'register', component: UserRegisterComponent},
             {path: '', component: ProjectListComponent},
             {path: 'projects', component: ProjectListComponent},
+            {path: 'aids', component: AidListComponent}
         ])
     ],
     providers: [
-        ProjectsService
+        ProjectsService,
+        AidService
     ],
     bootstrap: [AppComponent],
     entryComponents: [LoginComponent],
