@@ -10,6 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ProjectListComponent} from './project-list/project-list.component';
 import {ProjectsService} from './services/project/projects.service';
 import {RouterModule} from '@angular/router';
+import { AidListComponent } from './aid-list/aid-list.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import {RouterModule} from '@angular/router';
         UserRegisterComponent,
         LoginComponent,
         SideBarComponent,
-        ProjectListComponent
+        ProjectListComponent,
+        AidListComponent
     ],
     imports: [
         BrowserModule,
