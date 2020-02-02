@@ -39,8 +39,8 @@ export class SideBarComponent implements OnInit {
                             this.ariaExpanded.aid = false;
                             break;
             case 'aid': this.ariaExpanded.aid = !this.ariaExpanded.aid;
-                            this.ariaExpanded.project = false;
-                            break;
+                        this.ariaExpanded.project = false;
+                        break;
             default: for (let value of Object.values(this.ariaExpanded) ) {
                 value = false;
             }

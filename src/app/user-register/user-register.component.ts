@@ -22,7 +22,7 @@ export class UserRegisterComponent implements OnInit {
     modalRef.componentInstance.isClient = true;
   }
 
-  async login() {
+  login() {
       localStorage.setItem('isAuthenticated', 'true');
       this.router.navigate(['/']).then();
   }
