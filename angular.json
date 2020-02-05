@@ -35,7 +35,8 @@
                             "node_modules/jquery/dist/jquery.min.js",
                             "node_modules/bootstrap/dist/js/bootstrap.min.js",
                             "node_modules/metismenu/dist/metisMenu.js",
-                            "src/assets/js/inspinia.js"
+                            "src/assets/js/inspinia.js",
+                            "node_modules/select2/dist/js/select2.full.js"
                         ]
                     },
                     "configurations": {

@@ -8,7 +8,7 @@
                         <a href="">Home</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong><a href=""> Projectos</a></strong>
+                        <strong><a routerLink="/projects"> Projectos</a></strong>
                     </li>
                 </ol>
             </div>
@@ -22,7 +22,7 @@
                         <div class="ibox-content">
                             <div class="row border-bottom">
                                 <div class="col-sm-5 m-b-xs">
-                                    <a href="" class="btn btn-primary">Agregar</a>
+                                    <a routerLink="/projects/add" class="btn btn-primary">Agregar</a>
                                 </div>
                                 <div class="col-sm-5 m-b-xs"></div>
                                 <div class="col-sm-2">
@@ -44,6 +44,7 @@
                                         <th>Titulo</th>
                                         <th>Fecha de Inicio</th>
                                         <th>Fecha Fin</th>
+                                        <th>Institucion</th>
                                         <th>Precio</th>
                                         <th>Pagado</th>
                                     </tr>
@@ -54,6 +55,7 @@
                                         <td>{{ project.name }}</td>
                                         <td>{{ project.startDate }}</td>
                                         <td>{{ project.endDate }}</td>
+                                        <td>{{project.institutionName}}</td>
                                         <td>{{ project.price }}</td>
                                         <td>{{ project.paid }}</td>
                                         <td>

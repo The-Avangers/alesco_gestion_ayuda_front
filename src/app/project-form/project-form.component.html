@@ -1,0 +1,28 @@
+<app-side-bar>
+    <ng-container class="body">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Proyectos</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href=""> Projectos</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong><a href="">Agregar Projecto</a></strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="form-group">
+                <label class="font-bold" id="institutions">Institucion</label>
+                <select2 class="col-2" [data]="institutions" [width]="'200'" [cssImport]="true"></select2>
+            </div>
+        </div>
+    </ng-container>
+</app-side-bar>

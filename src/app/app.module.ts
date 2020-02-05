@@ -12,6 +12,10 @@ import {ProjectsService} from './services/project/projects.service';
 import {RouterModule} from '@angular/router';
 import { AidListComponent } from './aid-list/aid-list.component';
 import {AidService} from './services/aid/aid.service';
+import { ProjectFormComponent } from './project-form/project-form.component';
+import {Select2Module} from 'ng2-select2';
+import {ReactiveFormsModule} from '@angular/forms';
+import {InstitutionService} from './services/institution/institution.service';
 
 @NgModule({
     declarations: [
@@ -20,21 +24,25 @@ import {AidService} from './services/aid/aid.service';
         LoginComponent,
         SideBarComponent,
         ProjectListComponent,
-        AidListComponent
+        AidListComponent,
+        ProjectFormComponent
     ],
     imports: [
         BrowserModule,
         NgbModule,
         HttpClientModule,
+        Select2Module,
         RouterModule.forRoot([
             {path: 'register', component: UserRegisterComponent},
             {path: '', component: ProjectListComponent},
+            {path: 'projects/add', component: ProjectFormComponent},
             {path: 'projects', component: ProjectListComponent},
             {path: 'aids', component: AidListComponent}
         ])
     ],
     providers: [
         ProjectsService,
+        InstitutionService,
         AidService
     ],
     bootstrap: [AppComponent],

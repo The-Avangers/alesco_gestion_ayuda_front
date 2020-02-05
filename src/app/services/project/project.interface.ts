@@ -5,4 +5,5 @@ export interface Project {
     endDate: Date;
     price: number;
     paid: boolean;
+    institutionName: string;
 }
