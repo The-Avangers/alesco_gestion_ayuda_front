@@ -108,7 +108,9 @@ export class ProjectFormComponent implements OnInit {
             this.projectForm.controls.endDate.enable();
             this.endDateMinValue = data.srcElement.value;
         } else {
+            console.log(data.srcElement.value);
             this.projectForm.controls.endDate.disable();
+            this.projectForm.controls.endDate.setValue(null);
             this.endDateValue = null;
         }
     }

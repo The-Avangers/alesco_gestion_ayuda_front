@@ -55,7 +55,8 @@
                                                [min]="endDateMinValue"
                                                [value]="endDateValue" >
                                         <div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">
-                                            <div *ngIf="f.startDate.errors.required">La fecha de entrega del proyecto es requerida</div>
+                                            <div *ngIf="f.endDate.errors.required">La fecha de entrega del proyecto es
+                                                requerida</div>
                                         </div>
                                     </label>
                                 </div>
