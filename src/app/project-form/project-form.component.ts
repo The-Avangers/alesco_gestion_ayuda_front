@@ -98,6 +98,10 @@ export class ProjectFormComponent implements OnInit {
         this.projectForm.controls.personInCharge.setValue(data.value);
     }
 
+    institutionChanged(data: {value: string}) {
+        this.projectForm.controls.institution.setValue(data.value);
+    }
+
     startDateChanged(data: {srcElement: {value: string}}) {
         if (data.srcElement.value) {
             console.log(data.srcElement.value);

@@ -61,11 +61,11 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-6 col-form-label">Institucion
-                                        <select2
-                                            formControlName="institution"
-                                            [ngClass]="{'is-invalid': submitted && f.institution.errors }"
-                                            [data]="institutions"
-                                            [options]="institutionOptions">
+                                        <select2 formControlName="institution"
+                                                 [ngClass]="{'is-invalid': submitted && f.institution.errors }"
+                                                 [data]="institutions"
+                                                 [options]="institutionOptions"
+                                                 (valueChanged)="institutionChanged($event)">
 
                                         </select2>
                                         <div *ngIf="submitted && f.institution.errors" class="invalid-feedback">
