@@ -87,13 +87,13 @@ export class ProjectFormComponent implements OnInit {
     }
 
     peopleInvolvedChanged(data: {value: string[]}) {
-        console.log(data)
+        console.log(data);
         this.peopleInvolvedCurrent = data.value.join(' | ');
         this.projectForm.controls.peopleInvolved.setValue(this.peopleInvolvedCurrent);
         console.log(this.peopleInvolvedCurrent);
     }
 
-    personInChargeChanged(data: {value: string}){
+    personInChargeChanged(data: {value: string}) {
         console.log(data);
         this.projectForm.controls.personInCharge.setValue(data.value);
     }
