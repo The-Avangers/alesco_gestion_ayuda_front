@@ -61,7 +61,7 @@ export class ProjectFormComponent implements OnInit {
         this.peopleInvolvedOptions = {
             multiple: true,
             width: '100%',
-            placeholder: 'Seleccione los encargados...'
+            placeholder: 'Seleccione los involucrados...'
         };
 
         this.personInChargeOptions = {
@@ -116,6 +116,13 @@ export class ProjectFormComponent implements OnInit {
             console.log(data.srcElement.value);
             this.projectForm.controls.endDate.enable();
             this.endDateMinValue = data.srcElement.value;
+            if (this.projectForm.controls.endDate.value) {
+                const endDateValue =  new Date(this.projectForm.controls.endDate.value);
+                const startDateValue = new Date(data.srcElement.value);
+                if (startDateValue > endDateValue) {
+                    this.projectForm.controls.endDate.setValue(null);
+                }
+            }
         } else {
             console.log(data.srcElement.value);
             this.projectForm.controls.endDate.disable();
