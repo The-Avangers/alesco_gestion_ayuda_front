@@ -17,6 +17,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {InstitutionService} from './services/institution/institution.service';
 import {PersonService} from './services/person/person.service';
 import {Select2Module} from 'ng2-select2';
+import {NgxMaskModule} from 'ngx-mask';
+import {CurrencyMaskModule} from 'ng2-currency-mask';
 
 @NgModule({
     declarations: [
@@ -34,6 +36,8 @@ import {Select2Module} from 'ng2-select2';
         HttpClientModule,
         Select2Module,
         ReactiveFormsModule,
+        CurrencyMaskModule,
+        NgxMaskModule.forRoot(),
         RouterModule.forRoot([
             {path: 'register', component: UserRegisterComponent},
             {path: '', component: ProjectListComponent},

@@ -29,9 +29,11 @@
                                         <input type="text"
                                                formControlName="name"
                                                class="form-control"
+                                               placeholder="Pedro Pérez"
                                                [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
                                         <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                                            <div *ngIf="f.name.errors.required">El nombre del proyecto es requerido</div>
+                                            <div *ngIf="f.name.errors.required">El nombre del proyecto es requerido
+                                            </div>
                                         </div>
                                     </label>
 
@@ -42,9 +44,11 @@
                                                formControlName="startDate"
                                                [ngClass]="{'is-invalid': submitted && f.startDate.errors }"
                                                type="date" [min]="getMinStartDate()"
-                                               (change)="startDateChanged($event)" >
+                                               (change)="startDateChanged($event)">
                                         <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
-                                            <div *ngIf="f.startDate.errors.required">La fecha de inicio del proyecto es requerida</div>
+                                            <div *ngIf="f.startDate.errors.required">La fecha de inicio del proyecto es
+                                                requerida
+                                            </div>
                                         </div>
                                     </label>
                                     <label class="col-sm-6 col-form-label">Fecha de entrega
@@ -53,14 +57,15 @@
                                                [ngClass]="{'is-invalid': submitted && f.endDate.errors }"
                                                type="date"
                                                [min]="endDateMinValue"
-                                               [value]="endDateValue" >
+                                               [value]="endDateValue">
                                         <div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">
                                             <div *ngIf="f.endDate.errors.required">La fecha de entrega del proyecto es
-                                                requerida</div>
+                                                requerida
+                                            </div>
                                         </div>
                                     </label>
                                 </div>
-                                <div class="form-group row">
+                                <div class="form-group row align-items-center">
                                     <label class="col-sm-6 col-form-label">Institucion
                                         <select2 formControlName="institution"
                                                  [ngClass]="{'is-invalid': submitted && f.institution.errors }"
@@ -78,7 +83,12 @@
                                             formControlName="price"
                                             type="text"
                                             class="form-control"
+                                            currencyMask [options]="{ align: 'left',
+                                            prefix: 'Bs ',
+                                            thousands: '.',
+                                            decimal: ',' }"
                                             [ngClass]="{'is-invalid': submitted && f.price.errors }">
+
                                         <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
                                             <div *ngIf="f.price.errors.required">El precio es requerido</div>
                                         </div>
@@ -91,25 +101,28 @@
                                         <select2 formControlName="peopleInvolved"
                                                  [ngClass]="{'is-invalid': submitted && f.peopleInvolved.errors }"
                                                  [data]="people"
-                                                 width="480"
-                                                 [options]="peopleOptions"
+                                                 [options]="peopleInvolvedOptions"
                                                  (valueChanged)="peopleInvolvedChanged($event)">
                                         </select2>
                                         <div *ngIf="submitted && f.peopleInvolved.errors" class="invalid-feedback">
-                                            <div *ngIf="f.peopleInvolved.errors.required">Al menos un involucrado es requerido</div>
+                                            <div *ngIf="f.peopleInvolved.errors.required">Al menos un involucrado es
+                                                requerido
+                                            </div>
                                         </div>
                                     </label>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-12 col-form-label">Encargado
-                                        <select2  formControlName="personInCharge"
-                                                  [ngClass]="{'is-invalid': submitted && f.personInCharge.errors }"
-                                                  [data]="people"
-                                                  width="480"
-                                                  (valueChanged)="personInChargeChanged($event)">
+                                        <select2 formControlName="personInCharge"
+                                                 [ngClass]="{'is-invalid': submitted && f.personInCharge.errors }"
+                                                 [data]="people"
+                                                 [options]="personInChargeOptions"
+                                                 (valueChanged)="personInChargeChanged($event)">
                                         </select2>
                                         <div *ngIf="submitted && f.personInCharge.errors" class="invalid-feedback">
-                                            <div *ngIf="f.personInCharge.errors.required">La persona a cargo es requerida</div>
+                                            <div *ngIf="f.personInCharge.errors.required">La persona a cargo es
+                                                requerida
+                                            </div>
                                         </div>
                                     </label>
                                 </div>

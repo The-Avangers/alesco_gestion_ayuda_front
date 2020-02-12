@@ -12,10 +12,11 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class ProjectFormComponent implements OnInit {
     projectForm: FormGroup;
-    peopleOptions: Select2Options;
     institutionOptions: Select2Options;
     institutions: Select2OptionData[];
     people: Select2OptionData[];
+    peopleInvolvedOptions: Select2Options;
+    personInChargeOptions: Select2Options;
     peopleInvolvedCurrent: string;
     private now = new Date();
     submitted = false;
@@ -57,12 +58,20 @@ export class ProjectFormComponent implements OnInit {
             });
         });
         console.log(this.projectForm.controls.personInCharge.value);
-        this.peopleOptions = {
+        this.peopleInvolvedOptions = {
             multiple: true,
+            width: '100%',
+            placeholder: 'Seleccione los encargados...'
+        };
+
+        this.personInChargeOptions = {
+            width: '100%',
+            placeholder: 'Seleccione encargado...'
         };
 
         this.institutionOptions = {
-            width: '225'
+            width: '100%',
+            placeholder: 'Seleccione institución...'
         };
     }
 
