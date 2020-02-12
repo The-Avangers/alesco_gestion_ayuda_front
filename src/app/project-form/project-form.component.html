@@ -83,10 +83,12 @@
                                             formControlName="price"
                                             type="text"
                                             class="form-control"
-                                            currencyMask [options]="{ align: 'left',
-                                            prefix: 'Bs ',
-                                            thousands: '.',
-                                            decimal: ',' }"
+                                            currencyMask [options]="{
+                                                align: 'left',
+                                                prefix: 'Bs ',
+                                                thousands: '.',
+                                                decimal: ','
+                                            }"
                                             [ngClass]="{'is-invalid': submitted && f.price.errors }">
 
                                         <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
