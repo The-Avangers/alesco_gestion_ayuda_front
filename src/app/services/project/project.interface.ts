@@ -1,8 +1,8 @@
 export interface Project {
     id: number;
     name: string;
-    startDate: string;
-    endDate: string;
+    startDate: Date | string;
+    endDate: Date | string;
     price: number;
     paid: boolean | string;
     institutionName: string;
