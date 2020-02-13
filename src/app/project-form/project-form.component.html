@@ -99,30 +99,30 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-12 col-form-label align-items-center">Involucrados
+                                    <label class="col-sm-12 col-form-label align-items-center">Encargados
                                         <select2 formControlName="peopleInvolved"
-                                                 [ngClass]="{'is-invalid': submitted && f.peopleInvolved.errors }"
-                                                 [data]="people"
-                                                 [options]="peopleInvolvedOptions"
-                                                 (valueChanged)="peopleInvolvedChanged($event)">
+                                                 [ngClass]="{'is-invalid': submitted && f.peopleInCharge.errors }"
+                                                 [options]="peopleInChargeOptions"
+                                                 [data]="peopleInCharge"
+                                                 (valueChanged)="peopleInChargeChanged($event)">
                                         </select2>
-                                        <div *ngIf="submitted && f.peopleInvolved.errors" class="invalid-feedback">
-                                            <div *ngIf="f.peopleInvolved.errors.required">Al menos un involucrado es
+                                        <div *ngIf="submitted && f.peopleInCharge.errors" class="invalid-feedback">
+                                            <div *ngIf="f.peopleInCharge.errors.required">Al menos un involucrado es
                                                 requerido
                                             </div>
                                         </div>
                                     </label>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-12 col-form-label align-items-center">Encargado
+                                    <label class="col-sm-12 col-form-label align-items-center">Interesado
                                         <select2 formControlName="personInCharge"
-                                                 [ngClass]="{'is-invalid': submitted && f.personInCharge.errors }"
-                                                 [data]="people"
-                                                 [options]="personInChargeOptions"
-                                                 (valueChanged)="personInChargeChanged($event)">
+                                                 [ngClass]="{'is-invalid': submitted && f.personConcerned.errors }"
+                                                 [options]="personConcernedOptions"
+                                                 [data]="peopleConcerned"
+                                                 (valueChanged)="personConcernedChanged($event)">
                                         </select2>
-                                        <div *ngIf="submitted && f.personInCharge.errors" class="invalid-feedback">
-                                            <div *ngIf="f.personInCharge.errors.required">La persona a cargo es
+                                        <div *ngIf="submitted && f.personConcerned.errors" class="invalid-feedback">
+                                            <div *ngIf="f.personConcerned.errors.required">La persona a cargo es
                                                 requerida
                                             </div>
                                         </div>

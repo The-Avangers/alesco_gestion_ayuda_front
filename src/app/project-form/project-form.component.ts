@@ -4,6 +4,13 @@ import {ProjectsService} from '../services/project/projects.service';
 import {PersonService} from '../services/person/person.service';
 import {Select2OptionData} from 'ng2-select2';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {PostProject} from '../services/project/project.interface';
+import {catchError} from 'rxjs/operators';
+import {throwError} from 'rxjs';
+import {HttpErrorResponse} from '@angular/common/http';
+import {NotifierService} from 'angular-notifier';
+import {Router} from '@angular/router';
+import {getDateString} from '../utils';
 
 @Component({
     selector: 'app-project-form',
@@ -15,16 +22,19 @@ export class ProjectFormComponent implements OnInit {
     institutionOptions: Select2Options;
     institutions: Select2OptionData[];
     people: Select2OptionData[];
-    peopleInvolvedOptions: Select2Options;
-    personInChargeOptions: Select2Options;
-    peopleInvolvedCurrent: string;
+    peopleInCharge: Select2OptionData[];
+    peopleConcerned: Select2OptionData[];
+    peopleInChargeOptions: Select2Options;
+    personConcernedOptions: Select2Options;
+    peopleInChargeCurrent: number[];
     private now = new Date();
     submitted = false;
     endDateMinValue: string;
     endDateValue: string;
 
     constructor(private projectsService: ProjectsService, private institutionsService: InstitutionService,
-                private peopleService: PersonService, private formBuilder: FormBuilder) {
+                private peopleService: PersonService, private formBuilder: FormBuilder,
+                private notifierService: NotifierService, private router: Router) {
     }
 
     ngOnInit() {
@@ -33,8 +43,8 @@ export class ProjectFormComponent implements OnInit {
             startDate: ['', Validators.required],
             endDate: [{value: '', disabled: true}, Validators.required],
             institution: ['', Validators.required],
-            peopleInvolved: ['', Validators.required],
-            personInCharge: ['', Validators.required],
+            peopleInCharge: ['', Validators.required],
+            personConcerned: ['', Validators.required],
             price: ['', [Validators.required]],
         });
         this.institutionsService.getInstitutions().subscribe(response => {
@@ -56,17 +66,19 @@ export class ProjectFormComponent implements OnInit {
                 };
                 return select2;
             });
+            this.peopleInCharge = this.people.map(value => value);
+            this.peopleConcerned = this.people.map(value => value);
         });
-        console.log(this.projectForm.controls.personInCharge.value);
-        this.peopleInvolvedOptions = {
+
+        this.peopleInChargeOptions = {
             multiple: true,
             width: '100%',
-            placeholder: 'Seleccione los involucrados...'
+            placeholder: 'Seleccione los involucrados...',
         };
 
-        this.personInChargeOptions = {
+        this.personConcernedOptions = {
             width: '100%',
-            placeholder: 'Seleccione encargado...'
+            placeholder: 'Seleccione encargado...',
         };
 
         this.institutionOptions = {
@@ -87,35 +99,83 @@ export class ProjectFormComponent implements OnInit {
             return;
         }
 
-        alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.projectForm.value));
+        const body: PostProject = {
+            name: this.projectForm.value.name,
+            startDate: this.projectForm.value.startDate,
+            endDate: this.projectForm.value.endDate,
+            institutionId: this.projectForm.value.institution,
+            people: [{
+                id: this.projectForm.value.personConcerned,
+                role: 'Interesado',
+            }],
+            price: this.projectForm.value.price,
+        };
+
+        for (const personId of this.projectForm.value.peopleInCharge) {
+            body.people.push({
+                id: personId,
+                role: 'Encargado',
+            });
+        }
+
+        console.log('Post body = ', body);
+        this.projectsService.postProjects(body)
+            .subscribe(response => {
+                console.log('Post Project Response', response);
+                this.router.navigate(['/projects']).then(result => {
+                    console.log('Router result = ', result);
+                    this.notifierService.show({
+                        type: 'success',
+                        message: 'El proyecto fue creado exitosamente'
+                    });
+                });
+            }, error => {
+                console.log(error);
+                this.notifierService.show({
+                    type: 'error',
+                    message: 'Error registrando proyecto'
+                });
+            });
+
     }
+
 
     getMinStartDate() {
-        const month = (this.now.getMonth() + 1) >= 10 ? this.now.getMonth() + 1 : `0${this.now.getMonth() + 1}`;
-        return `${this.now.getFullYear()}-${month}-${this.now.getDate()}`;
+        return getDateString(this.now);
     }
 
-    peopleInvolvedChanged(data: {value: string[]}) {
+    peopleInChargeChanged(data: {value: string[]}) {
         console.log(data);
-        this.peopleInvolvedCurrent = data.value.join(' | ');
-        this.projectForm.controls.peopleInvolved.setValue(this.peopleInvolvedCurrent);
-        console.log(this.peopleInvolvedCurrent);
+        this.peopleInChargeCurrent = data.value.map(value => parseInt(value, 0));
+        this.projectForm.controls.peopleInCharge.setValue(this.peopleInChargeCurrent);
+        console.log(this.peopleInChargeCurrent);
     }
 
-    personInChargeChanged(data: {value: string}) {
+    personConcernedChanged(data: {value: string}) {
         console.log(data);
-        this.projectForm.controls.personInCharge.setValue(data.value);
+        this.projectForm.controls.personConcerned.setValue(parseInt(data.value, 0) );
+        const aux: Select2OptionData[] = [];
+        for (const person of this.people) {
+            if (person.id !== data.value) {
+                aux.push(person);
+            }
+        }
+        this.peopleInCharge = aux;
+        console.log(this.peopleInCharge);
     }
 
     institutionChanged(data: {value: string}) {
-        this.projectForm.controls.institution.setValue(data.value);
+        this.projectForm.controls.institution.setValue(parseInt(data.value, 0));
     }
 
     startDateChanged(data: {srcElement: {value: string}}) {
         if (data.srcElement.value) {
             console.log(data.srcElement.value);
             this.projectForm.controls.endDate.enable();
-            this.endDateMinValue = data.srcElement.value;
+            const dateAux = new Date(data.srcElement.value);
+            dateAux.setDate(dateAux.getDate() + 2);
+            this.endDateMinValue = getDateString(dateAux);
+            console.log('Min endDate = ', this.endDateMinValue);
             if (this.projectForm.controls.endDate.value) {
                 const endDateValue =  new Date(this.projectForm.controls.endDate.value);
                 const startDateValue = new Date(data.srcElement.value);

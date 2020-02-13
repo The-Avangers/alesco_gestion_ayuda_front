@@ -18,6 +18,12 @@ export class ProjectListComponent implements OnInit {
         this.service.getProjects()
             .subscribe(response => {
                 this.projects = response;
+                this.projects = this.projects.map(value => {
+                    value.paid = value.paid ? 'Sí' : 'No';
+                    value.startDate = new Date(value.startDate).toLocaleDateString();
+                    value.endDate = new Date(value.endDate).toLocaleDateString();
+                    return value;
+                });
             });
     }
 }

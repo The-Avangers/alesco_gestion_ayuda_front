@@ -22,6 +22,7 @@
     "@ng-bootstrap/ng-bootstrap": "^5.2.2",
     "@types/jquery": "^3.3.32",
     "angular-font-awesome": "^3.1.2",
+    "angular-notifier": "^6.0.1",
     "animate.css": "^3.7.2",
     "bootstrap": "^4.4.1",
     "bootstrap-datepicker": "^1.9.0",
