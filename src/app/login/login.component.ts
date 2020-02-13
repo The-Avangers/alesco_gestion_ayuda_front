@@ -51,10 +51,17 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('Role', response.role);
                 this.router.navigate(['/projects']).then();
             }, error => {
+                let errorMessage = 'Servicio No Responde';
+                if (JSON.stringify(error.error) === '{"Error":"Usuario No Registrado"}') {
+                    errorMessage = 'Usuario No Encontrado';
+                }
+                if (JSON.stringify(error.error) === '{"Error":"Clave Inválida, Intente Nuevamente"}') {
+                    errorMessage = 'Clave Inválida';
+                }
                 console.log(error);
                 this.notifierService.show({
                     type : 'error',
-                    message: 'Credenciales Inválidas'
+                    message: errorMessage
                 });
                 return;
             });
