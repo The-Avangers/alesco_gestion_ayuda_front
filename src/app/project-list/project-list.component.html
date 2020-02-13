@@ -26,13 +26,13 @@
                                 </div>
                                 <div class="col-sm-5 m-b-xs"></div>
                                 <div class="col-sm-2">
-                                    <form class="input-group" style="margin-bottom: 14px">
-                                        <span class="input-group-append">
-                                        <button type="submit" class="btn btn-sm btn-primary">
-                                            <span class="fa fa-search"></span>
-                                        </button>
-                                    </span>
-                                    </form>
+<!--                                    <form class="input-group" style="margin-bottom: 14px">-->
+<!--                                        <span class="input-group-append">-->
+<!--                                        <button type="submit" class="btn btn-sm btn-primary">-->
+<!--                                            <span class="fa fa-search"></span>-->
+<!--                                        </button>-->
+<!--                                    </span>-->
+<!--                                    </form>-->
                                 </div>
                             </div>
                             <p *ngIf="projects.length == 0" style="margin-top: 2.5%">No hay datos disponibles.</p>
@@ -56,8 +56,8 @@
                                         <td>{{ project.startDate }}</td>
                                         <td>{{ project.endDate }}</td>
                                         <td>{{project.institutionName}}</td>
-                                        <td>{{ project.price }}</td>
-                                        <td>{{ project.paid }}</td>
+                                        <td>{{ 'Bs '+project.price+',00' }}</td>
+                                        <td >{{ project.paid }}</td>
                                         <td>
                                             <a href=""
                                                class="btn btn-sm btn-outline-warning">
@@ -77,9 +77,6 @@
             </div>
         </div>
         <div class="footer">
-            <div class="float-right">
-                10GB of <strong>250GB</strong> Free.
-            </div>
             <div>
                 <strong>Copyright</strong> Example Company &copy; 2014-2018
             </div>
