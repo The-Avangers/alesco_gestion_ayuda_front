@@ -56,7 +56,7 @@ import {NotifierModule} from 'angular-notifier';
         NgxMaskModule.forRoot(),
         RouterModule.forRoot([
             {path: 'register', component: UserRegisterComponent},
-            {path: '', component: ProjectListComponent},
+            {path: '', component: UserRegisterComponent},
             {path: 'projects/add', component: ProjectFormComponent},
             {path: 'projects', component: ProjectListComponent},
             {path: 'aids', component: AidListComponent}
