@@ -73,12 +73,12 @@ export class ProjectFormComponent implements OnInit {
         this.peopleInChargeOptions = {
             multiple: true,
             width: '100%',
-            placeholder: 'Seleccione los involucrados...',
+            placeholder: 'Seleccione los encargados...',
         };
 
         this.personConcernedOptions = {
             width: '100%',
-            placeholder: 'Seleccione encargado...',
+            placeholder: 'Seleccione interesado...',
         };
 
         this.institutionOptions = {

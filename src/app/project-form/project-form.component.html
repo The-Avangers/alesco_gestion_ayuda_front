@@ -8,7 +8,7 @@
                         <a href="">Home</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href=""> Proyectos</a>
+                        <a routerLink="/projects"> Proyectos</a>
                     </li>
                     <li class="breadcrumb-item active">
                         <strong><a href="">Agregar</a></strong>
@@ -100,7 +100,8 @@
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-sm-12 col-form-label align-items-center">Encargados
-                                        <select2 formControlName="peopleInvolved"
+                                        <select2 formControlName="peopleInCharge"
+                                                 id="peopleInCharge"
                                                  [ngClass]="{'is-invalid': submitted && f.peopleInCharge.errors }"
                                                  [options]="peopleInChargeOptions"
                                                  [data]="peopleInCharge"
@@ -115,7 +116,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-12 col-form-label align-items-center">Interesado
-                                        <select2 formControlName="personInCharge"
+                                        <select2 formControlName="peopleInCharge"
                                                  [ngClass]="{'is-invalid': submitted && f.personConcerned.errors }"
                                                  [options]="personConcernedOptions"
                                                  [data]="peopleConcerned"
