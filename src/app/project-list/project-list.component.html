@@ -25,8 +25,11 @@
                                     <a routerLink="/projects/add" class="btn btn-primary">Agregar</a>
                                 </div>
                                 <div class="col-sm-3 m-b-xs"></div>
-                                <div class="col-sm-4">
-                                    <input class="col-sm" type ="search" placeholder="Busqueda.." [(ngModel)]="search">
+                                <div *ngIf="role == 'Consultor'" class="col-sm-5 m-b-xs"></div>
+                                <div class="align-items-end col-sm-4">
+                                    <label class="col-sm-12 col-form-label">
+                                        <input class="form-control" type ="search" placeholder="Busqueda..." [(ngModel)]="search">
+                                    </label>
                                 </div>
                             </div>
                             <p *ngIf="(projects | filterProjects:search).length == 0" style="margin-top: 2.5%">No hay datos disponibles.</p>
