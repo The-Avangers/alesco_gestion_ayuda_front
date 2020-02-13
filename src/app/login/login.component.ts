@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {Login} from '../services/user/user.interface';
+import {UserService} from '../services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
   });
-  constructor() { }
+  constructor(private loginService: UserService) { }
   ngOnInit() {
   }
     get f() { return this.LoginForm.controls; }
@@ -22,6 +24,15 @@ export class LoginComponent implements OnInit {
           console.log('negado')
           return;
       }
+      const body: Login = {
+          email : this.LoginForm.value.email,
+          password : this.LoginForm.value.password
+      };
+      this.loginService.postLogin(body)
+          .subscribe(response => {
+              console.log('Login Response', response);
+          })
+
   }
 
 }
