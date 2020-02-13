@@ -4,6 +4,7 @@ import {Login, User} from '../services/user/user.interface';
 import {UserService} from '../services/user/user.service';
 import {NotifierService} from 'angular-notifier';
 import {Router} from '@angular/router';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
     });
 
     constructor(private loginService: UserService, private notifierService: NotifierService,
-                private router: Router) {
+                private router: Router, private modalService: NgbModal) {
     }
 
     ngOnInit() {
@@ -50,6 +51,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('isAuthenticated', 'true');
                 localStorage.setItem('Role', response.role);
                 this.router.navigate(['/projects']).then();
+                this.modalService.dismissAll();
             }, error => {
                 let errorMessage = 'Servicio No Responde';
                 if (JSON.stringify(error.error) === '{"Error":"Usuario No Registrado"}') {
