@@ -20,8 +20,11 @@
                     IN+
                 </div>
             </li>
-            <li [ngClass]="{'mm-active border-left-green':ariaExpanded.project}" (click)="changeAriaExpanded('project')">
-                <a  aria-expanded="ariaExpanded.project"><i class="fa fa-th-large"></i> <span class="nav-label">Proyectos</span> <span
+            <li [ngClass]="{'mm-active border-left-green':ariaExpanded.project}"
+                (click)="changeAriaExpanded('project')"
+                *ngIf="role === 'Administrador' || role === 'Consultor' ">
+                <a aria-expanded="ariaExpanded.project"><i class="fa fa-th-large"></i> <span
+                    class="nav-label">Proyectos</span> <span
                     class="fa arrow"></span></a>
                 <ul class="nav nav-second-level mm-collapse">
                     <li><a [routerLink]="'/projects'">Datos de Projectos</a></li>
@@ -32,7 +35,8 @@
                 </ul>
             </li>
             <li [ngClass]="{'mm-active border-left-green':ariaExpanded.aid}" (click)="changeAriaExpanded('aid')">
-                <a  aria-expanded="ariaExpanded.aid"><i class="fa fa-th-large"></i> <span class="nav-label">Insumos</span> <span
+                <a aria-expanded="ariaExpanded.aid"><i class="fa fa-th-large"></i> <span
+                    class="nav-label">Insumos</span> <span
                     class="fa arrow"></span></a>
                 <ul class="nav nav-second-level mm-collapse">
                     <li><a [routerLink]="'/aids'">Datos de Insumos</a></li>
@@ -50,14 +54,14 @@
     <div class="row border-bottom">
         <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-<!--                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>-->
-<!--                <form role="search" class="navbar-form-custom"-->
-<!--                      action="http://webapplayers.com/inspinia_admin-v2.8/search_results.html">-->
-<!--                    <div class="form-group">-->
-<!--                        <input type="text" placeholder="Search for something..." class="form-control" name="top-search"-->
-<!--                               id="top-search">-->
-<!--                    </div>-->
-<!--                </form>-->
+                <!--                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>-->
+                <!--                <form role="search" class="navbar-form-custom"-->
+                <!--                      action="http://webapplayers.com/inspinia_admin-v2.8/search_results.html">-->
+                <!--                    <div class="form-group">-->
+                <!--                        <input type="text" placeholder="Search for something..." class="form-control" name="top-search"-->
+                <!--                               id="top-search">-->
+                <!--                    </div>-->
+                <!--                </form>-->
             </div>
             <ul class="nav navbar-top-links navbar-right">
                 <li>

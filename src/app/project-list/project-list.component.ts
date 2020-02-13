@@ -12,6 +12,7 @@ import {Project} from '../services/project/project.interface';
 export class ProjectListComponent implements OnInit {
     projects: Project[] = [];
     search = '';
+    role: string;
     months = {
         0: 'Enero',
         1: 'Febrero',
@@ -31,6 +32,7 @@ export class ProjectListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.role = localStorage.getItem('Role')
         this.service.getProjects()
             .subscribe(response => {
                 this.projects = response;

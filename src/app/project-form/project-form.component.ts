@@ -28,6 +28,7 @@ export class ProjectFormComponent implements OnInit {
     submitted = false;
     endDateMinValue: string;
     endDateValue: string;
+    role: string;
 
     constructor(private projectsService: ProjectsService, private institutionsService: InstitutionService,
                 private peopleService: PersonService, private formBuilder: FormBuilder,
@@ -35,6 +36,7 @@ export class ProjectFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.role = localStorage.getItem('Role');
         this.projectForm = this.formBuilder.group({
             name: ['', Validators.required],
             startDate: ['', Validators.required],

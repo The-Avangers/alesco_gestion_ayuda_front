@@ -21,6 +21,7 @@ import {NgxMaskModule} from 'ngx-mask';
 import {CurrencyMaskModule} from 'ng2-currency-mask';
 import {NotifierModule} from 'angular-notifier';
 import {FilterProjectsPipe} from './project-list/filterProjects.pipe';
+import {UserService} from './services/user/user.service';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import {FilterProjectsPipe} from './project-list/filterProjects.pipe';
         ProjectsService,
         InstitutionService,
         PersonService,
+        UserService,
         AidService
     ],
     bootstrap: [AppComponent],

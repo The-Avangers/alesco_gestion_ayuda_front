@@ -1,5 +1,5 @@
 <app-side-bar>
-    <ng-container class="body">
+    <ng-container *ngIf="role === 'Administrador' || role === 'Consultor'" class="body">
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
                 <h2>Proyectos</h2>
@@ -21,7 +21,7 @@
                     <div class="ibox ">
                         <div class="ibox-content">
                             <div class="row border-bottom">
-                                <div class="col-sm-5 m-b-xs">
+                                <div *ngIf="role === 'Administrador'" class="col-sm-5 m-b-xs">
                                     <a routerLink="/projects/add" class="btn btn-primary">Agregar</a>
                                 </div>
                                 <div class="col-sm-3 m-b-xs"></div>

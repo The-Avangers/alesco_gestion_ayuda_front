@@ -19,6 +19,7 @@ export class SideBarComponent implements OnInit {
         aid: false
 
     };
+    public role: string;
     public isAuthenticated = false;
 
     constructor(private router: Router) {
@@ -26,11 +27,12 @@ export class SideBarComponent implements OnInit {
 
     async ngOnInit() {
         this.isAuthenticated = Boolean(localStorage.getItem('isAuthenticated'));
+        this.role = localStorage.getItem('Role');
         console.log(this.isAuthenticated);
         if (!this.isAuthenticated) {
             await this.router.navigate(['/register']);
         }
-        $('#side-menu').metisMenu();
+        setTimeout(() => $('#side-menu').metisMenu(), 0);
     }
 
     changeAriaExpanded(type: string) {
