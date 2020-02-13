@@ -3,12 +3,25 @@
 <div class="middle-box text-center loginscreen   animated fadeInDown">
     <div>
         <h3>Inicie sesión en ALESCO</h3>
-        <form class="m-t" role="form">
+        <form class="m-t" form [formGroup]="LoginForm" (ngSubmit)="login()">
             <div class="form-group">
-                <input type="email" class="form-control" placeholder="Correo Electrónico" required="true">
+                <label class="col-sm-12 col-form-label">
+                    <input type="email" class="form-control" formControlName="email" placeholder="Correo Electrónico" required="true"
+                           [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <div *ngIf="f.email.errors.required">Email es Requerido</div>
+                        <div *ngIf="f.email.errors.email">Email Debe Tener una Dirección Válida</div>
+                    </div>
+                </label>
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="Contraseña" required="true">
+                <label class="col-sm-12 col-form-label">
+                    <input type="password" class="form-control" formControlName="password" placeholder="Contraseña" required="true"
+                           [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">La Contraseña es Requerida</div>
+                    </div>
+                </label>
             </div>
             <button type="submit" class="btn btn-primary block full-width m-b">Iniciar Sesion</button>
         </form>
