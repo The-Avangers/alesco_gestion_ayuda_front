@@ -13,13 +13,14 @@ import {RouterModule} from '@angular/router';
 import { AidListComponent } from './aid-list/aid-list.component';
 import {AidService} from './services/aid/aid.service';
 import { ProjectFormComponent } from './project-form/project-form.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InstitutionService} from './services/institution/institution.service';
 import {PersonService} from './services/person/person.service';
 import {Select2Module} from 'ng2-select2';
 import {NgxMaskModule} from 'ngx-mask';
 import {CurrencyMaskModule} from 'ng2-currency-mask';
 import {NotifierModule} from 'angular-notifier';
+import {FilterProjectsPipe} from './project-list/filterProjects.pipe';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {NotifierModule} from 'angular-notifier';
         SideBarComponent,
         ProjectListComponent,
         AidListComponent,
+        FilterProjectsPipe,
         ProjectFormComponent
     ],
     imports: [
@@ -38,6 +40,7 @@ import {NotifierModule} from 'angular-notifier';
         HttpClientModule,
         Select2Module,
         ReactiveFormsModule,
+        FormsModule,
         CurrencyMaskModule,
         NotifierModule.withConfig({
             position: {
@@ -56,7 +59,7 @@ import {NotifierModule} from 'angular-notifier';
         NgxMaskModule.forRoot(),
         RouterModule.forRoot([
             {path: 'register', component: UserRegisterComponent},
-            {path: '', component: UserRegisterComponent},
+            {path: '', component: ProjectListComponent},
             {path: 'projects/add', component: ProjectFormComponent},
             {path: 'projects', component: ProjectListComponent},
             {path: 'aids', component: AidListComponent}
