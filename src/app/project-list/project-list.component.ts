@@ -3,7 +3,6 @@ import {Component, OnInit} from '@angular/core';
 import {ProjectsService} from '../services/project/projects.service';
 import {Project} from '../services/project/project.interface';
 import {NotifierService} from 'angular-notifier';
-import {showUnauthorizedAlert} from '../utils';
 
 
 @Component({

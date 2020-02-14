@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import 'metismenu';
 import {Router} from '@angular/router';
-import {hasOwnProperty} from 'tslint/lib/utils';
-import {iterator} from 'rxjs/internal-compatibility';
+import {User} from '../services/user/user.interface';
+
 // tslint:disable-next-line:no-any
 declare let $: any;
 
@@ -21,6 +21,7 @@ export class SideBarComponent implements OnInit {
     };
     public role: string;
     public isAuthenticated = false;
+    public user: User;
 
     constructor(private router: Router) {
     }
@@ -28,6 +29,7 @@ export class SideBarComponent implements OnInit {
     async ngOnInit() {
         this.isAuthenticated = Boolean(localStorage.getItem('isAuthenticated'));
         this.role = localStorage.getItem('Role');
+        this.user = JSON.parse(localStorage.getItem('User') );
         console.log(this.isAuthenticated);
         if (!this.isAuthenticated) {
             await this.router.navigate(['/register']);

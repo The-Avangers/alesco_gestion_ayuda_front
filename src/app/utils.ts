@@ -7,15 +7,3 @@ export const getDateString = (date: Date): string => {
         return `${date.getFullYear()}-${month}-${date.getDate()}`;
     }
 };
-
-export const showUnauthorizedAlert = (rolesAllowed: string[] | string, currentRole: string): null | NotifierNotificationOptions => {
-
-    if (!rolesAllowed.includes(currentRole)) {
-        return {
-            type: 'error',
-            message: 'Oops, parece que te has desviado. No tienes permiso para ver el contenido de está página'
-        };
-        throw new Error('Unauthorized');
-    }
-    return null;
-};

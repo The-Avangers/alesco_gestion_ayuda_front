@@ -6,7 +6,7 @@ import {UserRegisterComponent} from './user-register/user-register.component';
 import {LoginComponent} from './login/login.component';
 import {NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SideBarComponent} from './side-bar/side-bar.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ProjectListComponent} from './project-list/project-list.component';
 import {ProjectsService} from './services/project/projects.service';
 import {RouterModule} from '@angular/router';
@@ -22,6 +22,9 @@ import {CurrencyMaskModule} from 'ng2-currency-mask';
 import {NotifierModule} from 'angular-notifier';
 import {FilterProjectsPipe} from './project-list/filterProjects.pipe';
 import {UserService} from './services/user/user.service';
+import {AuthService} from './services/auth.service';
+import {UnauthorizedGuard} from './guards/unauthorized.guard';
+import {TokenInterceptor} from './http-interceptors/token-interceptor';
 
 
 @NgModule({
@@ -73,7 +76,13 @@ import {UserService} from './services/user/user.service';
         InstitutionService,
         PersonService,
         UserService,
-        AidService
+        AuthService,
+        AidService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        }
     ],
     bootstrap: [AppComponent],
     entryComponents: [LoginComponent],

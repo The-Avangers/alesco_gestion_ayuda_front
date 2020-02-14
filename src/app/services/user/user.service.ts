@@ -10,6 +10,6 @@ export class UserService {
     constructor(private http: HttpClient) {
     }
     postLogin(body: Login) {
-      return this.http.post<User>(`${environment.baseUrl}login`, body);
+      return this.http.post<User>(`${environment.baseUrl}login`, body, {observe: 'response'});
     }
 }

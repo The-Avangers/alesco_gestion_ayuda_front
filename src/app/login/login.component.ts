@@ -49,7 +49,9 @@ export class LoginComponent implements OnInit {
             .subscribe(response => {
                 console.log('Login Response', response);
                 localStorage.setItem('isAuthenticated', 'true');
-                localStorage.setItem('Role', response.role);
+                localStorage.setItem('token', response.headers.get('token'));
+                localStorage.setItem('Role', response.body.role);
+                localStorage.setItem('User', JSON.stringify(response.body));
                 this.router.navigate(['/projects']).then();
                 this.modalService.dismissAll();
             }, error => {

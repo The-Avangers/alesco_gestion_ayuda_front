@@ -5,8 +5,8 @@
                 <div class="dropdown profile-element">
                     <img alt="image" class="profile-image rounded-circle" src="assets/images/profile.png"/>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="block m-t-xs font-bold">David Williams</span>
-                        <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+                        <span class="block m-t-xs font-bold">{{user.name + ' ' + user.lastname}}</span>
+                        <span class="text-muted text-xs block">{{user.role}} <b class="caret"></b></span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a class="dropdown-item" href="profile.html">Profile</a></li>
