@@ -55,6 +55,7 @@ import {UserService} from './services/user/user.service';
             },
             behaviour: {
                 onClick: 'hide',
+                autoHide: 15000,
             }
         }),
         NgxMaskModule.forRoot(),

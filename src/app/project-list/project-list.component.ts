@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 import {ProjectsService} from '../services/project/projects.service';
 import {Project} from '../services/project/project.interface';
+import {NotifierService} from 'angular-notifier';
+import {showUnauthorizedAlert} from '../utils';
 
 
 @Component({
@@ -28,11 +30,19 @@ export class ProjectListComponent implements OnInit {
         11: 'Diciembre',
     };
 
-    constructor(private service: ProjectsService) {
+    constructor(private service: ProjectsService, private notifierService: NotifierService) {
     }
 
     ngOnInit() {
-        this.role = localStorage.getItem('Role')
+        this.role = localStorage.getItem('Role');
+        if (this.role !== 'Administrador' && this.role !== 'Consultor') {
+            return this.notifierService.show({
+                type: 'error',
+                message: `Oops, parece que te has desviado. No tienes permiso para ver el contenido de esta página.
+                     Te invitamos a visitar los que tienes disponibles haciendo click en una de las opciones que te
+                     ofrecemos en la barra lateral`
+            });
+        }
         this.service.getProjects()
             .subscribe(response => {
                 this.projects = response;
