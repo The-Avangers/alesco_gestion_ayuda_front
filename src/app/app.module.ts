@@ -64,10 +64,10 @@ import {TokenInterceptor} from './http-interceptors/token-interceptor';
         NgxMaskModule.forRoot(),
         RouterModule.forRoot([
             {path: 'register', component: UserRegisterComponent},
-            {path: '', component: ProjectListComponent},
-            {path: 'projects/add', component: ProjectFormComponent},
-            {path: 'projects', component: ProjectListComponent},
-            {path: 'aids', component: AidListComponent}
+            {path: '', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/add', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'aids', component: AidListComponent, canActivate: [UnauthorizedGuard]}
         ]),
         ReactiveFormsModule
     ],

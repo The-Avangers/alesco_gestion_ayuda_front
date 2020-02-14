@@ -26,14 +26,11 @@ export class SideBarComponent implements OnInit {
     constructor(private router: Router) {
     }
 
-    async ngOnInit() {
+    ngOnInit() {
         this.isAuthenticated = Boolean(localStorage.getItem('isAuthenticated'));
         this.role = localStorage.getItem('Role');
         this.user = JSON.parse(localStorage.getItem('User') );
         console.log(this.isAuthenticated);
-        if (!this.isAuthenticated) {
-            await this.router.navigate(['/register']);
-        }
         setTimeout(() => $('#side-menu').metisMenu(), 0);
     }
 
