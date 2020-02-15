@@ -26,6 +26,7 @@ import {AuthService} from './services/auth.service';
 import {UnauthorizedGuard} from './guards/unauthorized.guard';
 import {TokenInterceptor} from './http-interceptors/token-interceptor';
 import {SessionGuard} from './guards/session.guard';
+import { AidFormComponent } from './aid-form/aid-form.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import {SessionGuard} from './guards/session.guard';
         ProjectListComponent,
         AidListComponent,
         FilterProjectsPipe,
-        ProjectFormComponent
+        ProjectFormComponent,
+        AidFormComponent
     ],
     imports: [
         BrowserModule,
@@ -68,7 +70,8 @@ import {SessionGuard} from './guards/session.guard';
             {path: '', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/add', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
-            {path: 'aids', component: AidListComponent, canActivate: [UnauthorizedGuard]}
+            {path: 'aids', component: AidListComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'aids/add', component: AidFormComponent, canActivate: [UnauthorizedGuard]}
         ]),
         ReactiveFormsModule
     ],
