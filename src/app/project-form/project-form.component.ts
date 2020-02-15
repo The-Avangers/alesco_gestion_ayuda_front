@@ -29,6 +29,8 @@ export class ProjectFormComponent implements OnInit {
     endDateMinValue: string;
     endDateValue: string;
     role: string;
+    buttonDisabled = false;
+    startValue: string[];
 
     constructor(private projectsService: ProjectsService, private institutionsService: InstitutionService,
                 private peopleService: PersonService, private formBuilder: FormBuilder,
@@ -82,16 +84,17 @@ export class ProjectFormComponent implements OnInit {
             width: '100%',
             placeholder: 'Seleccione los encargados...',
         };
-
         this.personConcernedOptions = {
             width: '100%',
-            placeholder: 'Seleccione interesado...',
+            placeholder: {id: '', text: 'Seleccione interesado...'}
         };
 
         this.institutionOptions = {
             width: '100%',
             placeholder: 'Seleccione institución...'
         };
+
+        this.people.unshift({id: '0', text: 'Empty'});
     }
 
     get f() {
@@ -100,12 +103,19 @@ export class ProjectFormComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
+        console.log(this.f.personConcerned.value);
 
         // stop here if form is invalid
         if (this.projectForm.invalid) {
             return;
         }
 
+        this.buttonDisabled = true;
+        for (const key in this.projectForm.controls) {
+            if (key in this.projectForm.controls) {
+                this.projectForm.controls[key].disable();
+            }
+        }
         const body: PostProject = {
             name: this.projectForm.value.name,
             startDate: this.projectForm.value.startDate,
@@ -151,17 +161,29 @@ export class ProjectFormComponent implements OnInit {
         return getDateString(this.now);
     }
 
-    peopleInChargeChanged(data: {value: string[]}) {
+    peopleInChargeChanged(data: { value: string[] }) {
         console.log(data);
         this.peopleInChargeCurrent = data.value.map(value => parseInt(value, 0));
         this.projectForm.controls.peopleInCharge.setValue(this.peopleInChargeCurrent);
         console.log(this.peopleInChargeCurrent);
+        const aux: Select2OptionData[] = [{
+            id: '',
+            text: 'Empty'
+        }];
+        for (const person of this.people) {
+            aux.push(person);
+        }
+        this.peopleConcerned = aux;
     }
 
-    personConcernedChanged(data: {value: string}) {
+    personConcernedChanged(data: { value: string }) {
         console.log(data);
-        this.projectForm.controls.personConcerned.setValue(parseInt(data.value, 0) );
+        this.projectForm.controls.personConcerned.setValue(parseInt(data.value, 0) || null);
         const aux: Select2OptionData[] = [];
+        if (this.peopleInChargeCurrent.includes(parseInt(data.value, 0))) {
+            this.peopleInChargeCurrent.splice(this.peopleInChargeCurrent.indexOf(parseInt(data.value, 0)), 1)
+        }
+        this.startValue = this.peopleInChargeCurrent.map(value => value.toString());
         for (const person of this.people) {
             if (person.id !== data.value) {
                 aux.push(person);
@@ -171,11 +193,11 @@ export class ProjectFormComponent implements OnInit {
         console.log(this.peopleInCharge);
     }
 
-    institutionChanged(data: {value: string}) {
+    institutionChanged(data: { value: string }) {
         this.projectForm.controls.institution.setValue(parseInt(data.value, 0));
     }
 
-    startDateChanged(data: {srcElement: {value: string}}) {
+    startDateChanged(data: { srcElement: { value: string } }) {
         if (data.srcElement.value) {
             console.log(data.srcElement.value);
             this.projectForm.controls.endDate.enable();
@@ -184,7 +206,7 @@ export class ProjectFormComponent implements OnInit {
             this.endDateMinValue = getDateString(dateAux);
             console.log('Min endDate = ', this.endDateMinValue);
             if (this.projectForm.controls.endDate.value) {
-                const endDateValue =  new Date(this.projectForm.controls.endDate.value);
+                const endDateValue = new Date(this.projectForm.controls.endDate.value);
                 const startDateValue = new Date(data.srcElement.value);
                 if (startDateValue > endDateValue) {
                     this.projectForm.controls.endDate.setValue(null);
