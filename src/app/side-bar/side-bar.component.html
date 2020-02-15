@@ -1,5 +1,6 @@
+<body class="pace-done body-small mini-navbar" [ngClass]="{'mini-navbar':miniNavBar}">
 <nav class="navbar-default navbar-static-side" role="navigation">
-    <div class="sidebar-collapse">
+    <div class="sidebar-collapse ">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
@@ -17,7 +18,7 @@
                     </ul>
                 </div>
                 <div class="logo-element">
-                    IN+
+                    ALESCO
                 </div>
             </li>
             <li [ngClass]="{'mm-active border-left-green':ariaExpanded.project}"
@@ -54,7 +55,7 @@
     <div class="row border-bottom">
         <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <!--                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>-->
+                                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#" (click)="collapseNavBar()"><i class="fa fa-bars"></i> </a>
                 <!--                <form role="search" class="navbar-form-custom"-->
                 <!--                      action="http://webapplayers.com/inspinia_admin-v2.8/search_results.html">-->
                 <!--                    <div class="form-group">-->
@@ -180,5 +181,6 @@
     <ng-content select=".body"></ng-content>
     <ng-content select=".body"></ng-content>
 </div>
+</body>
 
 

@@ -22,6 +22,7 @@ export class SideBarComponent implements OnInit {
     public role: string;
     public isAuthenticated = false;
     public user: User;
+    public miniNavBar: boolean;
 
     constructor(private router: Router) {
     }
@@ -46,6 +47,10 @@ export class SideBarComponent implements OnInit {
                 value = false;
             }
         }
+    }
+
+    collapseNavBar() {
+        this.miniNavBar = !this.miniNavBar;
     }
 
 }
