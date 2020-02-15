@@ -25,6 +25,7 @@ import {UserService} from './services/user/user.service';
 import {AuthService} from './services/auth.service';
 import {UnauthorizedGuard} from './guards/unauthorized.guard';
 import {TokenInterceptor} from './http-interceptors/token-interceptor';
+import {SessionGuard} from './guards/session.guard';
 
 
 @NgModule({
@@ -63,7 +64,7 @@ import {TokenInterceptor} from './http-interceptors/token-interceptor';
         }),
         NgxMaskModule.forRoot(),
         RouterModule.forRoot([
-            {path: 'register', component: UserRegisterComponent},
+            {path: 'register', component: UserRegisterComponent, canActivate: [SessionGuard]},
             {path: '', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/add', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
