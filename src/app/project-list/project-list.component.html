@@ -32,8 +32,8 @@
                                     </label>
                                 </div>
                             </div>
-                            <p *ngIf="(projects | filterProjects:search).length == 0" style="margin-top: 2.5%">No hay datos disponibles.</p>
-                            <div  *ngIf="(projects | filterProjects:search).length != 0" class="table-responsive">
+                            <p *ngIf="(projects | filterTable:search).length == 0" style="margin-top: 2.5%">No hay datos disponibles.</p>
+                            <div *ngIf="(projects | filterTable:search).length != 0" class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
@@ -47,7 +47,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let project of (projects | filterProjects:search)">
+                                    <tr *ngFor="let project of (projects | filterTable:search)">
                                         <td><a href="">{{ project.id }}</a></td>
                                         <td>{{ project.name }}</td>
                                         <td>{{ project.startDate }}</td>

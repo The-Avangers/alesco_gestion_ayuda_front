@@ -181,7 +181,7 @@ export class ProjectFormComponent implements OnInit {
         this.projectForm.controls.personConcerned.setValue(parseInt(data.value, 0) || null);
         const aux: Select2OptionData[] = [];
         if (this.peopleInChargeCurrent.includes(parseInt(data.value, 0))) {
-            this.peopleInChargeCurrent.splice(this.peopleInChargeCurrent.indexOf(parseInt(data.value, 0)), 1)
+            this.peopleInChargeCurrent.splice(this.peopleInChargeCurrent.indexOf(parseInt(data.value, 0)), 1);
         }
         this.startValue = this.peopleInChargeCurrent.map(value => value.toString());
         for (const person of this.people) {
