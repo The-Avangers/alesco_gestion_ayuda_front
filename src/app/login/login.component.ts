@@ -4,7 +4,7 @@ import {Login, User} from '../services/user/user.interface';
 import {UserService} from '../services/user/user.service';
 import {NotifierService} from 'angular-notifier';
 import {Router} from '@angular/router';
-import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',

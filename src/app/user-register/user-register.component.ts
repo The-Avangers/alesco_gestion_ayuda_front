@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '../login/login.component';
+import {UserService} from '../services/user/user.service';
+import {NotifierService} from 'angular-notifier';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { PostUser} from '../services/user/user.interface';
 
 @Component({
   selector: 'app-user-register',
@@ -20,7 +23,8 @@ export class UserRegisterComponent implements OnInit {
     confirmed_password: new FormControl('', Validators.required)
   });
 
-  constructor(private modalService: NgbModal, private router: Router) { }
+  constructor(private userService: UserService, private notifierService: NotifierService,
+              private modalService: NgbModal, private router: Router) { }
   checkPasswords() {
     const pass = this.RegisterForm.get('password').value;
     const confirmPass = this.RegisterForm.get('confirmed_password').value;
@@ -44,12 +48,39 @@ export class UserRegisterComponent implements OnInit {
 
   login() {
       this.submitted = true;
-      if (this.RegisterForm.invalid) {
-          console.log('negado')
+      if (this.RegisterForm.invalid || this.notsame) {
+          const controls = this.RegisterForm.controls;
+          for (const name in controls) {
+              if (controls[name].invalid) {
+                  console.log(name);
+              }
+          }
+          console.log('negado');
           return;
       }
       console.log('pasó');
-      localStorage.setItem('isAuthenticated', 'true');
-      this.router.navigate(['/']).then();
+      const body: PostUser = {
+          name : this.RegisterForm.value.name,
+          lastname : this.RegisterForm.value.lastname,
+          email : this.RegisterForm.value.email,
+          role : 'Solicitante',
+          password : this.RegisterForm.value.password
+      };
+      this.userService.postUser(body)
+      .subscribe(response => {
+          console.log('Login Response', response);
+          localStorage.setItem('isAuthenticated', 'true');
+          localStorage.setItem('token', response.headers.get('token'));
+          localStorage.setItem('Role', response.body.role);
+          localStorage.setItem('User', JSON.stringify(response.body));
+          this.router.navigate(['/projects']).then();
+      }, error => {
+          console.log(error);
+          this.notifierService.show({
+              type : 'error',
+              message: 'Error al Registrar Usuario'
+          });
+          return;
+      });
   }
 }
