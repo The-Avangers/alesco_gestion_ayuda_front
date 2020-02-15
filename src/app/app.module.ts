@@ -20,7 +20,7 @@ import {Select2Module} from 'ng2-select2';
 import {NgxMaskModule} from 'ngx-mask';
 import {CurrencyMaskModule} from 'ng2-currency-mask';
 import {NotifierModule} from 'angular-notifier';
-import {FilterProjectsPipe} from './project-list/filterProjects.pipe';
+import {FilterTablePipe} from './pipes/filterTable.pipe';
 import {UserService} from './services/user/user.service';
 import {AuthService} from './services/auth.service';
 import {UnauthorizedGuard} from './guards/unauthorized.guard';
@@ -36,7 +36,7 @@ import {SessionGuard} from './guards/session.guard';
         SideBarComponent,
         ProjectListComponent,
         AidListComponent,
-        FilterProjectsPipe,
+        FilterTablePipe,
         ProjectFormComponent
     ],
     imports: [
