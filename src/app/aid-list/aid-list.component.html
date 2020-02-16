@@ -1,5 +1,5 @@
 <app-side-bar>
-    <ng-container class="body">
+    <ng-container *ngIf="role === 'Administrador' || role === 'Solicitante'" class="body">
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
                 <h2>Insumos</h2>
@@ -21,22 +21,18 @@
                     <div class="ibox ">
                         <div class="ibox-content">
                             <div class="row border-bottom">
-                                <div class="col-sm-5 m-b-xs">
+                                <div *ngIf="role === 'Administrador'" class="col-sm-5 m-b-xs">
                                     <a href="" class="btn btn-primary">Agregar</a>
                                 </div>
-                                <div class="col-sm-5 m-b-xs"></div>
-                                <div class="col-sm-2">
-<!--                                    <form class="input-group" style="margin-bottom: 14px">-->
-<!--                                        <span class="input-group-append">-->
-<!--                                        <button type="submit" class="btn btn-sm btn-primary">-->
-<!--                                            <span class="fa fa-search"></span>-->
-<!--                                        </button>-->
-<!--                                    </span>-->
-<!--                                    </form>-->
+                                <div *ngIf="role === 'Solicitante'" class="col-sm-5 m-b-xs"></div>
+                                <div class="align-items-end col-sm-4">
+                                    <label class="col-sm-12 col-form-label">
+                                        <input class="form-control" type ="search" placeholder="Busqueda..." [(ngModel)]="search">
+                                    </label>
                                 </div>
                             </div>
-                            <p *ngIf="aids.length == 0" style="margin-top: 2.5%">No hay datos disponibles.</p>
-                            <div  *ngIf="aids.length!= 0" class="table-responsive">
+                            <p *ngIf="(aids | filterTable:search).length == 0" style="margin-top: 2.5%">No hay datos disponibles.</p>
+                            <div *ngIf="(aids | filterTable:search).length != 0" class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
@@ -48,7 +44,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let aid of aids">
+                                    <tr *ngFor="let aid of (aids | filterTable:search)">
                                         <td><a href="">{{ aid.id }}</a></td>
                                         <td>{{ aid.name }}</td>
                                         <td>{{ aid.measure }}</td>
