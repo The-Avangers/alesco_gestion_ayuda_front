@@ -1,5 +1,5 @@
 <app-side-bar>
-    <ng-container *ngIf="role === 'Administrador' || role === 'Solicitante'" class="body">
+    <ng-container *ngIf="role === 'Administrador'" class="body">
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
                 <h2>Insumos</h2>
@@ -24,7 +24,6 @@
                                 <div *ngIf="role === 'Administrador'" class="col-sm-5 m-b-xs">
                                     <a href="" class="btn btn-primary">Agregar</a>
                                 </div>
-                                <div *ngIf="role === 'Solicitante'" class="col-sm-5 m-b-xs"></div>
                                 <div class="align-items-end col-sm-4">
                                     <label class="col-sm-12 col-form-label">
                                         <input class="form-control" type ="search" placeholder="Busqueda..." [(ngModel)]="search">
