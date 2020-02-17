@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                             <div *ngIf="isLoading === true" class=" row align-items-center">
-                                <mat-spinner style="margin: 0 auto"></mat-spinner>
+                                <mat-spinner class="mat-spinner" style="margin: 0 auto"></mat-spinner>
                             </div>
                             <p *ngIf="isLoading === false && (projects | filterTable:search).length == 0"
                                style="margin-top: 2.5%">No hay datos disponibles.</p>
