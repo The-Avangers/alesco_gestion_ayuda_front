@@ -155,6 +155,12 @@ export class ProjectFormComponent implements OnInit {
                     type: 'error',
                     message: 'Error registrando proyecto'
                 });
+                this.buttonDisabled = false;
+                for (const key in this.projectForm.controls) {
+                    if (key in this.projectForm.controls) {
+                        this.projectForm.controls[key].enable();
+                    }
+                }
             });
 
     }
