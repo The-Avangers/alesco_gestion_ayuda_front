@@ -68,11 +68,11 @@
                                 <div class="form-group row align-items-center">
                                     <label class="col-sm-6 col-form-label">Institucion
                                         <ng-select2 formControlName="institution"
-                                                 [ngClass]="{'is-invalid': submitted && f.institution.errors }"
-                                                 [data]="institutions"
-                                                 [options]="institutionOptions"
-                                                 [value]="'0'"
-                                                 (valueChanged)="institutionChanged($event)">
+                                                    [ngClass]="{'is-invalid': submitted && f.institution.errors }"
+                                                    [data]="institutions"
+                                                    [options]="institutionOptions"
+                                                    [value]="'0'"
+                                                    (valueChanged)="institutionChanged($event)">
 
                                         </ng-select2>
                                         <div *ngIf="submitted && f.institution.errors" class="invalid-feedback">
@@ -102,12 +102,11 @@
                                 <div class="form-group row">
                                     <label class="col-sm-12 col-form-label align-items-center">Encargados
                                         <ng-select2 formControlName="peopleInCharge"
-                                                 id="peopleInCharge"
-                                                 [ngClass]="{'is-invalid': submitted && f.peopleInCharge.errors }"
-                                                 [options]="peopleInChargeOptions"
-                                                 [data]="peopleInCharge"
-                                                 [value]="startValue"
-                                                 (valueChanged)="peopleInChargeChanged($event)">
+                                                    id="peopleInCharge"
+                                                    [ngClass]="{'is-invalid': submitted && f.peopleInCharge.errors }"
+                                                    [options]="peopleInChargeOptions"
+                                                    [data]="peopleInCharge"
+                                                    (valueChanged)="peopleInChargeChanged($event)">
                                         </ng-select2>
                                         <div *ngIf="submitted && f.peopleInCharge.errors" class="invalid-feedback">
                                             <div *ngIf="f.peopleInCharge.errors.required">Al menos un involucrado es
@@ -119,10 +118,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-12 col-form-label align-items-center">Interesado
                                         <ng-select2 formControlName="personConcerned"
-                                                 [ngClass]="{'is-invalid': submitted && f.personConcerned.errors }"
-                                                 [options]="personConcernedOptions"
-                                                 [data]="peopleConcerned"
-                                                 (valueChanged)="personConcernedChanged($event)">
+                                                    [ngClass]="{'is-invalid': submitted && f.personConcerned.errors }"
+                                                    [options]="personConcernedOptions"
+                                                    [data]="peopleConcerned"
+                                                    (valueChanged)="personConcernedChanged($event)">
                                         </ng-select2>
                                         <div *ngIf="submitted && f.personConcerned.errors" class="invalid-feedback">
                                             <div *ngIf="f.personConcerned.errors.required">La persona a cargo es
@@ -137,7 +136,9 @@
                         <div class="form-group row">
                             <div class="col-sm-11"></div>
                             <div class="form-group">
-                                <button class="btn btn-primary btn-sm" [disabled]="buttonDisabled" type="submit">Guardar</button>
+                                <button class="btn btn-primary btn-sm" [disabled]="buttonDisabled" type="submit">
+                                    Guardar
+                                </button>
                             </div>
                         </div>
                     </form>

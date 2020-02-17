@@ -33,7 +33,7 @@ export class ProjectFormComponent implements OnInit {
     peopleConcerned: Select2OptionData[];
     peopleInChargeOptions: Options;
     personConcernedOptions: Options;
-    peopleInChargeCurrent: number[];
+    peopleInChargeCurrent: number[] = [];
     private now = new Date();
     submitted = false;
     endDateMinValue: string;
@@ -164,31 +164,24 @@ export class ProjectFormComponent implements OnInit {
         return getDateString(this.now);
     }
 
-    peopleInChargeChanged(data: { value: string[] }) {
+    peopleInChargeChanged(data: string[]) {
         console.log(data);
-        this.peopleInChargeCurrent = data.value.map(value => parseInt(value, 0));
-        this.projectForm.controls.peopleInCharge.setValue(this.peopleInChargeCurrent);
+        this.peopleInChargeCurrent = data.map(value => parseInt(value, 0));
+        // this.projectForm.controls.peopleInCharge.setValue(this.peopleInChargeCurrent);
         console.log(this.peopleInChargeCurrent);
-        const aux: Select2OptionData[] = [{
-            id: '',
-            text: 'Empty'
-        }];
-        for (const person of this.people) {
-            aux.push(person);
-        }
-        this.peopleConcerned = aux;
     }
 
-    personConcernedChanged(data: { value: string }) {
-        console.log(data);
-        this.projectForm.controls.personConcerned.setValue(parseInt(data.value, 0) || null);
+    personConcernedChanged(data: string) {
+        console.log(typeof data);
+        // this.projectForm.controls.personConcerned.setValue(parseInt(data.value, 0) || null);
         const aux: Select2OptionData[] = [];
-        if (this.peopleInChargeCurrent.includes(parseInt(data.value, 0))) {
-            this.peopleInChargeCurrent.splice(this.peopleInChargeCurrent.indexOf(parseInt(data.value, 0)), 1);
+        if (this.peopleInChargeCurrent.includes(parseInt(data, 0))) {
+            this.peopleInChargeCurrent.splice(this.peopleInChargeCurrent.indexOf(parseInt(data, 0)), 1);
         }
-        this.startValue = this.peopleInChargeCurrent.map(value => value.toString());
+        console.log(this.projectForm.controls.personConcerned.value);
+        this.projectForm.controls.peopleInCharge.setValue(this.peopleInChargeCurrent.map(value => value.toString()) );
         for (const person of this.people) {
-            if (person.id !== data.value) {
+            if (person.id !== data) {
                 aux.push(person);
             }
         }
@@ -197,7 +190,7 @@ export class ProjectFormComponent implements OnInit {
     }
 
     institutionChanged(data: { value: string }) {
-        this.projectForm.controls.institution.setValue(parseInt(data.value, 0));
+        // this.projectForm.controls.institution.setValue(parseInt(data.value, 0));
     }
 
     startDateChanged(data: { srcElement: { value: string } }) {
