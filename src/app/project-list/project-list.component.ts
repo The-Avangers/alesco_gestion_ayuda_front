@@ -57,6 +57,8 @@ export class ProjectListComponent implements OnInit {
                     value.endDate = `${end.getDate()} de ${this.months[end.getMonth()]} de ${end.getFullYear()}`;
                     return value;
                 });
+            }, () => {
+                this.isLoading = false;
             });
     }
 }

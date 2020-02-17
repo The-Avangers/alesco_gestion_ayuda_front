@@ -2,13 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {InstitutionService} from '../services/institution/institution.service';
 import {ProjectsService} from '../services/project/projects.service';
 import {PersonService} from '../services/person/person.service';
-import {Select2OptionData} from 'ng2-select2';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Select2OptionData} from 'ng-select2';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PostProject} from '../services/project/project.interface';
 import {NotifierService} from 'angular-notifier';
 import {Router} from '@angular/router';
 import {getDateString} from '../utils';
 import {AuthService} from '../services/auth.service';
+import {Options} from 'select2';
 
 @Component({
     selector: 'app-project-form',
@@ -16,14 +17,22 @@ import {AuthService} from '../services/auth.service';
     styleUrls: ['./project-form.component.css']
 })
 export class ProjectFormComponent implements OnInit {
-    projectForm: FormGroup;
-    institutionOptions: Select2Options;
+    projectForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    startDate: new FormControl('', [Validators.required]),
+    endDate: new FormControl({value: '', disabled: true}, [Validators.required]),
+    institution: new FormControl('', [Validators.required]),
+    peopleInCharge: new FormControl('', [Validators.required]),
+    personConcerned: new FormControl('', [Validators.required]),
+    price: new FormControl('', [Validators.required]),
+});
+    institutionOptions: Options;
     institutions: Select2OptionData[];
     people: Select2OptionData[];
     peopleInCharge: Select2OptionData[];
     peopleConcerned: Select2OptionData[];
-    peopleInChargeOptions: Select2Options;
-    personConcernedOptions: Select2Options;
+    peopleInChargeOptions: Options;
+    personConcernedOptions: Options;
     peopleInChargeCurrent: number[];
     private now = new Date();
     submitted = false;
@@ -50,15 +59,6 @@ export class ProjectFormComponent implements OnInit {
                      ofrecemos en la barra lateral`
             });
         }
-        this.projectForm = this.formBuilder.group({
-            name: ['', Validators.required],
-            startDate: ['', Validators.required],
-            endDate: [{value: '', disabled: true}, Validators.required],
-            institution: ['', Validators.required],
-            peopleInCharge: ['', Validators.required],
-            personConcerned: ['', Validators.required],
-            price: ['', [Validators.required]],
-        });
         this.institutionsService.getInstitutions().subscribe(response => {
             console.log(response);
             this.institutions = response.map(value => {
@@ -97,7 +97,7 @@ export class ProjectFormComponent implements OnInit {
             placeholder: 'Seleccione institución...'
         };
 
-        this.people.unshift({id: '0', text: 'Empty'});
+        // this.people.unshift({id: '0', text: 'Empty'});
     }
 
     get f() {
