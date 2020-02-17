@@ -76,7 +76,7 @@ import {MatProgressSpinnerModule, ProgressSpinnerMode} from "@angular/material";
         ]),
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        MatProgressSpinnerModule,
+        MatProgressSpinnerModule
     ],
     providers: [
         ProjectsService,
