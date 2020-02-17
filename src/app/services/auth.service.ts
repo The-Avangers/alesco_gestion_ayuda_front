@@ -11,7 +11,8 @@ export class AuthService {
       return Boolean(localStorage.getItem('isAuthenticated') );
   }
 
-  getRole() {
+
+  static getRole() {
       return localStorage.getItem('Role');
   }
 }

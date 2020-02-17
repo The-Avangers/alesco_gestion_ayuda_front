@@ -8,6 +8,7 @@ import {PostProject} from '../services/project/project.interface';
 import {NotifierService} from 'angular-notifier';
 import {Router} from '@angular/router';
 import {getDateString} from '../utils';
+import {AuthService} from '../services/auth.service';
 
 @Component({
     selector: 'app-project-form',
@@ -28,7 +29,6 @@ export class ProjectFormComponent implements OnInit {
     submitted = false;
     endDateMinValue: string;
     endDateValue: string;
-    role: string;
     buttonDisabled = false;
     startValue: string[];
 
@@ -37,8 +37,11 @@ export class ProjectFormComponent implements OnInit {
                 private notifierService: NotifierService, private router: Router) {
     }
 
+    get role(): string {
+        return AuthService.getRole();
+    }
+
     ngOnInit() {
-        this.role = localStorage.getItem('Role');
         if (this.role !== 'Administrador') {
             return this.notifierService.show({
                 type: 'error',

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import 'metismenu';
 import {Router} from '@angular/router';
 import {User} from '../services/user/user.interface';
+import {AuthService} from "../services/auth.service";
 
 // tslint:disable-next-line:no-any
 declare let $: any;
@@ -19,7 +20,6 @@ export class SideBarComponent implements OnInit {
         aid: false
 
     };
-    public role: string;
     public isAuthenticated = false;
     public user: User;
     public miniNavBar: boolean;
@@ -27,9 +27,9 @@ export class SideBarComponent implements OnInit {
     constructor(private router: Router) {
     }
 
+
     ngOnInit() {
         this.isAuthenticated = Boolean(localStorage.getItem('isAuthenticated'));
-        this.role = localStorage.getItem('Role');
         this.user = JSON.parse(localStorage.getItem('User') );
         console.log(this.isAuthenticated);
         setTimeout(() => $('#side-menu').metisMenu(), 0);
@@ -47,6 +47,10 @@ export class SideBarComponent implements OnInit {
                 value = false;
             }
         }
+    }
+
+    get role(): string{
+        return AuthService.getRole();
     }
 
     collapseNavBar() {
