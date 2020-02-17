@@ -28,6 +28,7 @@ export class ProjectListComponent implements OnInit {
         10: 'Noviembre',
         11: 'Diciembre',
     };
+    isLoading = true;
 
     constructor(private service: ProjectsService, private notifierService: NotifierService) {
     }
@@ -44,6 +45,7 @@ export class ProjectListComponent implements OnInit {
         }
         this.service.getProjects()
             .subscribe(response => {
+                this.isLoading = false;
                 this.projects = response;
                 this.projects = this.projects.map(value => {
                     value.paid = value.paid ? 'Sí' : 'No';

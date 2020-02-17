@@ -27,6 +27,8 @@ import {UnauthorizedGuard} from './guards/unauthorized.guard';
 import {TokenInterceptor} from './http-interceptors/token-interceptor';
 import {SessionGuard} from './guards/session.guard';
 import {AidFormComponent} from './aid-form/aid-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatProgressSpinnerModule, ProgressSpinnerMode} from "@angular/material";
 
 @NgModule({
     declarations: [
@@ -72,7 +74,9 @@ import {AidFormComponent} from './aid-form/aid-form.component';
             {path: 'aids', component: AidListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'aids/add', component: AidFormComponent, canActivate: [UnauthorizedGuard]}
         ]),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatProgressSpinnerModule,
     ],
     providers: [
         ProjectsService,

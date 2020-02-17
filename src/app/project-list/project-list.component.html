@@ -32,8 +32,13 @@
                                     </label>
                                 </div>
                             </div>
-                            <p *ngIf="(projects | filterTable:search).length == 0" style="margin-top: 2.5%">No hay datos disponibles.</p>
-                            <div *ngIf="(projects | filterTable:search).length != 0" class="table-responsive">
+                            <div *ngIf="isLoading === true" class="align-items-center">
+                                <mat-spinner></mat-spinner>
+                            </div>
+                            <p *ngIf="isLoading === false && (projects | filterTable:search).length == 0"
+                               style="margin-top: 2.5%">No hay datos disponibles.</p>
+                            <div *ngIf="isLoading === false && (projects | filterTable:search).length != 0"
+                                 class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
