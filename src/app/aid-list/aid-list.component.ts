@@ -13,6 +13,7 @@ export class AidListComponent implements OnInit {
   aids: Aid[] = [];
   search = '';
   role: string;
+  isLoading = true;
 
   constructor(private service: AidService, private notifierService: NotifierService) {
    }
@@ -29,13 +30,15 @@ export class AidListComponent implements OnInit {
       }
       this.service.getAids()
             .subscribe(response => {
+                this.isLoading = false;
                 this.aids = response;
             }, error => {
-              console.log(error.error);
-              this.notifierService.show({
+                this.isLoading = false;
+                console.log(error.error);
+                this.notifierService.show({
                   type : 'error',
                   message: 'Error al Obtener Los Insumos'
-              });
+                });
             });
   }
 

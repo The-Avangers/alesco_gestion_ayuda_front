@@ -9495,3 +9495,8 @@ body.md-skin {
 .ibox-title .float-right {
   margin-right: -75px;
 }
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #1ab394;
+    margin: 0 auto;
+}
