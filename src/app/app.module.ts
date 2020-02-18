@@ -27,7 +27,7 @@ import {TokenInterceptor} from './http-interceptors/token-interceptor';
 import {SessionGuard} from './guards/session.guard';
 import {AidFormComponent} from './aid-form/aid-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatProgressSpinnerModule} from '@angular/material';
+import {MatPaginatorModule, MatProgressSpinnerModule} from '@angular/material';
 import {NgSelect2Module} from 'ng-select2';
 
 @NgModule({
@@ -76,7 +76,8 @@ import {NgSelect2Module} from 'ng-select2';
         ]),
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatPaginatorModule
     ],
     providers: [
         ProjectsService,
