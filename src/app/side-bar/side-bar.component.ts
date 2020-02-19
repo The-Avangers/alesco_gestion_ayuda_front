@@ -57,4 +57,9 @@ export class SideBarComponent implements OnInit {
         this.miniNavBar = !this.miniNavBar;
     }
 
+    logout() {
+        localStorage.removeItem('isAuthenticated');
+        this.router.navigate([ '/register']).then();
+    }
+
 }
