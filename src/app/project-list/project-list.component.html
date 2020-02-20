@@ -63,7 +63,7 @@
                                                 prefix: 'Bs ',
                                                 thousands: '.',
                                                 decimal: ','
-                                            }">{{ 'Bs '+project.price }}</td>
+                                            }">{{ 'Bs '+project.price.toString().replace(',', '.') }}</td>
                                         <td >{{ project.paid }}</td>
                                         <td>
                                             <a href=""
