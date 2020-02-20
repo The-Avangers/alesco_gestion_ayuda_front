@@ -61,4 +61,8 @@ export class ProjectListComponent implements OnInit {
                 this.isLoading = false;
             });
     }
+
+    isInteger(value: number) {
+        Number.isInteger(value);
+    }
 }
