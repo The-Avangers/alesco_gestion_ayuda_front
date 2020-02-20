@@ -28,7 +28,8 @@
                                 <div *ngIf="role == 'Consultor'" class="col-sm-5 m-b-xs"></div>
                                 <div class="align-items-end col-sm-4">
                                     <label class="col-sm-12 col-form-label">
-                                        <input class="form-control" type ="search" placeholder="Busqueda..." [(ngModel)]="search">
+                                        <input class="form-control" type="search" placeholder="Busqueda..."
+                                               [(ngModel)]="search">
                                     </label>
                                 </div>
                             </div>
@@ -63,8 +64,10 @@
                                                 prefix: 'Bs ',
                                                 thousands: '.',
                                                 decimal: ','
-                                            }">{{ 'Bs '+project.price.toString().replace('.', ',') }}</td>
-                                        <td >{{ project.paid }}</td>
+                                            }">{{ 'Bs ' + project.price.toString().indexOf( '.' ) > -1
+                                                  ? project.price.toString().replace( '.', ',' )
+                                                  : project.price + ',00'}}</td>
+                                        <td>{{ project.paid }}</td>
                                         <td>
                                             <a href=""
                                                class="btn btn-sm btn-outline-warning">
