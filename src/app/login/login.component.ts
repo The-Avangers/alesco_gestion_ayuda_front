@@ -13,6 +13,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class LoginComponent implements OnInit {
     submitted = false;
+    isLoading = true;
     LoginForm = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [Validators.required])
@@ -47,6 +48,7 @@ export class LoginComponent implements OnInit {
         };
         this.loginService.postLogin(body)
             .subscribe(response => {
+                this.isLoading = false;
                 console.log('Login Response', response);
                 localStorage.setItem('isAuthenticated', 'true');
                 localStorage.setItem('token', response.headers.get('token'));
@@ -55,6 +57,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/projects']).then();
                 this.modalService.dismissAll();
             }, error => {
+                this.isLoading = false;
                 let errorMessage = 'Servicio No Responde';
                 if (JSON.stringify(error.error) === '{"Error":"Usuario No Registrado"}') {
                     errorMessage = 'Usuario No Encontrado';
@@ -67,6 +70,7 @@ export class LoginComponent implements OnInit {
                     type : 'error',
                     message: errorMessage
                 });
+                this.isLoading = true;
                 return;
             });
     }

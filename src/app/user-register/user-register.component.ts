@@ -14,6 +14,7 @@ import { PostUser} from '../services/user/user.interface';
 })
 export class UserRegisterComponent implements OnInit {
     notsame = true;
+    isLoading = true;
     submitted = false;
     RegisterForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(20)]),
@@ -68,6 +69,7 @@ export class UserRegisterComponent implements OnInit {
       };
       this.userService.postUser(body)
       .subscribe(response => {
+          this.isLoading = false;
           console.log('Login Response', response);
           localStorage.setItem('isAuthenticated', 'true');
           localStorage.setItem('token', response.headers.get('token'));
@@ -75,11 +77,13 @@ export class UserRegisterComponent implements OnInit {
           localStorage.setItem('User', JSON.stringify(response.body));
           this.router.navigate(['/projects']).then();
       }, error => {
+          this.isLoading = false;
           console.log(error);
           this.notifierService.show({
               type : 'error',
               message: 'Error al Registrar Usuario'
           });
+          this.isLoading = true;
           return;
       });
   }
