@@ -63,6 +63,6 @@ export class ProjectListComponent implements OnInit {
     }
 
     isInteger(value: number) {
-        Number.isInteger(value);
+        return Number.isInteger(value);
     }
 }
