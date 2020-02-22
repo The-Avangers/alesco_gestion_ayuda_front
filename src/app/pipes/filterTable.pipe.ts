@@ -5,8 +5,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class FilterTablePipe implements PipeTransform {
 
-    // tslint:disable-next-line:no-any
-    transform(object: any[], searchValue: string): any[] {
+    transform<T>(object: T[], searchValue: string): T[] {
         if (!searchValue) {
             return object;
         }
