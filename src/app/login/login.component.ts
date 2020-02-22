@@ -13,7 +13,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class LoginComponent implements OnInit {
     submitted = false;
-    isLoading = true;
+    isLoading = false;
     LoginForm = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [Validators.required])
@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.submitted = true;
+        this.isLoading = true;
         if (this.LoginForm.invalid) {
             const controls = this.LoginForm.controls;
             for (const name in controls) {
@@ -70,7 +71,6 @@ export class LoginComponent implements OnInit {
                     type : 'error',
                     message: errorMessage
                 });
-                this.isLoading = true;
                 return;
             });
     }

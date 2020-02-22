@@ -14,7 +14,7 @@ import { PostUser} from '../services/user/user.interface';
 })
 export class UserRegisterComponent implements OnInit {
     notsame = true;
-    isLoading = true;
+    isLoading = false;
     submitted = false;
     RegisterForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(20)]),
@@ -60,6 +60,7 @@ export class UserRegisterComponent implements OnInit {
           return;
       }
       console.log('pasó');
+      this.isLoading = true
       const body: PostUser = {
           name : this.RegisterForm.value.name,
           lastname : this.RegisterForm.value.lastname,
@@ -83,7 +84,6 @@ export class UserRegisterComponent implements OnInit {
               type : 'error',
               message: 'Error al Registrar Usuario'
           });
-          this.isLoading = true;
           return;
       });
   }
