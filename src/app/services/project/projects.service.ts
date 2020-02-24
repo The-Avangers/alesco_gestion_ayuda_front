@@ -19,6 +19,10 @@ export class ProjectsService {
         return this.http.get<FullProject>(`${environment.baseUrl}projects/${id}`);
     }
 
+    updateProject(body: PostProject, id: number) {
+        return this.http.put(`${environment.baseUrl}projects/${id}`, body);
+    }
+
     postProjects(body: PostProject) {
         return this.http.post(`${environment.baseUrl}projects`, body);
     }

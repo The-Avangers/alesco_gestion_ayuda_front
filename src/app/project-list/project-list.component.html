@@ -59,9 +59,11 @@
                                         <td>{{ project.startDate }}</td>
                                         <td>{{ project.endDate }}</td>
                                         <td>{{project.institutionName}}</td>
-                                        <td>{{ 'Bs ' + (!isInteger(project.price)
-                                                  ? project.price.toString().replace( '.', ',' )
-                                                  : project.price + ',00')}}</td>
+                                        <td>{{ 'Bs ' + (!isInteger( project.price )
+                                                        ? ( countDecimals( project.price ) == 2
+                                                           ? project.price.toString().replace( '.', ',' )
+                                                           : project.price.toString().replace( '.', ',' ) + '0')
+                                                        : project.price + ',00')}}</td>
                                         <td>{{ project.paid }}</td>
                                         <td>
                                             <a [routerLink]="['/projects/edit', project.id]"

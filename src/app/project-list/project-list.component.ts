@@ -3,6 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProjectsService} from '../services/project/projects.service';
 import {Project} from '../services/project/project.interface';
 import {NotifierService} from 'angular-notifier';
+import {countDecimals, isInteger} from '../utils';
 
 
 @Component({
@@ -62,7 +63,11 @@ export class ProjectListComponent implements OnInit {
             });
     }
 
-    isInteger(value: number) {
-        return Number.isInteger(value);
+    isInteger(price: number) {
+        return isInteger(price);
+    }
+
+    countDecimals(price: number) {
+        return countDecimals(price);
     }
 }

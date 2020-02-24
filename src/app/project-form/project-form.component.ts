@@ -20,14 +20,14 @@ import Project = ts.server.Project;
 })
 export class ProjectFormComponent implements OnInit {
     projectForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    startDate: new FormControl('', [Validators.required]),
-    endDate: new FormControl({value: '', disabled: true}, [Validators.required]),
-    institution: new FormControl('', [Validators.required]),
-    peopleInCharge: new FormControl('', [Validators.required]),
-    personConcerned: new FormControl('', [Validators.required]),
-    price: new FormControl('', [Validators.required]),
-});
+        name: new FormControl('', [Validators.required]),
+        startDate: new FormControl('', [Validators.required]),
+        endDate: new FormControl({value: '', disabled: true}, [Validators.required]),
+        institution: new FormControl('', [Validators.required]),
+        peopleInCharge: new FormControl('', [Validators.required]),
+        personConcerned: new FormControl('', [Validators.required]),
+        price: new FormControl('', [Validators.required]),
+    });
     institutionOptions: Options;
     institutions: Select2OptionData[];
     people: Select2OptionData[];
@@ -78,35 +78,41 @@ export class ProjectFormComponent implements OnInit {
             width: '100%',
             placeholder: 'Seleccione institución...'
         };
+        this.route.params.subscribe(params => {
+            this.projectId = parseInt(params.projectId, 0);
+            if (this.projectId) {
+                this.edit = true;
+            }
+        });
 
         this.getSelectData().then(() => {
-            this.route.params.subscribe(params => {
-                this.projectId = parseInt(params.projectId, 0);
-                console.log('Project = ', this.projectId);
-                if (this.projectId) {
-                    this.edit = true;
-                    this.projectsService.getProjectById(this.projectId).subscribe(response => {
-                        const startDate = getDateString(new Date(response.startDate));
-                        const endDate = getDateString(new Date(response.endDate));
-                        this.f.name.setValue(response.name);
-                        this.f.startDate.setValue(startDate);
-                        this.startDateChanged({srcElement: {value: startDate}});
-                        this.f.endDate.setValue(endDate);
-                        for (const person of response.peopleInvolved ) {
-                            if (person.role === 'interesado') {
-                                console.log('Person = ', (this.people.find(value => value.id === person.id.toString())));
-                                this.f.personConcerned.setValue( person.id.toString() );
-                            } else {
-                                this.peopleInChargeCurrent.push(person.id);
-                            }
+            console.log('Project = ', this.projectId);
+            if (this.projectId) {
+                this.edit = true;
+                this.projectsService.getProjectById(this.projectId).subscribe(response => {
+                    const startDate = getDateString(new Date(response.startDate));
+                    const endDate = getDateString(new Date(response.endDate));
+                    this.f.name.setValue(response.name);
+                    this.f.startDate.setValue(startDate);
+                    this.startDateChanged({srcElement: {value: startDate}});
+                    this.f.endDate.setValue(endDate);
+                    for (const person of response.peopleInvolved) {
+                        if (person.role === 'interesado') {
+                            console.log('Person = ', (this.people.find(value => value.id === person.id.toString())));
+                            this.f.personConcerned.setValue(person.id.toString());
+                            this.personConcernedChanged(person.id.toString());
+                        } else {
+                            this.peopleInChargeCurrent.push(person.id);
                         }
-                        this.f.peopleInCharge.setValue(this.peopleInChargeCurrent.map(value => value.toString()));
-                        this.f.institution.setValue(this.institutions.find(value => value.text === response.institution).id);
-                        this.f.price.setValue(response.price);
-                    });
-                }
-                this.isLoading = false;
-            });
+                    }
+                    this.f.peopleInCharge.setValue(this.peopleInChargeCurrent.map(value => value.toString()));
+                    this.peopleInChargeChanged(this.peopleInChargeCurrent.map(value => value.toString()));
+                    this.f.institution.setValue(this.institutions.find(value => value.text === response.institution).id);
+                    this.f.price.setValue(response.price);
+                });
+            }
+            this.isLoading = false;
+
         });
 
     }
@@ -193,6 +199,29 @@ export class ProjectFormComponent implements OnInit {
                         }
                     }
                 });
+        } else {
+            this.projectsService.updateProject(body, this.projectId).subscribe(response => {
+                console.log('Put Project Response', response);
+                this.router.navigate(['/projects']).then(result => {
+                    console.log('Router result = ', result);
+                    this.notifierService.show({
+                        type: 'success',
+                        message: 'El proyecto fue editado exitosamente'
+                    });
+                });
+            }, error => {
+                console.log(error);
+                this.notifierService.show({
+                    type: 'error',
+                    message: 'Error editando proyecto'
+                });
+                this.buttonDisabled = false;
+                for (const key in this.projectForm.controls) {
+                    if (key in this.projectForm.controls) {
+                        this.projectForm.controls[key].enable();
+                    }
+                }
+            });
         }
 
     }
@@ -217,7 +246,7 @@ export class ProjectFormComponent implements OnInit {
             this.peopleInChargeCurrent.splice(this.peopleInChargeCurrent.indexOf(parseInt(data, 0)), 1);
         }
         console.log(this.projectForm.controls.personConcerned.value);
-        this.projectForm.controls.peopleInCharge.setValue(this.peopleInChargeCurrent.map(value => value.toString()) );
+        this.projectForm.controls.peopleInCharge.setValue(this.peopleInChargeCurrent.map(value => value.toString()));
         for (const person of this.people) {
             if (person.id !== data) {
                 aux.push(person);
