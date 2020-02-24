@@ -6,10 +6,12 @@ import {Select2OptionData} from 'ng-select2';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PostProject} from '../services/project/project.interface';
 import {NotifierService} from 'angular-notifier';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {getDateString} from '../utils';
 import {AuthService} from '../services/auth.service';
 import {Options} from 'select2';
+import * as ts from 'typescript/lib/tsserverlibrary';
+import Project = ts.server.Project;
 
 @Component({
     selector: 'app-project-form',
@@ -40,10 +42,12 @@ export class ProjectFormComponent implements OnInit {
     endDateValue: string;
     buttonDisabled = false;
     startValue: string[];
+    edit = false;
+    projectId: number;
 
     constructor(private projectsService: ProjectsService, private institutionsService: InstitutionService,
                 private peopleService: PersonService, private formBuilder: FormBuilder,
-                private notifierService: NotifierService, private router: Router) {
+                private notifierService: NotifierService, private router: Router, private route: ActivatedRoute) {
     }
 
     get role(): string {
@@ -59,28 +63,6 @@ export class ProjectFormComponent implements OnInit {
                      ofrecemos en la barra lateral`
             });
         }
-        this.institutionsService.getInstitutions().subscribe(response => {
-            console.log(response);
-            this.institutions = response.map(value => {
-                const select2: Select2OptionData = {
-                    id: value.id.toString(),
-                    text: value.name
-                };
-                return select2;
-            });
-        });
-
-        this.peopleService.getPeople().subscribe(response => {
-            this.people = response.map(value => {
-                const select2: Select2OptionData = {
-                    id: value.id.toString(),
-                    text: `(${value.ci}) ${value.firstName} ${value.lastName}`,
-                };
-                return select2;
-            });
-            this.peopleInCharge = this.people.map(value => value);
-            this.peopleConcerned = this.people.map(value => value);
-        });
 
         this.peopleInChargeOptions = {
             multiple: true,
@@ -91,13 +73,59 @@ export class ProjectFormComponent implements OnInit {
             width: '100%',
             placeholder: {id: '', text: 'Seleccione interesado...'}
         };
-
         this.institutionOptions = {
             width: '100%',
             placeholder: 'Seleccione institución...'
         };
 
-        // this.people.unshift({id: '0', text: 'Empty'});
+        this.getSelectData().then(() => {
+            this.route.params.subscribe(params => {
+                this.projectId = parseInt(params.projectId, 0);
+                console.log('Project = ', this.projectId);
+                if (this.projectId) {
+                    this.edit = true;
+                    this.projectsService.getProjectById(this.projectId).subscribe(response => {
+                        const startDate = getDateString(new Date(response.startDate));
+                        const endDate = getDateString(new Date(response.endDate));
+                        this.f.name.setValue(response.name);
+                        this.f.startDate.setValue(startDate);
+                        this.startDateChanged({srcElement: {value: startDate}});
+                        this.f.endDate.setValue(endDate);
+                        for (const person of response.peopleInvolved ) {
+                            if (person.role === 'interesado') {
+                                console.log('Person = ', (this.people.find(value => value.id === person.id.toString())));
+                                this.f.personConcerned.setValue( person.id.toString() );
+                            } else {
+                                this.peopleInChargeCurrent.push(person.id);
+                            }
+                        }
+                        this.f.peopleInCharge.setValue(this.peopleInChargeCurrent.map(value => value.toString()));
+                        this.f.institution.setValue(this.institutions.find(value => value.text === response.institution).id);
+                        this.f.price.setValue(response.price);
+                    });
+                }
+            });
+        });
+
+    }
+
+    async getSelectData() {
+        this.institutions = (await this.institutionsService.getInstitutions().toPromise()).map(value => {
+            const select2: Select2OptionData = {
+                id: value.id.toString(),
+                text: value.name
+            };
+            return select2;
+        });
+        this.people = (await this.peopleService.getPeople().toPromise()).map(value => {
+            const select2: Select2OptionData = {
+                id: value.id.toString(),
+                text: `(${value.ci}) ${value.firstName} ${value.lastName}`,
+            };
+            return select2;
+        });
+        this.peopleInCharge = this.people.map(value => value);
+        this.peopleConcerned = this.people.map(value => value);
     }
 
     get f() {
@@ -139,29 +167,31 @@ export class ProjectFormComponent implements OnInit {
         }
 
         console.log('Post body = ', body);
-        this.projectsService.postProjects(body)
-            .subscribe(response => {
-                console.log('Post Project Response', response);
-                this.router.navigate(['/projects']).then(result => {
-                    console.log('Router result = ', result);
-                    this.notifierService.show({
-                        type: 'success',
-                        message: 'El proyecto fue creado exitosamente'
+        if (!this.projectId) {
+            this.projectsService.postProjects(body)
+                .subscribe(response => {
+                    console.log('Post Project Response', response);
+                    this.router.navigate(['/projects']).then(result => {
+                        console.log('Router result = ', result);
+                        this.notifierService.show({
+                            type: 'success',
+                            message: 'El proyecto fue creado exitosamente'
+                        });
                     });
-                });
-            }, error => {
-                console.log(error);
-                this.notifierService.show({
-                    type: 'error',
-                    message: 'Error registrando proyecto'
-                });
-                this.buttonDisabled = false;
-                for (const key in this.projectForm.controls) {
-                    if (key in this.projectForm.controls) {
-                        this.projectForm.controls[key].enable();
+                }, error => {
+                    console.log(error);
+                    this.notifierService.show({
+                        type: 'error',
+                        message: 'Error registrando proyecto'
+                    });
+                    this.buttonDisabled = false;
+                    for (const key in this.projectForm.controls) {
+                        if (key in this.projectForm.controls) {
+                            this.projectForm.controls[key].enable();
+                        }
                     }
-                }
-            });
+                });
+        }
 
     }
 

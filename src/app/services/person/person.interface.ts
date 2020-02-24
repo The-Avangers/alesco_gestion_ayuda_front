@@ -5,4 +5,5 @@ export interface Person {
     phone: number;
     ci: number;
     email: string;
+    role: 'encargado' | 'interesado';
 }

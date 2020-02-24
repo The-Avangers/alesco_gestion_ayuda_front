@@ -10,8 +10,11 @@
                     <li class="breadcrumb-item">
                         <a routerLink="/projects"> Proyectos</a>
                     </li>
-                    <li class="breadcrumb-item active">
+                    <li *ngIf="!edit" class="breadcrumb-item active">
                         <strong><a href="">Agregar</a></strong>
+                    </li>
+                    <li *ngIf="edit" class="breadcrumb-item active">
+                        <strong><a href="">Editar</a></strong>
                     </li>
                 </ol>
             </div>
@@ -71,9 +74,7 @@
                                                     [ngClass]="{'is-invalid': submitted && f.institution.errors }"
                                                     [data]="institutions"
                                                     [options]="institutionOptions"
-                                                    [value]="'0'"
                                                     (valueChanged)="institutionChanged($event)">
-
                                         </ng-select2>
                                         <div *ngIf="submitted && f.institution.errors" class="invalid-feedback">
                                             <div *ngIf="f.institution.errors.required">La institucion es requerida</div>
