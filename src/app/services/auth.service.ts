@@ -7,12 +7,12 @@ export class AuthService {
 
   constructor() { }
 
-  isAuthenticated() {
-      return Boolean(localStorage.getItem('isAuthenticated') );
-  }
-
 
   static getRole() {
       return localStorage.getItem('Role');
+  }
+
+  isAuthenticated() {
+      return Boolean(localStorage.getItem('isAuthenticated') );
   }
 }
