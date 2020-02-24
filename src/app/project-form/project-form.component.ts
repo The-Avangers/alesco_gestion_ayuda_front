@@ -44,6 +44,7 @@ export class ProjectFormComponent implements OnInit {
     startValue: string[];
     edit = false;
     projectId: number;
+    isLoading = true;
 
     constructor(private projectsService: ProjectsService, private institutionsService: InstitutionService,
                 private peopleService: PersonService, private formBuilder: FormBuilder,
@@ -102,6 +103,7 @@ export class ProjectFormComponent implements OnInit {
                         this.f.peopleInCharge.setValue(this.peopleInChargeCurrent.map(value => value.toString()));
                         this.f.institution.setValue(this.institutions.find(value => value.text === response.institution).id);
                         this.f.price.setValue(response.price);
+                        this.isLoading = false;
                     });
                 }
             });
