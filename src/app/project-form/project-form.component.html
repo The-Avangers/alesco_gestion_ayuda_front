@@ -24,7 +24,9 @@
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="ibox">
                 <div class="ibox-content">
-                    <mat-spinner class="mat-spinner" *ngIf="isLoading === true"></mat-spinner>
+                    <div *ngIf="isLoading === true" class=" row align-items-center">
+                        <mat-spinner class="mat-spinner" style="margin: 0 auto"></mat-spinner>
+                    </div>
                     <form *ngIf="isLoading === false" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
                         <div class="row">
                             <div class="col-md-6">
