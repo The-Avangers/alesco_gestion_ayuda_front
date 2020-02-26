@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.submitted = true;
-        this.isLoading = true;
         if (this.LoginForm.invalid) {
             const controls = this.LoginForm.controls;
             for (const name in controls) {
@@ -43,6 +42,7 @@ export class LoginComponent implements OnInit {
             console.log('negado');
             return;
         }
+        this.isLoading = true;
         const body: Login = {
             email: this.LoginForm.value.email,
             password: this.LoginForm.value.password
