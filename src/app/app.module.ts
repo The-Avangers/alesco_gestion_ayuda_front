@@ -29,6 +29,7 @@ import {AidFormComponent} from './aid-form/aid-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatPaginatorModule, MatProgressSpinnerModule} from '@angular/material';
 import {NgSelect2Module} from 'ng-select2';
+import { RequestListComponent } from './request-list/request-list.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +41,8 @@ import {NgSelect2Module} from 'ng-select2';
         AidListComponent,
         FilterTablePipe,
         ProjectFormComponent,
-        AidFormComponent
+        AidFormComponent,
+        RequestListComponent
     ],
     imports: [
         BrowserModule,
@@ -72,7 +74,8 @@ import {NgSelect2Module} from 'ng-select2';
             {path: 'projects/add', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'aids', component: AidListComponent, canActivate: [UnauthorizedGuard]},
-            {path: 'aids/add', component: AidFormComponent, canActivate: [UnauthorizedGuard]}
+            {path: 'aids/add', component: AidFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'requests', component: RequestListComponent, canActivate: [UnauthorizedGuard]}
         ]),
         ReactiveFormsModule,
         BrowserAnimationsModule,

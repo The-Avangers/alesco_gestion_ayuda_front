@@ -1,0 +1,85 @@
+<app-side-bar>
+    <ng-container *ngIf="role === 'Administrador'" class="body">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Solicitudes</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong><a routerLink="/projects"> Solicitudes </a></strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+                        <div class="ibox-content">
+                            <div class="row border-bottom">
+                                <div class="align-items-end col-sm-4">
+                                    <div *ngIf="role === 'Solicitante'" class="col-sm-5 m-b-xs">
+                                        <a routerLink="/requests/add" class="btn btn-primary">Agregar</a>
+                                    </div>
+                                    <div class="col-sm-3 m-b-xs"></div>
+                                    <div *ngIf="role == 'Administrador'" class="col-sm-5 m-b-xs"></div>
+                                    <label class="col-sm-12 col-form-label">
+                                        <input class="form-control" type="search" placeholder="Busqueda..."
+                                               [(ngModel)]="search">
+                                    </label>
+                                </div>
+                            </div>
+                            <div *ngIf="isLoading === true" class=" row align-items-center">
+                                <mat-spinner class="mat-spinner" style="margin: 0 auto"></mat-spinner>
+                            </div>
+                            <p *ngIf="isLoading === false && (requests | filterTable:search).length == 0"
+                               style="margin-top: 2.5%">No hay datos disponibles.</p>
+                            <div *ngIf="isLoading === false && (requests | filterTable:search).length != 0"
+                                 class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Codigo</th>
+                                        <th>Usuario</th>
+                                        <th>Email</th>
+                                        <th>Insumo</th>
+                                        <th>Fecha</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let request of (requests | filterTable:search)">
+                                        <td><a href="">{{ request.id }}</a></td>
+                                        <td>{{ request.user_name }}</td>
+                                        <td>{{ request.email }}</td>
+                                        <td>{{ request.aid }}</td>
+                                        <td>{{ request.created_at }}</td>
+                                        <td>
+                                            <a href=""
+                                               class="btn btn-sm btn-outline-warning">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="pagination float-right">
+                                    <mat-paginator hidePageSize="true" showFirstLastButtons="true"></mat-paginator>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2018
+            </div>
+        </div>
+    </ng-container>
+</app-side-bar>
