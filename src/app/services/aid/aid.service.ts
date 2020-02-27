@@ -14,7 +14,15 @@ export class AidService {
     return this.http.get<Aid[]>(`${environment.baseUrl}aids`);
   }
 
+  getAidById(id: number) {
+      return this.http.get<Aid>(`${environment.baseUrl}aids/${id}`);
+  }
+
   postAids(body: PostAid) {
       return this.http.post(`${environment.baseUrl}aids`, body);
+  }
+
+  updateAid(body: PostAid, id: number) {
+      return this.http.put(`${environment.baseUrl}aids/${id}`, body);
   }
 }

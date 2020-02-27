@@ -10,8 +10,11 @@
                     <li class="breadcrumb-item">
                         <a routerLink="/aids">Insumos</a>
                     </li>
-                    <li class="breadcrumb-item active">
-                        <strong><a href="">Agregar</a></strong>
+                    <li *ngIf="!edit" class="breadcrumb-item active">
+                        <strong>Agregar</strong>
+                    </li>
+                    <li *ngIf="edit" class="breadcrumb-item active">
+                        <strong>Editar</strong>
                     </li>
                 </ol>
             </div>

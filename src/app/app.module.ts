@@ -76,6 +76,7 @@ import { RequestListComponent } from './request-list/request-list.component';
             {path: 'projects', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'aids', component: AidListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'aids/add', component: AidFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'aids/edit/:aidId', component: AidFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'requests', component: RequestListComponent, canActivate: [UnauthorizedGuard]}
         ]),
         ReactiveFormsModule,

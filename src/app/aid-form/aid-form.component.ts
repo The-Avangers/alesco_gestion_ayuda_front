@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NotifierService} from 'angular-notifier';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AidService} from '../services/aid/aid.service';
 import {PostAid} from '../services/aid/aid.interface';
 
@@ -11,15 +11,23 @@ import {PostAid} from '../services/aid/aid.interface';
   styleUrls: ['./aid-form.component.css']
 })
 export class AidFormComponent implements OnInit {
-    aidForm: FormGroup;
+    aidForm = new FormGroup({
+        name : new FormControl('', [Validators.required, Validators.maxLength(20)]),
+        measure : new FormControl('', [Validators.required, Validators.maxLength(20)]),
+        type : new FormControl('', [Validators.required, Validators.maxLength(20)]),
+        unit : new FormControl('', [Validators.required])
+    });
     typeOptions: string;
     types: string[];
     role: string;
     submitted = false;
+    edit = false;
+    aidId: number;
     buttonDisabled = false;
+    isLoading = true;
 
     constructor(private aidService: AidService, private notifierService: NotifierService,
-                private router: Router) {
+                private router: Router, private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -32,13 +40,24 @@ export class AidFormComponent implements OnInit {
                      ofrecemos en la barra lateral`
             });
         }
-        this.aidForm = new FormGroup({
-            name : new FormControl('', [Validators.required, Validators.maxLength(20)]),
-            measure : new FormControl('', [Validators.required, Validators.maxLength(20)]),
-            type : new FormControl('', [Validators.required, Validators.maxLength(20)]),
-            unit : new FormControl('', [Validators.required])
+        this.route.params.subscribe(params => {
+            this.aidId = parseInt(params.aidId, 0);
+            if (this.aidId) {
+                console.log('Editando');
+                this.edit = true;
+            }
         });
         this.types = ['Medicina', 'Alimento', 'Limpieza'];
+        if (this.edit) {
+            this.aidService.getAidById(this.aidId).subscribe(response => {
+                console.log(response);
+                this.f.name.setValue(response.name);
+                this.f.measure.setValue(response.measure);
+                this.f.type.setValue(response.type);
+                this.f.unit.setValue(response.unit);
+            });
+        }
+        this.isLoading = false;
     }
     get f() {
         return this.aidForm.controls;
@@ -62,23 +81,48 @@ export class AidFormComponent implements OnInit {
             unit: this.aidForm.value.unit
         };
         console.log('Post body = ', body);
-        this.aidService.postAids(body)
-            .subscribe(response => {
-                console.log('Post Aid Response', response);
+        if (!this.aidId) {
+            this.aidService.postAids(body)
+                .subscribe(response => {
+                    console.log('Post Aid Response', response);
+                    this.router.navigate(['/aids']).then(result => {
+                        console.log('Router result = ', result);
+                        this.notifierService.show({
+                            type: 'success',
+                            message: 'El insumo fue creado exitosamente'
+                        });
+                    });
+                }, error => {
+                    console.log(error);
+                    this.notifierService.show({
+                        type: 'error',
+                        message: 'Error registrando insumo'
+                    });
+                });
+        } else {
+            this.aidService.updateAid(body, this.aidId).subscribe(response => {
+                console.log('Put Project Response', response);
                 this.router.navigate(['/aids']).then(result => {
                     console.log('Router result = ', result);
                     this.notifierService.show({
                         type: 'success',
-                        message: 'El insumo fue creado exitosamente'
+                        message: 'El insumo fue editado exitosamente'
                     });
                 });
             }, error => {
                 console.log(error);
                 this.notifierService.show({
                     type: 'error',
-                    message: 'Error registrando insumo'
+                    message: 'Error editando insumo'
                 });
+                this.buttonDisabled = false;
+                for (const key in this.aidForm.controls) {
+                    if (key in this.aidForm.controls) {
+                        this.aidForm.controls[key].enable();
+                    }
+                }
             });
+        }
     }
 
     typeChanged(data: { value: string }) {
