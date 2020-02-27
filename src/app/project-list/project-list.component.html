@@ -60,13 +60,14 @@
                                         <td>{{ project.endDate }}</td>
                                         <td>{{project.institutionName}}</td>
                                         <td>{{ 'Bs ' + (!isInteger( project.price )
-                                                        ? ( countDecimals( project.price ) == 2
+                                                        ? (countDecimals( project.price ) == 2
                                                            ? project.price.toString().replace( '.', ',' )
                                                            : project.price.toString().replace( '.', ',' ) + '0')
                                                         : project.price + ',00')}}</td>
                                         <td>{{ project.paid }}</td>
                                         <td>
-                                            <a [routerLink]="['/projects/edit', project.id]"
+                                            <a *ngIf="role === 'Administrador'"
+                                               [routerLink]="['/projects/edit', project.id]"
                                                class="btn btn-sm btn-outline-warning">
                                                 <span class="fa fa-pencil"></span>
                                             </a>
@@ -74,7 +75,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <div *ngIf="role === 'Administrador'" class="pagination float-right">
+                                <div class="pagination float-right">
                                     <mat-paginator hidePageSize="true" showFirstLastButtons="true"></mat-paginator>
                                 </div>
                             </div>

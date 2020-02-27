@@ -4,6 +4,7 @@ import {ProjectsService} from '../services/project/projects.service';
 import {Project} from '../services/project/project.interface';
 import {NotifierService} from 'angular-notifier';
 import {countDecimals, isInteger} from '../utils';
+import {AuthService} from '../services/auth.service';
 
 
 @Component({
@@ -14,7 +15,6 @@ import {countDecimals, isInteger} from '../utils';
 export class ProjectListComponent implements OnInit {
     projects: Project[] = [];
     search = '';
-    role: string;
     months = {
         0: 'Enero',
         1: 'Febrero',
@@ -34,8 +34,11 @@ export class ProjectListComponent implements OnInit {
     constructor(private service: ProjectsService, private notifierService: NotifierService) {
     }
 
+    get role(): string {
+        return AuthService.getRole();
+    }
+
     ngOnInit() {
-        this.role = localStorage.getItem('Role');
         if (this.role !== 'Administrador' && this.role !== 'Consultor') {
             return this.notifierService.show({
                 type: 'error',
