@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {PostProject, Project} from './project.interface';
+import {FullProject, PostProject, Project} from './project.interface';
 import {environment} from '../../../environments/environment';
 
 @Injectable({
@@ -13,6 +13,14 @@ export class ProjectsService {
 
     getProjects() {
         return this.http.get<Project[]>(`${environment.baseUrl}projects`);
+    }
+
+    getProjectById(id: number) {
+        return this.http.get<FullProject>(`${environment.baseUrl}projects/${id}`);
+    }
+
+    updateProject(body: PostProject, id: number) {
+        return this.http.put(`${environment.baseUrl}projects/${id}`, body);
     }
 
     postProjects(body: PostProject) {

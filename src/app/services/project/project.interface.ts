@@ -1,3 +1,5 @@
+import {Person} from '../person/person.interface';
+
 export interface Project {
     id: number;
     name: string;
@@ -8,6 +10,19 @@ export interface Project {
     institutionName: string;
 }
 
+export interface FullProject {
+    id: number;
+    name: string;
+    startDate: Date;
+    endDate: Date;
+    price: number;
+    paid: boolean;
+    institution: string;
+    peopleInvolved: Person[];
+    progress: object[];
+    payments: object[];
+}
+
 export interface PostProject {
     name: string;
     startDate: string;
@@ -16,6 +31,6 @@ export interface PostProject {
     institutionId: number;
     people: {
         id: number,
-        role: string,
+        role: 'Encargado' | 'Interesado',
     }[];
 }

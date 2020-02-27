@@ -72,6 +72,7 @@ import { RequestListComponent } from './request-list/request-list.component';
             {path: 'register', component: UserRegisterComponent, canActivate: [SessionGuard]},
             {path: '', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/add', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/edit/:projectId', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'aids', component: AidListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'aids/add', component: AidFormComponent, canActivate: [UnauthorizedGuard]},

@@ -10,8 +10,11 @@
                     <li class="breadcrumb-item">
                         <a routerLink="/projects"> Proyectos</a>
                     </li>
-                    <li class="breadcrumb-item active">
-                        <strong><a href="">Agregar</a></strong>
+                    <li *ngIf="!edit" class="breadcrumb-item active">
+                        <strong>Agregar</strong>
+                    </li>
+                    <li *ngIf="edit" class="breadcrumb-item active">
+                        <strong>Editar</strong>
                     </li>
                 </ol>
             </div>
@@ -21,7 +24,10 @@
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="ibox">
                 <div class="ibox-content">
-                    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+                    <div *ngIf="isLoading === true" class=" row align-items-center">
+                        <mat-spinner class="mat-spinner" style="margin: 0 auto"></mat-spinner>
+                    </div>
+                    <form *ngIf="isLoading === false" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -71,9 +77,7 @@
                                                     [ngClass]="{'is-invalid': submitted && f.institution.errors }"
                                                     [data]="institutions"
                                                     [options]="institutionOptions"
-                                                    [value]="'0'"
                                                     (valueChanged)="institutionChanged($event)">
-
                                         </ng-select2>
                                         <div *ngIf="submitted && f.institution.errors" class="invalid-feedback">
                                             <div *ngIf="f.institution.errors.required">La institucion es requerida</div>
