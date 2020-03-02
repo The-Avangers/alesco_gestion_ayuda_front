@@ -30,6 +30,9 @@
                 <ul class="nav nav-second-level mm-collapse">
                     <li><a [routerLink]="'/projects'">Datos de Projectos</a></li>
                 </ul>
+                <ul class="nav nav-second-level mm-collapse">
+                    <li><a [routerLink]="'/projects/institutions'">Instituciones</a></li>
+                </ul>
             </li>
             <li [ngClass]="{'mm-active border-left-green':ariaExpanded.aid}"
                 (click)="changeAriaExpanded('aid')"

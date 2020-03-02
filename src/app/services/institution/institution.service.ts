@@ -14,4 +14,22 @@ export class InstitutionService {
     getInstitutions() {
         return this.http.get<Institution[]>(`${environment.baseUrl}institutions`);
     }
+
+    getInstitution(institutionId: number) {
+        return this.http.get<Institution>(`${environment.baseUrl}institutions/${institutionId}`);
+    }
+
+    postInstitution(name: string) {
+        const body = {
+            name
+        };
+        return this.http.post<Institution>(`${environment.baseUrl}institutions`, body);
+    }
+
+    updateInstitution(name: string, id: number) {
+        const body = {
+            name
+        };
+        return this.http.put<Institution>(`${environment.baseUrl}institutions/${id}`, body);
+    }
 }

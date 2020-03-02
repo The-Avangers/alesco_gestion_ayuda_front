@@ -30,6 +30,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatPaginatorModule, MatProgressSpinnerModule} from '@angular/material';
 import {NgSelect2Module} from 'ng-select2';
 import { RequestListComponent } from './request-list/request-list.component';
+import { InstitutionListComponent } from './institution-list/institution-list.component';
+import { InstitutionFormComponent } from './institution-form/institution-form.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +44,9 @@ import { RequestListComponent } from './request-list/request-list.component';
         FilterTablePipe,
         ProjectFormComponent,
         AidFormComponent,
-        RequestListComponent
+        RequestListComponent,
+        InstitutionListComponent,
+        InstitutionFormComponent
     ],
     imports: [
         BrowserModule,
@@ -71,7 +75,10 @@ import { RequestListComponent } from './request-list/request-list.component';
         RouterModule.forRoot([
             {path: 'register', component: UserRegisterComponent, canActivate: [SessionGuard]},
             {path: '', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/institutions', component: InstitutionListComponent, canActivate: [UnauthorizedGuard] },
             {path: 'projects/add', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/institutions/add', component: InstitutionFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/institutions/edit/:institutionId', component: InstitutionFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/edit/:projectId', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'aids', component: AidListComponent, canActivate: [UnauthorizedGuard]},
