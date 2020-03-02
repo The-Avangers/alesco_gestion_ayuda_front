@@ -8,7 +8,7 @@
                         <a href="">Home</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong><a routerLink="/projects"> Projectos</a></strong>
+                        <strong><a routerLink="/projects"> Proyectos</a></strong>
                     </li>
                 </ol>
             </div>
@@ -25,7 +25,7 @@
                                     <a routerLink="/projects/add" class="btn btn-primary">Agregar</a>
                                 </div>
                                 <div class="col-sm-3 m-b-xs"></div>
-                                <div *ngIf="role == 'Consultor'" class="col-sm-5 m-b-xs"></div>
+                                <div *ngIf="role === 'Consultor'" class="col-sm-5 m-b-xs"></div>
                                 <div class="align-items-end col-sm-4">
                                     <label class="col-sm-12 col-form-label">
                                         <input class="form-control" type="search" placeholder="Busqueda..."
