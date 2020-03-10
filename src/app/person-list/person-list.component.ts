@@ -1,24 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../services/auth.service';
-import {Institution} from '../services/institution/institution.interface';
-import {InstitutionService} from '../services/institution/institution.service';
+import {Person} from '../services/person/person.interface';
+import {PersonService} from '../services/person/person.service';
 import {NotifierService} from 'angular-notifier';
 
 @Component({
-  selector: 'app-institution-list',
-  templateUrl: './institution-list.component.html',
-  styleUrls: ['./institution-list.component.css']
+  selector: 'app-person-list',
+  templateUrl: './person-list.component.html',
+  styleUrls: ['./person-list.component.css']
 })
-export class InstitutionListComponent implements OnInit {
-    search = '';
+export class PersonListComponent implements OnInit {
     isLoading = true;
-    institutions: Institution[];
+    search = '';
+    people: Person[];
 
-
-  constructor(private institutionService: InstitutionService, private notifierService: NotifierService) { }
+  constructor(private personService: PersonService, private notifierService: NotifierService) { }
 
   ngOnInit() {
-
       if (this.role !== 'Administrador' && this.role !== 'Consultor') {
           return this.notifierService.show({
               type: 'error',
@@ -28,14 +26,16 @@ export class InstitutionListComponent implements OnInit {
           });
       }
 
-      this.institutionService.getInstitutions().subscribe(response => {
-          this.institutions = response;
+      this.personService.getPeople().subscribe(response => {
+          this.people = response;
           this.isLoading = false;
       });
+
   }
 
-  get role() {
-      return AuthService.getRole();
-  }
+    get role() {
+        return AuthService.getRole();
+    }
+
 
 }

@@ -41,13 +41,11 @@ export class InstitutionFormComponent implements OnInit {
             if (this.institutionId) {
                 this.edit = true;
                 this.institutionService.getInstitution(this.institutionId).subscribe(response => {
-                    this.isLoading = false;
                     console.log(response);
                     this.f.name.setValue(response.name);
                 });
-            } else {
-                this.isLoading = false;
             }
+            this.isLoading = false;
         });
     }
 

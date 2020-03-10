@@ -16,7 +16,7 @@ import { ProjectFormComponent } from './project-form/project-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InstitutionService} from './services/institution/institution.service';
 import {PersonService} from './services/person/person.service';
-import {NgxMaskModule} from 'ngx-mask';
+import {IConfig, NgxMaskModule} from 'ngx-mask';
 import {CurrencyMaskModule} from 'ng2-currency-mask';
 import {NotifierModule} from 'angular-notifier';
 import {FilterTablePipe} from './pipes/filterTable.pipe';
@@ -32,6 +32,11 @@ import {NgSelect2Module} from 'ng-select2';
 import { RequestListComponent } from './request-list/request-list.component';
 import { InstitutionListComponent } from './institution-list/institution-list.component';
 import { InstitutionFormComponent } from './institution-form/institution-form.component';
+import { PersonListComponent } from './person-list/person-list.component';
+import { PersonFormComponent } from './person-form/person-form.component';
+
+
+export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
     declarations: [
@@ -46,7 +51,9 @@ import { InstitutionFormComponent } from './institution-form/institution-form.co
         AidFormComponent,
         RequestListComponent,
         InstitutionListComponent,
-        InstitutionFormComponent
+        InstitutionFormComponent,
+        PersonListComponent,
+        PersonFormComponent
     ],
     imports: [
         BrowserModule,
@@ -71,14 +78,17 @@ import { InstitutionFormComponent } from './institution-form/institution-form.co
                 autoHide: 15000,
             }
         }),
-        NgxMaskModule.forRoot(),
+        NgxMaskModule.forRoot(options),
         RouterModule.forRoot([
             {path: 'register', component: UserRegisterComponent, canActivate: [SessionGuard]},
             {path: '', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/institutions', component: InstitutionListComponent, canActivate: [UnauthorizedGuard] },
             {path: 'projects/add', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/people', component: PersonListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/institutions/add', component: InstitutionFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/people/add', component: PersonFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/institutions/edit/:institutionId', component: InstitutionFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/people/edit/:personId', component: PersonFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/edit/:projectId', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'aids', component: AidListComponent, canActivate: [UnauthorizedGuard]},

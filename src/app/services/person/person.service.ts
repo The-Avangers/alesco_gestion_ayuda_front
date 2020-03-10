@@ -13,4 +13,16 @@ export class PersonService {
   getPeople() {
       return this.http.get<Person[]>(`${environment.baseUrl}people`);
   }
+
+  getPerson(personId: number) {
+      return this.http.get<Person>(`${environment.baseUrl}people/${personId}`);
+  }
+
+  postPerson(body: Person) {
+      return this.http.post(`${environment.baseUrl}people`, body);
+  }
+
+  updatePerson(body: Person, personId: number) {
+      return this.http.put(`${environment.baseUrl}people/${personId}`, body);
+  }
 }
