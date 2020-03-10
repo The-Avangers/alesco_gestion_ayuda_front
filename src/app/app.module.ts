@@ -36,8 +36,6 @@ import { PersonListComponent } from './person-list/person-list.component';
 import { PersonFormComponent } from './person-form/person-form.component';
 
 
-export let options: Partial<IConfig> | (() => Partial<IConfig>);
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -78,7 +76,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
                 autoHide: 15000,
             }
         }),
-        NgxMaskModule.forRoot(options),
+        NgxMaskModule.forRoot(),
         RouterModule.forRoot([
             {path: 'register', component: UserRegisterComponent, canActivate: [SessionGuard]},
             {path: '', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
