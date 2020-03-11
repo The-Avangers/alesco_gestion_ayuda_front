@@ -64,9 +64,9 @@
                                                            ? project.price.toString().replace( '.', ',' )
                                                            : project.price.toString().replace( '.', ',' ) + '0')
                                                         : project.price + ',00')}}</td>
-                                        <td>{{ project.paid }}</td>
+                                        <td>{{ project.paid ? 'Sí' : 'No' }}</td>
                                         <td><a [routerLink]="['/projects/progress', project.id]">Marcar Progreso</a></td>
-                                        <td><a href="">Pagar</a></td>
+                                        <td><a *ngIf="!project.paid" [routerLink]="['/projects/payment', project.id]">Registrar Pago</a></td>
                                         <td>
                                             <a *ngIf="role === 'Administrador'"
                                                [routerLink]="['/projects/edit', project.id]"

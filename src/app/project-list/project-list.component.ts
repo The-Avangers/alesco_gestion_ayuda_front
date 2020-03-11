@@ -56,7 +56,6 @@ export class ProjectListComponent implements OnInit {
                 this.isLoading = false;
                 this.projects = response;
                 this.projects = this.projects.map(value => {
-                    value.paid = value.paid ? 'Sí' : 'No';
                     const start = new Date(value.startDate);
                     const end = new Date(value.endDate);
                     // @ts-ignore

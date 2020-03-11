@@ -53,7 +53,7 @@ export class ProgressFormComponent implements OnInit {
             minDate.setDate(minDate.getDate() + 1);
         } else {
             minDate = new Date(this.project.progress[this.project.progress.length - 1].date);
-            minDate.setDate(minDate.getDate() +1);
+            minDate.setDate(minDate.getDate() + 1);
         }
         return getDateString(minDate);
     }

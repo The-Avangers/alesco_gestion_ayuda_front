@@ -35,6 +35,7 @@ import { InstitutionFormComponent } from './institution-form/institution-form.co
 import { PersonListComponent } from './person-list/person-list.component';
 import { PersonFormComponent } from './person-form/person-form.component';
 import { ProgressFormComponent } from './progress-form/progress-form.component';
+import { PaymentFormComponent } from './payment-form/payment-form.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { ProgressFormComponent } from './progress-form/progress-form.component';
         InstitutionFormComponent,
         PersonListComponent,
         PersonFormComponent,
-        ProgressFormComponent
+        ProgressFormComponent,
+        PaymentFormComponent
     ],
     imports: [
         BrowserModule,
@@ -87,6 +89,7 @@ import { ProgressFormComponent } from './progress-form/progress-form.component';
             {path: 'projects/people', component: PersonListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/institutions/add', component: InstitutionFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/people/add', component: PersonFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/payment/:projectId', component: PaymentFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/progress/:projectId', component: ProgressFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/institutions/edit/:institutionId', component: InstitutionFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/people/edit/:personId', component: PersonFormComponent, canActivate: [UnauthorizedGuard]},
