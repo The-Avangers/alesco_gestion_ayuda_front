@@ -38,6 +38,10 @@ export class ProjectListComponent implements OnInit {
         return AuthService.getRole();
     }
 
+    stringifyProject(project: Project) {
+        return JSON.stringify(project);
+    }
+
     ngOnInit() {
         if (this.role !== 'Administrador' && this.role !== 'Consultor') {
             return this.notifierService.show({
