@@ -52,6 +52,7 @@ export class PaymentFormComponent implements OnInit {
                 this.f.totalAmount.setValue(this.price);
                 this.f.totalAmount.disable();
                 this.f.name.disable();
+                this.f.fullPayment.setValue(false);
                 this.isLoading = false;
             });
         });
