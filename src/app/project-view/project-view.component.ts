@@ -11,6 +11,7 @@ import {formatPrice, getDateStringFormatted} from '../utils';
   styleUrls: ['./project-view.component.css']
 })
 export class ProjectViewComponent implements OnInit {
+    isLoading = true;
     projectId: number;
     project: FullProject;
 
@@ -21,12 +22,16 @@ export class ProjectViewComponent implements OnInit {
           this.projectId = params.projectId;
           this.projectsService.getProjectById(this.projectId).subscribe(response => {
               this.project = response;
+              this.isLoading = false;
           });
       });
   }
 
   get peopleInCharge() {
-      return this.project.peopleInvolved.filter(value => value.role === 'encargado');
+      if (this.project) {
+          return this.project.peopleInvolved.filter(value => value.role === 'encargado');
+
+      }
   }
 
   get personConcerned() {
