@@ -92,12 +92,6 @@ export class PaymentFormComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
         if (this.paymentForm.invalid) {
-            console.log(this.paymentForm.invalid)
-            for (const key in this.f) {
-                if (key in this.f) {
-                    console.log(this.f[key].invalid);
-                }
-            }
             return;
         }
 
