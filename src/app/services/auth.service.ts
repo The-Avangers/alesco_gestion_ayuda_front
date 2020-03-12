@@ -13,6 +13,7 @@ export class AuthService {
   }
 
   isAuthenticated() {
-      return Boolean(localStorage.getItem('isAuthenticated') );
+      console.log(localStorage.getItem('isAuthenticated') );
+      return localStorage.getItem('isAuthenticated') === 'true';
   }
 }
