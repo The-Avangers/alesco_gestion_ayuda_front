@@ -47,7 +47,7 @@ export class PaymentFormComponent implements OnInit {
                 for (const payment of this.project.payments) {
                     this.price -= payment.amount;
                 }
-                this.f.payment = new FormControl('', [Validators.required, Validators.max(this.price)]);
+                this.f.payment.setValidators([Validators.required, Validators.max(this.price)]);
                 this.f.name.setValue(this.project.name);
                 this.f.totalAmount.setValue(this.price);
                 this.f.totalAmount.disable();
@@ -92,6 +92,12 @@ export class PaymentFormComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
         if (this.paymentForm.invalid) {
+            console.log(this.paymentForm.invalid)
+            for (const key in this.f) {
+                if (key in this.f) {
+                    console.log(this.f[key].invalid);
+                }
+            }
             return;
         }
 
