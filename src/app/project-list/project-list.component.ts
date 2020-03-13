@@ -19,6 +19,7 @@ export class ProjectListComponent implements OnInit {
     isLoading = true;
     paginatedProjects: Project[][] = [];
     currentPage: Project[] = [];
+    private pageSize = 10;
 
     constructor(private service: ProjectsService, private notifierService: NotifierService) {
     }
@@ -53,7 +54,7 @@ export class ProjectListComponent implements OnInit {
                     value.endDate = getDateStringFormatted(end);
                     return value;
                 });
-                this.paginatedProjects = paginateObject<Project>(this.projects, 10);
+                this.paginatedProjects = paginateObject<Project>(this.projects, this.pageSize);
                 this.currentPage = this.paginatedProjects[0];
                 console.log(this.paginatedProjects);
             }, () => {
@@ -67,7 +68,7 @@ export class ProjectListComponent implements OnInit {
 
     searchTyped() {
         console.log(filterTable<Project>(this.projects, this.search));
-        this.paginatedProjects = paginateObject<Project>(filterTable<Project>(this.projects, this.search), 10);
+        this.paginatedProjects = paginateObject<Project>(filterTable<Project>(this.projects, this.search), this.pageSize);
         this.currentPage = this.paginatedProjects[0];
     }
 

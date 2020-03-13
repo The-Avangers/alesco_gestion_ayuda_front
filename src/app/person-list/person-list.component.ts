@@ -17,6 +17,7 @@ export class PersonListComponent implements OnInit {
     people: Person[];
     peoplePaginated: Person[][];
     currentPage: Person[];
+    private pageSize = 10;
 
     constructor(private personService: PersonService, private notifierService: NotifierService) {
     }
@@ -33,7 +34,7 @@ export class PersonListComponent implements OnInit {
 
         this.personService.getPeople().subscribe(response => {
             this.people = response;
-            this.peoplePaginated = paginateObject<Person>(this.people, 10);
+            this.peoplePaginated = paginateObject<Person>(this.people, this.pageSize);
             this.currentPage = this.peoplePaginated[0];
             this.isLoading = false;
         });
@@ -41,7 +42,7 @@ export class PersonListComponent implements OnInit {
     }
 
     searchTyped() {
-        this.peoplePaginated = paginateObject<Person>(filterTable<Person>(this.people, this.search), 10);
+        this.peoplePaginated = paginateObject<Person>(filterTable<Person>(this.people, this.search), this.pageSize);
         this.currentPage = this.peoplePaginated[0];
     }
 
