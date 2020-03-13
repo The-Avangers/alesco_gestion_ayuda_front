@@ -32,7 +32,7 @@
                                 <div class="align-items-end col-sm-4">
                                     <label class="col-sm-12 col-form-label">
                                         <input class="form-control" type="search" placeholder="Busqueda..."
-                                               [(ngModel)]="search">
+                                               [(ngModel)]="search" (input)="searchTyped()">
                                     </label>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                     </tbody>
                                 </table>
                                 <div class="pagination float-right">
-                                    <mat-paginator hidePageSize="true" showFirstLastButtons="true"></mat-paginator>
+                                    <mat-paginator [pageSize]="1" [length]="peoplePaginated.length" hidePageSize="true" showFirstLastButtons="true" (page)="onPageChanged($event)"></mat-paginator>
                                 </div>
                             </div>
                         </div>
