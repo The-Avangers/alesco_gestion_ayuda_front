@@ -53,7 +53,7 @@ export class ProjectListComponent implements OnInit {
                     value.endDate = getDateStringFormatted(end);
                     return value;
                 });
-                this.paginatedProjects = paginateObject<Project>(this.projects, 3);
+                this.paginatedProjects = paginateObject<Project>(this.projects, 10);
                 this.currentPage = this.paginatedProjects[0];
                 console.log(this.paginatedProjects);
             }, () => {
@@ -67,7 +67,7 @@ export class ProjectListComponent implements OnInit {
 
     searchTyped() {
         console.log(filterTable<Project>(this.projects, this.search));
-        this.paginatedProjects = paginateObject<Project>(filterTable<Project>(this.projects, this.search), 3);
+        this.paginatedProjects = paginateObject<Project>(filterTable<Project>(this.projects, this.search), 10);
         this.currentPage = this.paginatedProjects[0];
     }
 
