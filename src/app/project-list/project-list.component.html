@@ -29,16 +29,16 @@
                                 <div class="align-items-end col-sm-4">
                                     <label class="col-sm-12 col-form-label">
                                         <input class="form-control" type="search" placeholder="Busqueda..."
-                                               [(ngModel)]="search">
+                                               [(ngModel)]="search" (input)="searchTyped()">
                                     </label>
                                 </div>
                             </div>
                             <div *ngIf="isLoading === true" class=" row align-items-center">
                                 <mat-spinner class="mat-spinner" style="margin: 0 auto"></mat-spinner>
                             </div>
-                            <p *ngIf="isLoading === false && (projects | filterTable:search).length == 0"
+                            <p *ngIf="isLoading === false && currentPage.length == 0"
                                style="margin-top: 2.5%">No hay datos disponibles.</p>
-                            <div *ngIf="isLoading === false && (projects | filterTable:search).length != 0"
+                            <div *ngIf="isLoading === false && currentPage.length != 0"
                                  class="table-responsive">
                                 <table class="table table-striped text-center">
                                     <thead>
@@ -53,7 +53,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let project of (projects | filterTable:search)">
+                                    <tr *ngFor="let project of currentPage">
                                         <td><a [routerLink]="['/projects', project.id]">{{ project.id }}</a></td>
                                         <td>{{ project.name }}</td>
                                         <td>{{ project.startDate }}</td>
@@ -74,7 +74,7 @@
                                     </tbody>
                                 </table>
                                 <div class="pagination float-right">
-                                    <mat-paginator hidePageSize="true" showFirstLastButtons="true"></mat-paginator>
+                                    <mat-paginator [pageSize]="1" [length]="paginatedProjects.length" hidePageSize="true" showFirstLastButtons="true" (page)="onPageChanged($event)"></mat-paginator>
                                 </div>
                             </div>
                         </div>

@@ -3,8 +3,9 @@ import {Component, OnInit} from '@angular/core';
 import {ProjectsService} from '../services/project/projects.service';
 import {Project} from '../services/project/project.interface';
 import {NotifierService} from 'angular-notifier';
-import {countDecimals, formatPrice, getDateStringFormatted, isInteger} from '../utils';
+import {countDecimals, filterTable, formatPrice, getDateStringFormatted, isInteger, paginateObject} from '../utils';
 import {AuthService} from '../services/auth.service';
+import {PageEvent} from '@angular/material';
 
 
 @Component({
@@ -16,6 +17,8 @@ export class ProjectListComponent implements OnInit {
     projects: Project[] = [];
     search = '';
     isLoading = true;
+    paginatedProjects: Project[][] = [];
+    currentPage: Project[] = [];
 
     constructor(private service: ProjectsService, private notifierService: NotifierService) {
     }
@@ -27,6 +30,8 @@ export class ProjectListComponent implements OnInit {
     stringifyProject(project: Project) {
         return JSON.stringify(project);
     }
+
+
 
     ngOnInit() {
         if (this.role !== 'Administrador' && this.role !== 'Consultor') {
@@ -48,6 +53,9 @@ export class ProjectListComponent implements OnInit {
                     value.endDate = getDateStringFormatted(end);
                     return value;
                 });
+                this.paginatedProjects = paginateObject<Project>(this.projects, 10);
+                this.currentPage = this.paginatedProjects[0];
+                console.log(this.paginatedProjects);
             }, () => {
                 this.isLoading = false;
             });
@@ -55,5 +63,14 @@ export class ProjectListComponent implements OnInit {
 
     getPrice(price: number) {
         return formatPrice(price);
+    }
+
+    searchTyped() {
+        this.paginatedProjects = paginateObject<Project>(filterTable<Project>(this.projects, this.search), 10);
+        this.currentPage = this.paginatedProjects[0];
+    }
+
+    onPageChanged(event: PageEvent) {
+        this.currentPage = this.paginatedProjects[event.pageIndex];
     }
 }
