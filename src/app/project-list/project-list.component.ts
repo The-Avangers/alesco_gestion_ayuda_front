@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProjectsService} from '../services/project/projects.service';
 import {Project} from '../services/project/project.interface';
 import {NotifierService} from 'angular-notifier';
-import {countDecimals, filterTable, formatPrice, getDateStringFormatted, isInteger, paginateObject} from '../utils';
+import {filterTable, formatPrice, getDateStringFormatted, paginateObject} from '../utils';
 import {AuthService} from '../services/auth.service';
 import {PageEvent} from '@angular/material';
 
@@ -53,7 +53,7 @@ export class ProjectListComponent implements OnInit {
                     value.endDate = getDateStringFormatted(end);
                     return value;
                 });
-                this.paginatedProjects = paginateObject<Project>(this.projects, 10);
+                this.paginatedProjects = paginateObject<Project>(this.projects, 3);
                 this.currentPage = this.paginatedProjects[0];
                 console.log(this.paginatedProjects);
             }, () => {
@@ -66,7 +66,8 @@ export class ProjectListComponent implements OnInit {
     }
 
     searchTyped() {
-        this.paginatedProjects = paginateObject<Project>(filterTable<Project>(this.projects, this.search), 10);
+        console.log(filterTable<Project>(this.projects, this.search));
+        this.paginatedProjects = paginateObject<Project>(filterTable<Project>(this.projects, this.search), 3);
         this.currentPage = this.paginatedProjects[0];
     }
 

@@ -39,9 +39,9 @@
                             <div *ngIf="isLoading === true" class=" row align-items-center">
                                 <mat-spinner class="mat-spinner" style="margin: 0 auto"></mat-spinner>
                             </div>
-                            <p *ngIf="isLoading === false && currentPage.length == 0"
+                            <p *ngIf="isLoading === false && (!currentPage || currentPage.length == 0)"
                                style="margin-top: 2.5%">No hay datos disponibles.</p>
-                            <div *ngIf="isLoading === false && currentPage.length != 0"
+                            <div *ngIf="isLoading === false && currentPage && currentPage.length != 0"
                                  class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
