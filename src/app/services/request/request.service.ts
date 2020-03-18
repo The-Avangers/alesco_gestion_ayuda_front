@@ -13,4 +13,8 @@ export class RequestService {
   getRequests() {
       return this.http.get<Request[]>(`${environment.baseUrl}requests`);
   }
+
+  getSolRequests(id: number) {
+      return this.http.get<Request[]>(`${environment.baseUrl}requests/${id}`);
+  }
 }

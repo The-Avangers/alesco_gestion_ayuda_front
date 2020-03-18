@@ -6,4 +6,5 @@ export interface Request {
     aid: string;
     user_name: string;
     email: string;
+    status: string;
 }

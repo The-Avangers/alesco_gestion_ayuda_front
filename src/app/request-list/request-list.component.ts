@@ -13,6 +13,7 @@ export class RequestListComponent implements OnInit {
     requests: Request[] = [];
     search = '';
     role: string;
+    id: number;
     months = {
         0: 'Enero',
         1: 'Febrero',
@@ -33,6 +34,7 @@ export class RequestListComponent implements OnInit {
 
   ngOnInit() {
       this.role = localStorage.getItem('Role');
+      this.id = JSON.parse(localStorage.getItem('User')).id;
       if (this.role !== 'Administrador' && this.role !== 'Solicitante') {
           return this.notifierService.show({
               type: 'error',
@@ -41,24 +43,46 @@ export class RequestListComponent implements OnInit {
                      ofrecemos en la barra lateral`
           });
       }
-      this.service.getRequests()
-          .subscribe(response => {
-              this.isLoading = false;
-              this.requests = response;
-              this.requests = this.requests.map(value => {
-                  const date = new Date(value.created_at);
-                  // @ts-ignore
-                  value.created_at = `${date.getDate()} de ${this.months[date.getMonth()]} de ${date.getFullYear()}`;
-                  return value;
+      if (this.role === 'Administrador') {
+          this.service.getRequests()
+              .subscribe(response => {
+                  this.isLoading = false;
+                  this.requests = response;
+                  this.requests = this.requests.map(value => {
+                      const date = new Date(value.created_at);
+                      // @ts-ignore
+                      value.created_at = `${date.getDate()} de ${this.months[date.getMonth()]} de ${date.getFullYear()}`;
+                      return value;
+                  });
+              }, error => {
+                  this.isLoading = false;
+                  this.notifierService.show({
+                      type: 'error',
+                      message: 'Error al Obtener Las Solicitudes'
+                  });
               });
-          }, error => {
-              this.isLoading = false;
-              console.log(error.error);
-              this.notifierService.show({
-                  type : 'error',
-                  message: 'Error al Obtener Las Solicitudes'
+      }
+      if (this.role === 'Solicitante') {
+          console.log(this.id);
+          this.service.getSolRequests(this.id)
+              .subscribe(response => {
+                  this.isLoading = false;
+                  this.requests = response;
+                  this.requests = this.requests.map(value => {
+                      const date = new Date(value.created_at);
+                      // @ts-ignore
+                      value.created_at = `${date.getDate()} de ${this.months[date.getMonth()]} de ${date.getFullYear()}`;
+                      return value;
+                  });
+              }, error => {
+                  this.isLoading = false;
+                  console.log(error.error);
+                  this.notifierService.show({
+                      type: 'error',
+                      message: 'Error al Obtener Las Solicitudes'
+                  });
               });
-          });
+      }
   }
 
 
