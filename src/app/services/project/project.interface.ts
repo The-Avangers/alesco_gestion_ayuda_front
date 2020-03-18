@@ -19,8 +19,18 @@ export interface FullProject {
     paid: boolean;
     institution: string;
     peopleInvolved: Person[];
-    progress: object[];
-    payments: object[];
+    progress: Progress[];
+    payments: Payment[];
+}
+
+export interface Progress {
+    milestone: string;
+    date: Date;
+}
+
+export interface Payment {
+    amount: number;
+    date: Date;
 }
 
 export interface PostProject {

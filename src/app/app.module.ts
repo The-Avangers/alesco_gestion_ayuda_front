@@ -34,6 +34,9 @@ import { InstitutionListComponent } from './institution-list/institution-list.co
 import { InstitutionFormComponent } from './institution-form/institution-form.component';
 import { PersonListComponent } from './person-list/person-list.component';
 import { PersonFormComponent } from './person-form/person-form.component';
+import { ProgressFormComponent } from './progress-form/progress-form.component';
+import { PaymentFormComponent } from './payment-form/payment-form.component';
+import { ProjectViewComponent } from './project-view/project-view.component';
 
 
 @NgModule({
@@ -51,7 +54,10 @@ import { PersonFormComponent } from './person-form/person-form.component';
         InstitutionListComponent,
         InstitutionFormComponent,
         PersonListComponent,
-        PersonFormComponent
+        PersonFormComponent,
+        ProgressFormComponent,
+        PaymentFormComponent,
+        ProjectViewComponent
     ],
     imports: [
         BrowserModule,
@@ -83,8 +89,11 @@ import { PersonFormComponent } from './person-form/person-form.component';
             {path: 'projects/institutions', component: InstitutionListComponent, canActivate: [UnauthorizedGuard] },
             {path: 'projects/add', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/people', component: PersonListComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/:projectId', component: ProjectViewComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/institutions/add', component: InstitutionFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/people/add', component: PersonFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/payment/:projectId', component: PaymentFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/progress/:projectId', component: ProgressFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/institutions/edit/:institutionId', component: InstitutionFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/people/edit/:personId', component: PersonFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/edit/:projectId', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},

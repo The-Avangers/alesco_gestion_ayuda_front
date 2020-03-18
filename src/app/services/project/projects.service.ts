@@ -26,4 +26,14 @@ export class ProjectsService {
     postProjects(body: PostProject) {
         return this.http.post(`${environment.baseUrl}projects`, body);
     }
+
+    postProjectProgress(projectId: number, milestone: string, date: string) {
+        const body = {projectId, milestone, date};
+        return this.http.post(`${environment.baseUrl}projects/progress`, body);
+    }
+
+    postProjectPayment(projectId: number, amount: string, paymentDate: string) {
+        const body = {projectId, amount, paymentDate};
+        return this.http.post(`${environment.baseUrl}payments`, body);
+    }
 }

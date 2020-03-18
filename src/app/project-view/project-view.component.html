@@ -1,0 +1,105 @@
+<app-side-bar>
+    <ng-container *ngIf="role === 'Administrador' || role === 'Consultor'" class="body">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Proyectos</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <a routerLink="/projects"> Proyectos</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong>{{projectId}}</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+        <div *ngIf="isLoading === true" class=" row align-items-center">
+            <mat-spinner class="mat-spinner" style="margin: 0 auto"></mat-spinner>
+        </div>
+        <div *ngIf="isLoading === false" class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+                        <div class="ibox-content">
+                            <div class="col-sm-12" >
+                                <h1 class="text-navy">{{project.name}}</h1>
+                                <h2 class="text-navy"> {{project.institution}}</h2>
+                            </div>
+                            <p class="invisible">aadfsdfsdfsd</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-4">
+                                            <h3 class="text-navy">Encargados</h3>
+                                            <h5 class="text-black-50" *ngFor="let person of peopleInCharge">{{person.firstName+' '+person.lastName}}</h5>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <h3 class="text-navy">Interesado</h3>
+                                            <h5 class="text-black-50">{{personConcerned.firstName+' '+personConcerned.lastName}}</h5>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h3 class="text-navy">Precio</h3>
+                                            <h5 class="text-black-50">{{price}}</h5>
+                                        </div>
+                                    </div>
+                                    <p class="invisible">sd</p>
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-4">
+                                            <h3 class="text-navy">Fecha de inicio</h3>
+                                            <h5 class="text-black-50">{{startDate}}</h5>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <h3 class="text-navy">Fecha fin</h3>
+                                            <h5 class="text-black-50">{{endDate}}</h5>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <h3 class="text-navy">Pagado</h3>
+                                            <h5 class="text-black-50">{{project.paid ? 'Sí' : 'No'}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row col-sm-12">
+                                        <h3 class="text-navy">Pagos</h3>
+                                        <table class=" table table-striped text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>Monto</th>
+                                                    <th>Fecha</th>
+                                                    <th>Total Pagado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let payment of project.payments">
+                                                    <td>{{getPriceString(payment.amount)}}</td>
+                                                    <td>{{getDateString(payment.date)}}</td>
+                                                    <td>-</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>{{getPriceString(totalPaid)}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2018
+            </div>
+        </div>
+    </ng-container>
+</app-side-bar>

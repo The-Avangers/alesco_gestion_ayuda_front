@@ -38,7 +38,7 @@
                                         <input type="text"
                                                formControlName="firstName"
                                                class="form-control"
-                                               placeholder="Pedro"
+                                               placeholder="Ingrese Nombre..."
                                                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
                                         <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
                                             <div *ngIf="f.name.errors.required">El nombre de la persona es requerido
@@ -51,6 +51,7 @@
                                         <input class="form-control"
                                                mask="separator"
                                                thousandSeparator="."
+                                               placeholder="Ingrese Cédula..."
                                                formControlName="ci"
                                                [ngClass]="{'is-invalid': submitted && f.ci.errors }"
                                                type="text">
@@ -64,6 +65,7 @@
                                     <label class="col-sm-12 col-form-label">Correo Electrónico
                                         <input type="text"
                                                formControlName="email"
+                                               placeholder="Ingrese correo electrónico..."
                                                class="form-control"
                                                [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
                                         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
@@ -81,7 +83,7 @@
                                         <input type="text"
                                                formControlName="lastName"
                                                class="form-control"
-                                               placeholder="Pérez"
+                                               placeholder="Ingrese apellido..."
                                                [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
                                         <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
                                             <div *ngIf="f.lastName.errors.required">El apellido de la persona es requerido
@@ -92,11 +94,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-12 col-form-label">Teléfono
                                         <input type="text"
+                                               placeholder="Ingrese telefono..."
                                                mask="000-0000000"
-                                               prefix="0"
                                                formControlName="phone"
                                                class="form-control"
-                                               placeholder="412-1234567"
                                                [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
                                         <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
                                             <div *ngIf="f.phone.errors.required">El telefono es requerido
