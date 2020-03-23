@@ -7,4 +7,5 @@ export interface Request {
     user_name: string;
     email: string;
     status: string;
+    unit: string;
 }
