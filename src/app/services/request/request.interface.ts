@@ -9,3 +9,7 @@ export interface Request {
     status: string;
     unit: string;
 }
+export interface PostRequest {
+    id_user: number;
+    id_aid: number;
+}
