@@ -61,10 +61,13 @@
                                         <td>{{ request.created_at }}</td>
                                         <td>{{ request.status }}</td>
                                         <td>{{ request.unit }}</td>
-                                        <td>
-                                            <a href=""
-                                               class="btn btn-sm btn-outline-warning">
-                                                <span class="fa fa-pencil"></span>
+                                        <td *ngIf="role == 'Administrador' && request.status == 'Esperando Respuesta'">
+                                            <a class="btn btn-sm btn-outline-warning" style="color: green">
+                                                <span class="fa fa-check" style="color: green"></span>
+                                            </a>
+                                            <a (click)="deniedRequest(request)"
+                                               class="btn btn-sm btn-outline-warning" style="color: red">
+                                                <span class="fa fa-times" style="color: red"></span>
                                             </a>
                                         </td>
                                     </tr>
