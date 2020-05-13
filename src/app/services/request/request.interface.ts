@@ -6,7 +6,9 @@ export interface Request {
     aid: string;
     user_name: string;
     email: string;
+    approved: boolean;
     status: string;
+    statusnumber: number;
     unit: string;
 }
 export interface PostRequest {

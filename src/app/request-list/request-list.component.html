@@ -8,7 +8,7 @@
                         <a href="">Home</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong><a routerLink="/projects"> Solicitudes </a></strong>
+                        <strong><a routerLink="/requests"> Solicitudes </a></strong>
                     </li>
                 </ol>
             </div>
@@ -53,7 +53,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let request of (requests | filterTable:search)">
+                                    <tr *ngFor="let request of (requests | filterTable:search | sortBy:'statusnumber')">
                                         <td><a href="">{{ request.id }}</a></td>
                                         <td *ngIf="role == 'Administrador'">{{ request.user_name }}</td>
                                         <td *ngIf="role == 'Administrador'">{{ request.email }}</td>

@@ -37,6 +37,7 @@ import { PersonFormComponent } from './person-form/person-form.component';
 import { ProgressFormComponent } from './progress-form/progress-form.component';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
 import { ProjectViewComponent } from './project-view/project-view.component';
+import { SortByPipe } from './pipes/sort-by.pipe';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { ProjectViewComponent } from './project-view/project-view.component';
         PersonFormComponent,
         ProgressFormComponent,
         PaymentFormComponent,
-        ProjectViewComponent
+        ProjectViewComponent,
+        SortByPipe
     ],
     imports: [
         BrowserModule,
