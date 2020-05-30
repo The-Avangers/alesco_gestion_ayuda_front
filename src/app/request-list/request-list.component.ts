@@ -4,8 +4,6 @@ import {RequestService} from '../services/request/request.service';
 import {Request} from '../services/request/request.interface';
 import {ResponseService} from '../services/response/response.service';
 import {Response} from '../services/response/response.interface';
-import {AidService} from '../services/aid/aid.service';
-import {Aid} from '../services/aid/aid.interface';
 import {NotifierService} from 'angular-notifier';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
@@ -36,7 +34,7 @@ export class RequestListComponent implements OnInit {
     };
     isLoading = true;
 
-  constructor(private requestService: RequestService, private responseService: ResponseService, private aidService: AidService,
+  constructor(private requestService: RequestService, private responseService: ResponseService,
               private notifierService: NotifierService, private router: Router) { }
 
   ngOnInit() {
@@ -132,9 +130,5 @@ export class RequestListComponent implements OnInit {
           }
       });
   }
-  submitRequest() {
-
-  }
-
 
 }

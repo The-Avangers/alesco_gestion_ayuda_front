@@ -38,6 +38,7 @@ import { ProgressFormComponent } from './progress-form/progress-form.component';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
 import { ProjectViewComponent } from './project-view/project-view.component';
 import { SortByPipe } from './pipes/sort-by.pipe';
+import { RequestFormComponent } from './request-form/request-form.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { SortByPipe } from './pipes/sort-by.pipe';
         ProgressFormComponent,
         PaymentFormComponent,
         ProjectViewComponent,
-        SortByPipe
+        SortByPipe,
+        RequestFormComponent
     ],
     imports: [
         BrowserModule,
@@ -103,7 +105,8 @@ import { SortByPipe } from './pipes/sort-by.pipe';
             {path: 'aids', component: AidListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'aids/add', component: AidFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'aids/edit/:aidId', component: AidFormComponent, canActivate: [UnauthorizedGuard]},
-            {path: 'requests', component: RequestListComponent, canActivate: [UnauthorizedGuard]}
+            {path: 'requests', component: RequestListComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'requests/add', component: RequestFormComponent, canActivate: [UnauthorizedGuard]}
         ]),
         ReactiveFormsModule,
         BrowserAnimationsModule,
