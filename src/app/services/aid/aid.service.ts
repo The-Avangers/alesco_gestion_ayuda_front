@@ -25,4 +25,8 @@ export class AidService {
   updateAid(body: PostAid, id: number) {
       return this.http.put(`${environment.baseUrl}aids/${id}`, body);
   }
+
+  getAidsAvailable() {
+      return this.http.get<Aid[]>(`${environment.baseUrl}aids/create`);
+  }
 }
