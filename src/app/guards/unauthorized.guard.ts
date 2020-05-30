@@ -15,13 +15,13 @@ export class UnauthorizedGuard implements CanActivate {
     }
 
     canActivate(): boolean {
-        this.institutionsService.getInstitution(1).subscribe(res => {
+        /*this.institutionsService.getInstitution(1).subscribe(res => {
         }, error => {
             console.log(this.authService.isAuthenticated());
             if (!this.authService.isAuthenticated()) {
                 this.router.navigate(['/register']).then(() => false);
             }
-        });
+        });*/
         return true;
     }
 
