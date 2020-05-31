@@ -62,7 +62,8 @@
                                         <td>{{ request.status }}</td>
                                         <td>{{ request.unit }}</td>
                                         <td *ngIf="role == 'Administrador' && request.status == 'Esperando Respuesta'">
-                                            <a class="btn btn-sm btn-outline-warning" style="color: green">
+                                            <a (click)="getAidbyId(request)"
+                                               class="btn btn-sm btn-outline-warning" style="color: green">
                                                 <span class="fa fa-check" style="color: green"></span>
                                             </a>
                                             <a (click)="deniedRequest(request)"

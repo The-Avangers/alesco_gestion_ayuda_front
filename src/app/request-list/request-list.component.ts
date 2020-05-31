@@ -4,6 +4,8 @@ import {RequestService} from '../services/request/request.service';
 import {Request} from '../services/request/request.interface';
 import {ResponseService} from '../services/response/response.service';
 import {Response} from '../services/response/response.interface';
+import {Aid} from '../services/aid/aid.interface';
+import {AidService} from '../services/aid/aid.service';
 import {NotifierService} from 'angular-notifier';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
@@ -33,8 +35,9 @@ export class RequestListComponent implements OnInit {
         11: 'Diciembre',
     };
     isLoading = true;
+    aid: Aid;
 
-  constructor(private requestService: RequestService, private responseService: ResponseService,
+  constructor(private requestService: RequestService, private responseService: ResponseService, private aidService: AidService,
               private notifierService: NotifierService, private router: Router) { }
 
   ngOnInit() {
@@ -95,6 +98,22 @@ export class RequestListComponent implements OnInit {
             this.router.navigate([currentUrl]);
         });
   }
+  getAidbyId(req: Request) {
+      this.aidService.getAidById(req.id_aid)
+          .subscribe(response => {
+              this.aid = response;
+              console.log(this.aid.unit);
+              this.approveRequest(req);
+          }, error => {
+              this.isLoading = false;
+              console.log(error.error);
+              this.reloadCurrentRoute();
+              this.notifierService.show({
+                  type : 'error',
+                  message: 'Error al Obtener La Cantidad Disponible en el Insumo correspondiente a la solicitud Seleccionada'
+              });
+          });
+  }
   deniedRequest(req: Request) {
       console.log(req.aid);
       Swal.fire({
@@ -129,6 +148,40 @@ export class RequestListComponent implements OnInit {
                   });
           }
       });
+  }
+  async approveRequest(req: Request) {
+       const {value: units} = await Swal.fire({
+          title: 'Cuál es la Cantidad a Asignar?',
+          icon: 'question',
+          input: 'range',
+          inputAttributes: {
+              min: '1',
+              max: String(this.aid.unit),
+              step: '1'
+          },
+          inputValue: '1'
+       });
+       if (units) {
+          const body: Response = {
+              approved: true,
+              unit: units,
+              id_req: req.id
+          };
+          this.responseService.postResponse(body)
+              .subscribe(response => {
+                  this.notifierService.show({
+                      type: 'success',
+                      message: 'Aprobada la Solicitud con la Asignación de ' + units +  'unidades de ' + req.aid
+                  });
+                  this.reloadCurrentRoute();
+              }, error => {
+                  console.log(error);
+                  this.notifierService.show({
+                      type: 'error',
+                      message: 'Error al Aprobar la Solicitud'
+                  });
+              });
+      }
   }
 
 }
