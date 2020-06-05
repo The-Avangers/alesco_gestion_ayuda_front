@@ -27,13 +27,19 @@ export class UserRegisterComponent implements OnInit {
   constructor(private userService: UserService, private notifierService: NotifierService,
               private modalService: NgbModal, private router: Router) { }
   checkPasswords() {
+    if (this.RegisterForm.invalid) {
+        return;
+    }
     const pass = this.RegisterForm.get('password').value;
     const confirmPass = this.RegisterForm.get('confirmed_password').value;
     if (pass === confirmPass) {
-        console.log('coinciden');
-        this.notsame = false;
+        this.login();
     } else {
-        console.log('no coinciden');
+        this.notifierService.show({
+            type : 'error',
+            message: 'Las Contraseñas no Coinciden'
+        });
+        return;
     }
   }
     get f() { return this.RegisterForm.controls; }
@@ -49,17 +55,6 @@ export class UserRegisterComponent implements OnInit {
 
   login() {
       this.submitted = true;
-      if (this.RegisterForm.invalid || this.notsame) {
-          const controls = this.RegisterForm.controls;
-          for (const name in controls) {
-              if (controls[name].invalid) {
-                  console.log(name);
-              }
-          }
-          console.log('negado');
-          return;
-      }
-      console.log('pasó');
       this.isLoading = true
       const body: PostUser = {
           name : this.RegisterForm.value.name,

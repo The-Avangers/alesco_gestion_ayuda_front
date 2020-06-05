@@ -4,24 +4,24 @@
     <div>
         <h3>Registrate a ALESCO para Solicitar Ayuda Humanitaria</h3>
         <p>Crea una cuenta</p>
-        <form class="container" form [formGroup]="RegisterForm" (ngSubmit)="login()" (ngSubmit)="checkPasswords()">
+        <form class="container" form [formGroup]="RegisterForm" (ngSubmit)="checkPasswords()">
             <div class="form-group">
                 <label class="col-sm-12 col-form-label">
                     <input class="form-control" formControlName="name" placeholder="Nombre" required="true"
-                           [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
-                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                        <div *ngIf="f.name.errors.required">El Nombre es Requerido</div>
-                        <div *ngIf="f.name.errors.maxLength">El Nombre no Debe Exceder a 20 Caracteres</div>
+                           [ngClass]="{ 'is-invalid': f.name.errors }">
+                    <div *ngIf="f.name.errors" class="invalid-feedback">
+                        <div *ngIf="f.name.errors.required; else maxLength">El Nombre es Requerido</div>
+                        <ng-template #maxLength>El Nombre no Debe Exceder a 20 Caracteres</ng-template>
                     </div>
                 </label>
             </div>
             <div class="form-group">
                 <label class="col-sm-12 col-form-label">
                     <input class="form-control" formControlName="lastname" placeholder="Apellido" required="true"
-                           [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }">
-                    <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
-                        <div *ngIf="f.lastname.errors.required">El Apellido es Requerido</div>
-                        <div *ngIf="f.lastname.errors.maxLength">El Apellido no Debe Exceder a 20 Caracteres</div>
+                           [ngClass]="{ 'is-invalid': f.lastname.errors }">
+                    <div *ngIf="f.lastname.errors" class="invalid-feedback">
+                        <div *ngIf="f.lastname.errors.required; else maxLength">El Apellido es Requerido</div>
+                        <ng-template #maxLength>El Apellido no Debe Exceder a 20 Caracteres</ng-template>
                     </div>
                 </label>
             </div>
@@ -29,8 +29,8 @@
                 <label class="col-sm-12 col-form-label">
                     <input class="form-control" input type="email" formControlName="email"
                            placeholder="Correo Electrónico" required=""
-                           [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
-                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                           [ngClass]="{ 'is-invalid': f.email.errors }"/>
+                    <div *ngIf="f.email.errors" class="invalid-feedback">
                         <div *ngIf="f.email.errors.required">Email es Requerido</div>
                         <div *ngIf="f.email.errors.email">Email Debe Tener una Dirección Válida</div>
                     </div>
@@ -40,8 +40,8 @@
                 <label class="col-sm-12 col-form-label">
                     <input class="form-control" type="password" formControlName="password" placeholder="Contraseña"
                            required="true"
-                           [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
-                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                           [ngClass]="{ 'is-invalid': f.password.errors }"/>
+                    <div *ngIf="f.password.errors" class="invalid-feedback">
                         <div *ngIf="f.password.errors.required">La Contraseña es Requerida</div>
                         <div *ngIf="f.password.errors.minlength">La Contraseña debe Tener 8 Caracteres como Mínimo</div>
                     </div>
@@ -51,12 +51,10 @@
                 <label class="col-sm-12 col-form-label">
                     <input type="password" class="form-control" formControlName="confirmed_password"
                            placeholder="Confirme la Contraseña" required="true"
-                           [ngClass]="{ 'is-invalid': submitted && f.confirmed_password.errors }"/>
-                    <div *ngIf="submitted && f.confirmed_password.errors" class="invalid-feedback">
+                           [ngClass]="{ 'is-invalid': f.confirmed_password.errors }"/>
+                    <div *ngIf="f.confirmed_password.errors" class="invalid-feedback">
                         <div *ngIf="f.confirmed_password.errors.required">La Confirmación de la Contraseña es
                             Requerida
-                        </div>
-                        <div *ngIf="notsame && f.confirmed_password.errors.required">Las Contraseñas Deben Coincidir
                         </div>
                     </div>
                 </label>
