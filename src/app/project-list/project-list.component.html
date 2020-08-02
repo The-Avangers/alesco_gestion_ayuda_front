@@ -61,7 +61,7 @@
                                         <td>{{project.institutionName}}</td>
                                         <td>{{ getPrice(project.price)}}</td>
                                         <td>{{ project.paid ? 'Sí' : 'No' }}</td>
-                                        <td><a [routerLink]="['/projects/progress', project.id]">Marcar Progreso</a></td>
+                                        <td><a [routerLink]="['/projects/tasks', project.id]">Tareas del Proyecto</a></td>
                                         <td><a *ngIf="!project.paid" [routerLink]="['/projects/payment', project.id]">Registrar Pago</a></td>
                                         <td>
                                             <a *ngIf="role === 'Administrador'"

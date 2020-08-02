@@ -1,0 +1,112 @@
+<app-side-bar>
+    <ng-container *ngIf="role === 'Administrador'" class="body">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Proyectos</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a routerLink="/projects"> Proyectos</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong>Crear Tarea</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div *ngIf="isLoading === true" class=" row align-items-center">
+                        <mat-spinner class="mat-spinner" style="margin: 0 auto"></mat-spinner>
+                    </div>
+                    <form *ngIf="isLoading === false" [formGroup]="progressForm" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-form-label">Nombre del Proyecto
+                                        <input type="text"
+                                               formControlName="projectName"
+                                               class="form-control"
+                                               placeholder="Servicio Comunitario"
+                                               [ngClass]="{ 'is-invalid': submitted && f.projectName.errors }">
+                                        <div *ngIf="submitted && f.projectName.errors" class="invalid-feedback">
+                                            <div *ngIf="f.projectName.errors.required">El nombre del projecto es requerido
+                                            </div>
+                                        </div>
+                                    </label>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Completado
+                                        <input type="checkbox"
+                                               class="form-control"
+                                               formControlName="completed"
+                                               (change)="checkBoxClicked()" >
+                                        <div *ngIf="submitted && f.completed.errors" class="invalid-feedback">
+                                        </div>
+                                    </label>
+                                    <label class="col-sm-10 col-form-label">Fecha de Completacion(Opcional)
+                                        <input class="form-control"
+                                               formControlName="completionDate"
+                                               [ngClass]="{'is-invalid': submitted && f.completionDate.errors }"
+                                               type="date" [max]="getMaxProgressDate()">
+                                        <div *ngIf="submitted && f.completionDate.errors" class="invalid-feedback">
+                                            <div *ngIf="f.completionDate.errors.required">La fecha de completación es requerida
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-form-label">Nombre de la Tarea
+                                        <input formControlName="taskName"
+                                               type="text"
+                                               class="form-control"
+                                               [ngClass]="{'is-invalid': submitted && f.taskName.errors }">
+                                        <div *ngIf="submitted && f.taskName.errors" class="invalid-feedback">
+                                            <div *ngIf="f.taskName.errors.required">El nombre de la tares es requerido</div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-form-label align-items-center">Encargados(Opcional)
+                                        <ng-select2 formControlName="peopleInCharge"
+                                                    [ngClass]="{'is-invalid': submitted && f.peopleInCharge.errors }"
+                                                    [options]="peopleInChargeOptions"
+                                                    [data]="peopleInCharge">
+                                        </ng-select2>
+                                        <div *ngIf="submitted && f.peopleInCharge.errors" class="invalid-feedback">
+                                            <div *ngIf="f.peopleInCharge.errors.required">Si la tarea está completada las personas a cargo son
+                                                requeridas
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group row">
+                            <div class="col-sm-11"></div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-sm" [disabled]="buttonDisabled" type="submit">
+                                    Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2018
+            </div>
+        </div>
+    </ng-container>
+</app-side-bar>

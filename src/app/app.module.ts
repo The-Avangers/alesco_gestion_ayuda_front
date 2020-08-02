@@ -34,7 +34,7 @@ import { InstitutionListComponent } from './institution-list/institution-list.co
 import { InstitutionFormComponent } from './institution-form/institution-form.component';
 import { PersonListComponent } from './person-list/person-list.component';
 import { PersonFormComponent } from './person-form/person-form.component';
-import { ProgressFormComponent } from './progress-form/progress-form.component';
+import { TasksFormComponent } from './tasks-form/tasks-form.component';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
 import { ProjectViewComponent } from './project-view/project-view.component';
 import { SortByPipe } from './pipes/sort-by.pipe';
@@ -57,7 +57,7 @@ import { RequestFormComponent } from './request-form/request-form.component';
         InstitutionFormComponent,
         PersonListComponent,
         PersonFormComponent,
-        ProgressFormComponent,
+        TasksFormComponent,
         PaymentFormComponent,
         ProjectViewComponent,
         SortByPipe,
@@ -97,7 +97,7 @@ import { RequestFormComponent } from './request-form/request-form.component';
             {path: 'projects/institutions/add', component: InstitutionFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/people/add', component: PersonFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/payment/:projectId', component: PaymentFormComponent, canActivate: [UnauthorizedGuard]},
-            {path: 'projects/progress/:projectId', component: ProgressFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/tasks/:projectId', component: TasksFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/institutions/edit/:institutionId', component: InstitutionFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/people/edit/:personId', component: PersonFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/edit/:projectId', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
