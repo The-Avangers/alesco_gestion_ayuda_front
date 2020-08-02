@@ -104,6 +104,21 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
+                                    <label class="col-sm-12 col-form-label align-items-center">Interesado
+                                        <ng-select2 formControlName="personConcerned"
+                                                    [ngClass]="{'is-invalid': submitted && f.personConcerned.errors }"
+                                                    [options]="personConcernedOptions"
+                                                    [data]="peopleConcerned"
+                                                    (valueChanged)="personConcernedChanged($event)">
+                                        </ng-select2>
+                                        <div *ngIf="submitted && f.personConcerned.errors" class="invalid-feedback">
+                                            <div *ngIf="f.personConcerned.errors.required">La persona a cargo es
+                                                requerida
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-sm-12 col-form-label align-items-center">Encargados
                                         <ng-select2 formControlName="peopleInCharge"
                                                     id="peopleInCharge"
@@ -115,21 +130,6 @@
                                         <div *ngIf="submitted && f.peopleInCharge.errors" class="invalid-feedback">
                                             <div *ngIf="f.peopleInCharge.errors.required">Al menos un involucrado es
                                                 requerido
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-12 col-form-label align-items-center">Interesado
-                                        <ng-select2 formControlName="personConcerned"
-                                                    [ngClass]="{'is-invalid': submitted && f.personConcerned.errors }"
-                                                    [options]="personConcernedOptions"
-                                                    [data]="peopleConcerned"
-                                                    (valueChanged)="personConcernedChanged($event)">
-                                        </ng-select2>
-                                        <div *ngIf="submitted && f.personConcerned.errors" class="invalid-feedback">
-                                            <div *ngIf="f.personConcerned.errors.required">La persona a cargo es
-                                                requerida
                                             </div>
                                         </div>
                                     </label>

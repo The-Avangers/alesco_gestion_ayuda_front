@@ -39,6 +39,7 @@ import { PaymentFormComponent } from './payment-form/payment-form.component';
 import { ProjectViewComponent } from './project-view/project-view.component';
 import { SortByPipe } from './pipes/sort-by.pipe';
 import { RequestFormComponent } from './request-form/request-form.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { RequestFormComponent } from './request-form/request-form.component';
         PaymentFormComponent,
         ProjectViewComponent,
         SortByPipe,
-        RequestFormComponent
+        RequestFormComponent,
+        TaskListComponent
     ],
     imports: [
         BrowserModule,
@@ -97,7 +99,9 @@ import { RequestFormComponent } from './request-form/request-form.component';
             {path: 'projects/institutions/add', component: InstitutionFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/people/add', component: PersonFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/payment/:projectId', component: PaymentFormComponent, canActivate: [UnauthorizedGuard]},
-            {path: 'projects/tasks/:projectId', component: TasksFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/:projectId/tasks', component: TaskListComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/:projectId/tasks/add', component: TasksFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/:projectId/tasks/edit/:taskId', component: TasksFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/institutions/edit/:institutionId', component: InstitutionFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/people/edit/:personId', component: PersonFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/edit/:projectId', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},

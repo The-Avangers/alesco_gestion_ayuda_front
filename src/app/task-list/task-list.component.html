@@ -1,14 +1,20 @@
 <app-side-bar>
     <ng-container *ngIf="role === 'Administrador' || role === 'Consultor'" class="body">
         <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-10">
+            <div *ngIf="isLoading === false" class="col-lg-10">
                 <h2>Proyectos</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="">Home</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong><a routerLink="/projects"> Proyectos</a></strong>
+                        <a routerLink="/projects"> Proyectos</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a [routerLink]="['/projects', project.id]">{{project.name}}</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong>Tareas</strong>
                     </li>
                 </ol>
             </div>
@@ -21,8 +27,8 @@
                     <div class="ibox ">
                         <div class="ibox-content">
                             <div class="row border-bottom">
-                                <div *ngIf="role === 'Administrador'" class="col-sm-5 m-b-xs">
-                                    <a routerLink="/projects/add" class="btn btn-primary">Agregar</a>
+                                <div *ngIf="role === 'Administrador' && isLoading === false" class="col-sm-5 m-b-xs">
+                                    <a [routerLink]="['/projects', project.id, 'tasks', 'add']" class="btn btn-primary">Agregar</a>
                                 </div>
                                 <div class="col-sm-3 m-b-xs"></div>
                                 <div *ngIf="role === 'Consultor'" class="col-sm-5 m-b-xs"></div>
@@ -44,28 +50,20 @@
                                     <thead>
                                     <tr>
                                         <th>Codigo</th>
-                                        <th>Titulo</th>
-                                        <th>Fecha de Inicio</th>
-                                        <th>Fecha Fin</th>
-                                        <th>Institucion</th>
-                                        <th>Precio</th>
-                                        <th>Pagado</th>
+                                        <th>Nombre</th>
+                                        <th>Completado</th>
+                                        <th>Fecha de completación</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let project of currentPage">
-                                        <td><a [routerLink]="['/projects', project.id]">{{ project.id }}</a></td>
-                                        <td>{{ project.name }}</td>
-                                        <td>{{ project.startDate }}</td>
-                                        <td>{{ project.endDate }}</td>
-                                        <td>{{project.institutionName}}</td>
-                                        <td>{{ getPrice(project.price)}}</td>
-                                        <td>{{ project.paid ? 'Sí' : 'No' }}</td>
-                                        <td><a [routerLink]="['/projects', project.id, 'tasks']">Tareas del Proyecto</a></td>
-                                        <td><a *ngIf="!project.paid" [routerLink]="['/projects/payment', project.id]">Registrar Pago</a></td>
+                                    <tr *ngFor="let task of currentPage">
+                                        <td><a [routerLink]="['/projects', project.id, 'task', task.id]">{{ task.id }}</a></td>
+                                        <td>{{ task.name }}</td>
+                                        <td>{{ task.completed ? 'Sí' : 'No' }}</td>
+                                        <td>{{ task.completionDate || '-' }}</td>
                                         <td>
                                             <a *ngIf="role === 'Administrador'"
-                                               [routerLink]="['/projects/edit', project.id]"
+                                               [routerLink]="['/projects/', project.id, 'tasks', 'edit', task.id]"
                                                class="btn btn-sm btn-outline-warning">
                                                 <span class="fa fa-pencil"></span>
                                             </a>
@@ -74,7 +72,7 @@
                                     </tbody>
                                 </table>
                                 <div class="pagination float-right">
-                                    <mat-paginator [pageSize]="1" [length]="paginatedProjects.length" hidePageSize="true" showFirstLastButtons="true" (page)="onPageChanged($event)"></mat-paginator>
+                                    <mat-paginator [pageSize]="1" [length]="paginatedTasks.length" hidePageSize="true" showFirstLastButtons="true" (page)="onPageChanged($event)"></mat-paginator>
                                 </div>
                             </div>
                         </div>

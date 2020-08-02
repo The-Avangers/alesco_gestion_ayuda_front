@@ -10,8 +10,15 @@
                     <li class="breadcrumb-item">
                         <a routerLink="/projects"> Proyectos</a>
                     </li>
+                    <li class="breadcrumb-item">
+                        <a *ngIf="isLoading === false" [routerLink]="['/projects', project.id]">{{project.name}}</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a *ngIf="isLoading === false" [routerLink]="['/projects', project.id, 'tasks']">Tareas</a>
+                    </li>
                     <li class="breadcrumb-item active">
-                        <strong>Crear Tarea</strong>
+                         <strong *ngIf="edit === false && isLoading === false">Crear</strong>
+                         <strong *ngIf="edit === true && isLoading === false">Editar</strong>
                     </li>
                 </ol>
             </div>
@@ -88,6 +95,17 @@
                                         </div>
                                     </label>
                                 </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="col-sm-12 col-form-label">Descripción (Opcional)
+                                    <textarea
+                                        formControlName="description"
+                                        rows="8"
+                                        class="form-control"
+                                        [ngClass]="{'is-invalid': submitted && f.description.errors }"
+                                    >
+                                    </textarea>
+                                </label>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
