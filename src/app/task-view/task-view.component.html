@@ -46,13 +46,13 @@
                                             <h3 class="text-navy">Encargados</h3>
                                             <h5 class="text-black-50" *ngFor="let person of task.people">{{person.firstName+' '+person.lastName}}</h5>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <h3 class="text-navy">Fecha de Completación</h3>
-                                            <h5 class="text-black-50">{{task.completionDate || 'No se ha completado aún'}}</h5>
-                                        </div>
                                         <div class="col-sm-3">
                                             <h3 class="text-navy">Completado</h3>
                                             <h5 class="text-black-50">{{task.completed ? 'Sí' : 'No'}}</h5>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <h3 class="text-navy">Fecha de Completación</h3>
+                                            <h5 class="text-black-50">{{task.completionDate || 'No se ha completado aún'}}</h5>
                                         </div>
                                     </div>
                                     <p class="invisible">sd</p>
