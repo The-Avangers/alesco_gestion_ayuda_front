@@ -38,7 +38,7 @@ export class TaskListComponent implements OnInit {
       this.route.params.subscribe(params => {
             this.taskService.getTasksByProjectId(params.projectId).subscribe(response => {
                 this.tasks = response;
-                this.project = this.tasks ? this.tasks[0].project : null;
+                this.project = this.tasks.length > 0 ? this.tasks[0].project : null;
                 this.projectId = params.projectId;
                 this.tasks = this.tasks.map(value => {
                     if (value.completionDate) {
