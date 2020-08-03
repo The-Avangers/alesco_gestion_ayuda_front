@@ -16,6 +16,7 @@ import {Project} from '../services/project/project.interface';
 export class TaskListComponent implements OnInit {
     isLoading = true;
     project: Project;
+    projectId: number;
     tasks: Task[];
     search = '';
     paginatedTasks: Task[][] = [];
@@ -37,7 +38,8 @@ export class TaskListComponent implements OnInit {
       this.route.params.subscribe(params => {
             this.taskService.getTasksByProjectId(params.projectId).subscribe(response => {
                 this.tasks = response;
-                this.project = this.tasks[0].project;
+                this.project = this.tasks ? this.tasks[0].project : null;
+                this.projectId = params.projectId;
                 this.tasks = this.tasks.map(value => {
                     if (value.completionDate) {
                         console.log(value.completionDate);

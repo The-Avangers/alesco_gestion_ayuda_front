@@ -29,6 +29,9 @@
                             <div class="col-sm-12" >
                                 <h1 class="text-navy">{{project.name}}</h1>
                                 <h2 class="text-navy"> {{project.institution}}</h2>
+                                <div *ngIf="role === 'Administrador'" class="m-b-xs">
+                                    <a [routerLink]="['/projects/edit', projectId]" class="btn btn-primary">Editar</a>
+                                </div>
                             </div>
                             <p class="invisible">aadfsdfsdfsd</p>
                             <div class="row">

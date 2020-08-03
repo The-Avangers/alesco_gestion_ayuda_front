@@ -11,7 +11,7 @@
                         <a routerLink="/projects"> Proyectos</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a *ngIf="isLoading === false" [routerLink]="['/projects', project.id]">{{project.name}}</a>
+                        <a *ngIf="isLoading === false" [routerLink]="['/projects', project.id]">{{project.id}}</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a *ngIf="isLoading === false" [routerLink]="['/projects', project.id, 'tasks']">Tareas</a>

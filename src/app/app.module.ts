@@ -40,6 +40,7 @@ import { ProjectViewComponent } from './project-view/project-view.component';
 import { SortByPipe } from './pipes/sort-by.pipe';
 import { RequestFormComponent } from './request-form/request-form.component';
 import { TaskListComponent } from './task-list/task-list.component';
+import { TaskViewComponent } from './task-view/task-view.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { TaskListComponent } from './task-list/task-list.component';
         ProjectViewComponent,
         SortByPipe,
         RequestFormComponent,
-        TaskListComponent
+        TaskListComponent,
+        TaskViewComponent
     ],
     imports: [
         BrowserModule,
@@ -85,7 +87,7 @@ import { TaskListComponent } from './task-list/task-list.component';
             },
             behaviour: {
                 onClick: 'hide',
-                autoHide: 15000,
+                autoHide: 5000,
             }
         }),
         NgxMaskModule.forRoot(),
@@ -101,6 +103,7 @@ import { TaskListComponent } from './task-list/task-list.component';
             {path: 'projects/payment/:projectId', component: PaymentFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/:projectId/tasks', component: TaskListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/:projectId/tasks/add', component: TasksFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'projects/:projectId/tasks/:taskId', component: TaskViewComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/:projectId/tasks/edit/:taskId', component: TasksFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/institutions/edit/:institutionId', component: InstitutionFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/people/edit/:personId', component: PersonFormComponent, canActivate: [UnauthorizedGuard]},

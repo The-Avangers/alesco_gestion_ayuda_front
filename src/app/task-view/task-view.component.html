@@ -1,0 +1,78 @@
+<app-side-bar>
+    <ng-container *ngIf="role === 'Administrador' || role === 'Consultor'" class="body">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Proyectos</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <a routerLink="/projects"> Proyectos</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a *ngIf="isLoading === false" [routerLink]="['/projects', task.project.id]"> {{ task.project.id }}</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a [routerLink]="['/projects', task.project.id, 'tasks']">Tareas</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong>{{task.id}}</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+        <div *ngIf="isLoading === true" class=" row align-items-center">
+            <mat-spinner class="mat-spinner" style="margin: 0 auto"></mat-spinner>
+        </div>
+        <div *ngIf="isLoading === false" class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+                        <div class="ibox-content">
+                            <div class="col-sm-12" >
+                                <h1 class="text-navy">{{task.name}}</h1>
+                                <div *ngIf="role === 'Administrador'" class="m-b-xs">
+                                    <a [routerLink]="['/projects', task.project.id, 'tasks', 'edit', task.id]" class="btn btn-primary">Editar</a>
+                                </div>
+                            </div>
+                            <p class="invisible">aadfsdfsdfsd</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-4">
+                                            <h3 class="text-navy">Encargados</h3>
+                                            <h5 class="text-black-50" *ngFor="let person of task.people">{{person.firstName+' '+person.lastName}}</h5>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <h3 class="text-navy">Fecha de Completación</h3>
+                                            <h5 class="text-black-50">{{task.completionDate || 'No se ha completado aún'}}</h5>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h3 class="text-navy">Completado</h3>
+                                            <h5 class="text-black-50">{{task.completed ? 'Sí' : 'No'}}</h5>
+                                        </div>
+                                    </div>
+                                    <p class="invisible">sd</p>
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-12">
+                                            <h3 class="text-navy">Descripcion</h3>
+                                            <h5 class="text-black-50">{{task.description}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div>
+                    <strong>Copyright</strong> Example Company &copy; 2014-2018
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</app-side-bar>
