@@ -117,7 +117,7 @@
                                                 </div>
                                             </div>
                                         </mat-tab>
-                                        <mat-tab label="Listado de tareas">
+                                        <mat-tab *ngIf="isLoading ===true " label="Listado de tareas">
                                             <div class="ibox ">
                                                 <div class="ibox-content">
                                                     <div class="row border-bottom">
@@ -169,7 +169,7 @@
                                                 </div>
                                             </div>
 
-                                        </mat-tab>
+                                        </nmat-tab>
                                     </mat-tab-group>
                                 </div>
                             </div>

@@ -22,7 +22,12 @@ export class UnauthorizedGuard implements CanActivate {
                 this.router.navigate(['/register']).then(() => false);
             }
         });*/
-        return true;
+        if (!this.authService.isAuthenticated()) {
+            this.router.navigate(['/register']).then(() => false);
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

@@ -94,7 +94,9 @@ import {ChartsModule, ThemeService} from 'ng2-charts';
         NgxMaskModule.forRoot(),
         RouterModule.forRoot([
             {path: 'register', component: UserRegisterComponent, canActivate: [SessionGuard]},
-            {path: '', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
+            localStorage.getItem('Role') === 'Administrador' || localStorage.getItem('Role') === 'Consultor'
+                ? {path: '', component: ProjectListComponent, canActivate: [UnauthorizedGuard]}
+                : {path: '', component: RequestListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/institutions', component: InstitutionListComponent, canActivate: [UnauthorizedGuard] },
             {path: 'projects/add', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/people', component: PersonListComponent, canActivate: [UnauthorizedGuard]},
