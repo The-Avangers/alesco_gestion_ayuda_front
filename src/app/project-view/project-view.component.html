@@ -93,7 +93,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <mat-tab-group dynamicHeight>
+                                    <mat-tab-group *ngIf="isLoading === false " dynamicHeight>
                                         <mat-tab label="Tareas por encargado">
                                             <div style="display: block">
                                                 <canvas baseChart
@@ -117,7 +117,7 @@
                                                 </div>
                                             </div>
                                         </mat-tab>
-                                        <mat-tab *ngIf="isLoading ===true " label="Listado de tareas">
+                                        <mat-tab label="Listado de tareas">
                                             <div class="ibox ">
                                                 <div class="ibox-content">
                                                     <div class="row border-bottom">
@@ -168,7 +168,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </mat-tab>
                                     </mat-tab-group>
                                 </div>

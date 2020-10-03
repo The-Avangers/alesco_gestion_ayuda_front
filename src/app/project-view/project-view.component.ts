@@ -46,7 +46,6 @@ export class ProjectViewComponent implements OnInit {
           this.projectId = params.projectId;
           this.projectsService.getProjectById(this.projectId).subscribe(response => {
               this.project = response;
-              this.isLoading = false;
               this.tasksLength = this.project.tasks.length;
               this.tasks = this.project.tasks;
               let completedTasks = 0;
@@ -99,6 +98,7 @@ export class ProjectViewComponent implements OnInit {
               });
               this.paginatedTasks = paginateObject<Task>(this.tasks, this.pageSize);
               this.currentPage = this.paginatedTasks[0];
+              this.isLoading = false;
           });
       });
   }
