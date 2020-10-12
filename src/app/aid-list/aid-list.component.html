@@ -26,16 +26,18 @@
                                 </div>
                                 <div class="align-items-end col-sm-4">
                                     <label class="col-sm-12 col-form-label">
-                                        <input class="form-control" type ="search" placeholder="Busqueda..." [(ngModel)]="search">
+                                        <input class="form-control" type="search" placeholder="Busqueda..."
+                                               [(ngModel)]="search" (input)="searchTyped()">
                                     </label>
                                 </div>
                             </div>
                             <div *ngIf="isLoading === true" class=" row align-items-center">
                                 <mat-spinner class="mat-spinner" style="margin: 0 auto"></mat-spinner>
                             </div>
-                            <p *ngIf="isLoading === false && (aids | filterTable:search).length == 0"
+                            <p *ngIf="isLoading === false && (!currentPage || currentPage.length == 0)"
                                style="margin-top: 2.5%">No hay datos disponibles.</p>
-                            <div *ngIf="isLoading === false && (aids | filterTable:search).length != 0" class="table-responsive">
+                            <div *ngIf="isLoading === false && currentPage && currentPage.length != 0"
+                                 class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
@@ -47,7 +49,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let aid of (aids | filterTable:search)">
+                                    <tr *ngFor="let aid of currentPage">
                                         <td><a href="">{{ aid.id }}</a></td>
                                         <td>{{ aid.name }}</td>
                                         <td>{{ aid.measure }}</td>
@@ -62,8 +64,8 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <div *ngIf="role === 'Administrador'" class="pagination float-right">
-                                    <mat-paginator hidePageSize="true" showFirstLastButtons="true"></mat-paginator>
+                                <div class="pagination float-right">
+                                    <mat-paginator [pageSize]="1" [length]="paginatedAids.length" hidePageSize="true" showFirstLastButtons="true" (page)="onPageChanged($event)"></mat-paginator>
                                 </div>
                             </div>
                         </div>

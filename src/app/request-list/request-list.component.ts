@@ -9,6 +9,8 @@ import {AidService} from '../services/aid/aid.service';
 import {NotifierService} from 'angular-notifier';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
+import {filterTable, paginateObject} from '../utils';
+import {PageEvent} from '@angular/material';
 
 @Component({
   selector: 'app-request-list',
@@ -20,6 +22,9 @@ export class RequestListComponent implements OnInit {
     search = '';
     role: string;
     id: number;
+    paginatedRequests: Request[][] = [];
+    currentPage: Request[] = [];
+    private pageSize = 10;
     months = {
         0: 'Enero',
         1: 'Febrero',
@@ -62,6 +67,9 @@ export class RequestListComponent implements OnInit {
                       value.created_at = `${date.getDate()} de ${this.months[date.getMonth()]} de ${date.getFullYear()}`;
                       return value;
                   });
+                  this.requests = this.transform(this.requests, 'statusnumber');
+                  this.paginatedRequests = paginateObject<Request>(this.requests, this.pageSize);
+                  this.currentPage = this.paginatedRequests[0];
               }, error => {
                   this.isLoading = false;
                   this.notifierService.show({
@@ -82,6 +90,9 @@ export class RequestListComponent implements OnInit {
                       value.created_at = `${date.getDate()} de ${this.months[date.getMonth()]} de ${date.getFullYear()}`;
                       return value;
                   });
+                  this.requests = this.transform(this.requests, 'statusnumber');
+                  this.paginatedRequests = paginateObject<Request>(this.requests, this.pageSize);
+                  this.currentPage = this.paginatedRequests[0];
               }, error => {
                   this.isLoading = false;
                   console.log(error.error);
@@ -97,6 +108,33 @@ export class RequestListComponent implements OnInit {
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
             this.router.navigate([currentUrl]);
         });
+  }
+
+    transform(array: Request[], field: string): Request[] {
+        if (!Array.isArray(array)) {
+            return;
+        }
+        // tslint:disable-next-line:no-any
+        array.sort((a: any, b: any) => {
+            if (a[field] < b[field]) {
+                return -1;
+            } else if (a[field] > b[field]) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        return array;
+    }
+
+  searchTyped() {
+      console.log(filterTable<Request>(this.requests, this.search));
+      this.paginatedRequests = paginateObject<Request>(filterTable<Request>(this.requests, this.search), this.pageSize);
+      this.currentPage = this.paginatedRequests[0];
+  }
+
+  onPageChanged(event: PageEvent) {
+      this.currentPage = this.paginatedRequests[event.pageIndex];
   }
   getAidbyId(req: Request) {
       this.aidService.getAidById(req.id_aid)

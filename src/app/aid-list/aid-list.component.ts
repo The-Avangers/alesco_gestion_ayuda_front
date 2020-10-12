@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import {Aid} from '../services/aid/aid.interface';
 import {AidService} from '../services/aid/aid.service';
 import {NotifierService} from 'angular-notifier';
+import {filterTable, paginateObject} from '../utils';
+import {PageEvent} from '@angular/material';
 
 @Component({
   selector: 'app-aid-list',
@@ -11,6 +13,9 @@ import {NotifierService} from 'angular-notifier';
 })
 export class AidListComponent implements OnInit {
   aids: Aid[] = [];
+  paginatedAids: Aid[][] = [];
+  currentPage: Aid[] = [];
+  private pageSize = 10;
   search = '';
   role: string;
   isLoading = true;
@@ -32,6 +37,8 @@ export class AidListComponent implements OnInit {
             .subscribe(response => {
                 this.isLoading = false;
                 this.aids = response;
+                this.paginatedAids = paginateObject<Aid>(this.aids, this.pageSize);
+                this.currentPage = this.paginatedAids[0];
             }, error => {
                 this.isLoading = false;
                 console.log(error.error);
@@ -41,5 +48,15 @@ export class AidListComponent implements OnInit {
                 });
             });
   }
+
+    searchTyped() {
+        console.log(filterTable<Aid>(this.aids, this.search));
+        this.paginatedAids = paginateObject<Aid>(filterTable<Aid>(this.aids, this.search), this.pageSize);
+        this.currentPage = this.paginatedAids[0];
+    }
+
+    onPageChanged(event: PageEvent) {
+        this.currentPage = this.paginatedAids[event.pageIndex];
+    }
 
 }

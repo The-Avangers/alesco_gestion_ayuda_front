@@ -29,16 +29,16 @@
                                 <div class="align-items-end col-sm-4">
                                     <label class="col-sm-12 col-form-label">
                                         <input class="form-control" type="search" placeholder="Busqueda..."
-                                               [(ngModel)]="search">
+                                               [(ngModel)]="search" (input)="searchTyped()">
                                     </label>
                                 </div>
                             </div>
                             <div *ngIf="isLoading === true" class=" row align-items-center">
                                 <mat-spinner class="mat-spinner" style="margin: 0 auto"></mat-spinner>
                             </div>
-                            <p *ngIf="isLoading === false && (requests | filterTable:search).length == 0"
+                            <p *ngIf="isLoading === false && (!currentPage || currentPage.length == 0)"
                                style="margin-top: 2.5%">No hay datos disponibles.</p>
-                            <div *ngIf="isLoading === false && (requests | filterTable:search).length != 0"
+                            <div *ngIf="isLoading === false && currentPage && currentPage.length != 0"
                                  class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
@@ -53,7 +53,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let request of (requests | filterTable:search | sortBy:'statusnumber')">
+                                    <tr *ngFor="let request of currentPage">
                                         <td><a href="">{{ request.id }}</a></td>
                                         <td *ngIf="role == 'Administrador'">{{ request.user_name }}</td>
                                         <td *ngIf="role == 'Administrador'">{{ request.email }}</td>
@@ -75,7 +75,7 @@
                                     </tbody>
                                 </table>
                                 <div class="pagination float-right">
-                                    <mat-paginator hidePageSize="true" showFirstLastButtons="true"></mat-paginator>
+                                    <mat-paginator [pageSize]="1" [length]="paginatedRequests.length" hidePageSize="true" showFirstLastButtons="true" (page)="onPageChanged($event)"></mat-paginator>
                                 </div>
                             </div>
                         </div>
