@@ -137,10 +137,12 @@ export class RequestListComponent implements OnInit {
       this.currentPage = this.paginatedRequests[event.pageIndex];
   }
   getAidbyId(req: Request) {
+      this.isLoading = true;
       this.aidService.getAidById(req.id_aid)
           .subscribe(response => {
               this.aid = response;
               console.log(this.aid.unit);
+              this.isLoading = false;
               this.approveRequest(req);
           }, error => {
               this.isLoading = false;
@@ -165,6 +167,7 @@ export class RequestListComponent implements OnInit {
           cancelButtonText: 'Cancelar'
       }).then((result) => {
           if (result.value) {
+              this.isLoading = true;
               const body: Response = {
                   approved: false,
                   unit: null,
@@ -178,6 +181,7 @@ export class RequestListComponent implements OnInit {
                       });
                       this.reloadCurrentRoute();
                   }, error => {
+                      this.isLoading = false;
                       console.log(error);
                       this.notifierService.show({
                           type: 'error',
@@ -200,12 +204,13 @@ export class RequestListComponent implements OnInit {
           inputValue: '1'
        });
        if (units) {
-          const body: Response = {
+           this.isLoading = true;
+           const body: Response = {
               approved: true,
               unit: units,
               id_req: req.id
-          };
-          this.responseService.postResponse(body)
+           };
+           this.responseService.postResponse(body)
               .subscribe(response => {
                   this.notifierService.show({
                       type: 'success',
@@ -213,6 +218,7 @@ export class RequestListComponent implements OnInit {
                   });
                   this.reloadCurrentRoute();
               }, error => {
+                  this.isLoading = false;
                   console.log(error);
                   this.notifierService.show({
                       type: 'error',
