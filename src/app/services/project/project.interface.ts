@@ -1,4 +1,5 @@
 import {Person} from '../person/person.interface';
+import {Task} from '../task/task.interface';
 
 export interface Project {
     id: number;
@@ -21,6 +22,7 @@ export interface FullProject {
     peopleInvolved: Person[];
     progress: Progress[];
     payments: Payment[];
+    tasks: Task[];
 }
 
 export interface Progress {

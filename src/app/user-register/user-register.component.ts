@@ -71,7 +71,7 @@ export class UserRegisterComponent implements OnInit {
           localStorage.setItem('token', response.headers.get('token'));
           localStorage.setItem('Role', response.body.role);
           localStorage.setItem('User', JSON.stringify(response.body));
-          this.router.navigate(['/projects']).then();
+          this.router.navigate(['/requests']).then();
       }, error => {
           this.isLoading = false;
           console.log(error);

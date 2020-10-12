@@ -92,7 +92,85 @@
                                         </table>
                                     </div>
                                 </div>
-
+                                <div class="col-md-12">
+                                    <mat-tab-group *ngIf="isLoading === false " dynamicHeight>
+                                        <mat-tab label="Tareas por encargado">
+                                            <div style="display: block">
+                                                <canvas baseChart
+                                                        [datasets]="barChartData"
+                                                        [labels]="barChartLabels"
+                                                        [options]="barChartOptions"
+                                                        [legend]="barChartLegend"
+                                                        [chartType]="barChartType">
+                                                </canvas>
+                                            </div>
+                                        </mat-tab>
+                                        <mat-tab label="Tareas Completadas">
+                                            <div style="display: block">
+                                                <canvas baseChart
+                                                        [data]="pieChartData"
+                                                        [labels]="pieChartLabels"
+                                                        [chartType]="pieChartType">
+                                                </canvas>
+                                                <div class="col-md-6">
+                                                    Total de tareas: {{tasksLength}}
+                                                </div>
+                                            </div>
+                                        </mat-tab>
+                                        <mat-tab label="Listado de tareas">
+                                            <div class="ibox ">
+                                                <div class="ibox-content">
+                                                    <div class="row border-bottom">
+                                                        <div *ngIf="role === 'Administrador' && isLoading === false" class="col-sm-5 m-b-xs">
+                                                            <a [routerLink]="['/projects', projectId, 'tasks', 'add']" class="btn btn-primary">Agregar</a>
+                                                        </div>
+                                                        <div class="col-sm-3 m-b-xs"></div>
+                                                        <div *ngIf="role === 'Consultor'" class="col-sm-5 m-b-xs"></div>
+                                                        <div class="align-items-end col-sm-4">
+                                                            <label class="col-sm-12 col-form-label">
+                                                                <input class="form-control" type="search" placeholder="Busqueda..."
+                                                                       [(ngModel)]="search" (input)="searchTyped()">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <p *ngIf="isLoading === false && (!currentPage || currentPage.length == 0)"
+                                                       style="margin-top: 2.5%">No hay datos disponibles.</p>
+                                                    <div *ngIf="isLoading === false && currentPage && currentPage.length != 0"
+                                                         class="table-responsive">
+                                                        <table class="table table-striped text-center">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Codigo</th>
+                                                                <th>Nombre</th>
+                                                                <th>Completado</th>
+                                                                <th>Fecha de completación</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr *ngFor="let task of currentPage">
+                                                                <td><a [routerLink]="['/projects', projectId, 'tasks', task.id]">{{ task.id }}</a></td>
+                                                                <td>{{ task.name }}</td>
+                                                                <td>{{ task.completed ? 'Sí' : 'No' }}</td>
+                                                                <td>{{ task.completionDate || '-' }}</td>
+                                                                <td>
+                                                                    <a *ngIf="role === 'Administrador'"
+                                                                       [routerLink]="['/projects/', projectId, 'tasks', 'edit', task.id]"
+                                                                       class="btn btn-sm btn-outline-warning">
+                                                                        <span class="fa fa-pencil"></span>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="pagination float-right">
+                                                            <mat-paginator [pageSize]="1" [length]="paginatedTasks.length" hidePageSize="true" showFirstLastButtons="true" (page)="onPageChanged($event)"></mat-paginator>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-tab>
+                                    </mat-tab-group>
+                                </div>
                             </div>
                         </div>
                     </div>

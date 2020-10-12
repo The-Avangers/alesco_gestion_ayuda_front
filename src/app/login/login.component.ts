@@ -55,7 +55,11 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('token', response.headers.get('token'));
                 localStorage.setItem('Role', response.body.role);
                 localStorage.setItem('User', JSON.stringify(response.body));
-                this.router.navigate(['/projects']).then();
+                if (response.body.role === 'Administrador' || response.body.role === 'Consultor') {
+                    this.router.navigate(['/projects']).then();
+                } else {
+                    this.router.navigate(['/requests']).then();
+                }
                 this.modalService.dismissAll();
             }, error => {
                 this.isLoading = false;

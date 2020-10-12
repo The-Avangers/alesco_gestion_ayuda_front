@@ -27,7 +27,7 @@ import {TokenInterceptor} from './http-interceptors/token-interceptor';
 import {SessionGuard} from './guards/session.guard';
 import {AidFormComponent} from './aid-form/aid-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatPaginatorModule, MatProgressSpinnerModule} from '@angular/material';
+import {MatPaginatorModule, MatProgressSpinnerModule, MatTabsModule} from '@angular/material';
 import {NgSelect2Module} from 'ng-select2';
 import { RequestListComponent } from './request-list/request-list.component';
 import { InstitutionListComponent } from './institution-list/institution-list.component';
@@ -41,6 +41,7 @@ import { SortByPipe } from './pipes/sort-by.pipe';
 import { RequestFormComponent } from './request-form/request-form.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskViewComponent } from './task-view/task-view.component';
+import {ChartsModule, ThemeService} from 'ng2-charts';
 
 
 @NgModule({
@@ -93,7 +94,9 @@ import { TaskViewComponent } from './task-view/task-view.component';
         NgxMaskModule.forRoot(),
         RouterModule.forRoot([
             {path: 'register', component: UserRegisterComponent, canActivate: [SessionGuard]},
-            {path: '', component: ProjectListComponent, canActivate: [UnauthorizedGuard]},
+            localStorage.getItem('Role') === 'Administrador' || localStorage.getItem('Role') === 'Consultor'
+                ? {path: '', component: ProjectListComponent, canActivate: [UnauthorizedGuard]}
+                : {path: '', component: RequestListComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/institutions', component: InstitutionListComponent, canActivate: [UnauthorizedGuard] },
             {path: 'projects/add', component: ProjectFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'projects/people', component: PersonListComponent, canActivate: [UnauthorizedGuard]},
@@ -118,7 +121,9 @@ import { TaskViewComponent } from './task-view/task-view.component';
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatProgressSpinnerModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatTabsModule,
+        ChartsModule
     ],
     providers: [
         ProjectsService,
@@ -127,6 +132,7 @@ import { TaskViewComponent } from './task-view/task-view.component';
         UserService,
         AuthService,
         AidService,
+        ThemeService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,
