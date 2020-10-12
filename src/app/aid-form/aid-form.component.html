@@ -70,6 +70,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-12 col-form-label">Unidades Disponibles
                                         <input type="number"
+                                               min="1"
                                                formControlName="unit"
                                                class="form-control"
                                                [ngClass]="{ 'is-invalid': submitted && f.unit.errors }">
