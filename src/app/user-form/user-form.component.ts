@@ -4,7 +4,6 @@ import {UserService} from '../services/user/user.service';
 import {NotifierService} from 'angular-notifier';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
-import {LoginComponent} from '../login/login.component';
 import {PostUser} from '../services/user/user.interface';
 
 @Component({

@@ -42,6 +42,8 @@ import { RequestFormComponent } from './request-form/request-form.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskViewComponent } from './task-view/task-view.component';
 import {ChartsModule, ThemeService} from 'ng2-charts';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserFormComponent } from './user-form/user-form.component';
 
 
 @NgModule({
@@ -66,7 +68,9 @@ import {ChartsModule, ThemeService} from 'ng2-charts';
         SortByPipe,
         RequestFormComponent,
         TaskListComponent,
-        TaskViewComponent
+        TaskViewComponent,
+        UserListComponent,
+        UserFormComponent
     ],
     imports: [
         BrowserModule,
@@ -116,7 +120,9 @@ import {ChartsModule, ThemeService} from 'ng2-charts';
             {path: 'aids/add', component: AidFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'aids/edit/:aidId', component: AidFormComponent, canActivate: [UnauthorizedGuard]},
             {path: 'requests', component: RequestListComponent, canActivate: [UnauthorizedGuard]},
-            {path: 'requests/add', component: RequestFormComponent, canActivate: [UnauthorizedGuard]}
+            {path: 'requests/add', component: RequestFormComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'users', component: UserListComponent, canActivate: [UnauthorizedGuard]},
+            {path: 'users/add', component: UserFormComponent, canActivate: [UnauthorizedGuard]}
         ]),
         ReactiveFormsModule,
         BrowserAnimationsModule,
