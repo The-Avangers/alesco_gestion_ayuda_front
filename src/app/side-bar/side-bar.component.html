@@ -54,6 +54,16 @@
                     <li><a [routerLink]="'/requests'">Datos de Solicitudes</a></li>
                 </ul>
             </li>
+            <li [ngClass]="{'mm-active border-left-green':ariaExpanded.user}"
+                (click)="changeAriaExpanded('user')"
+                *ngIf="role === 'Administrador' ">
+                <a aria-expanded="ariaExpanded.user"><i class="fa fa-th-large"></i> <span
+                    class="nav-label">Usuarios</span> <span
+                    class="fa arrow"></span></a>
+                <ul class="nav nav-second-level mm-collapse">
+                    <li><a [routerLink]="'/users'">Datos de Usuarios</a></li>
+                </ul>
+            </li>
 
         </ul>
     </div>

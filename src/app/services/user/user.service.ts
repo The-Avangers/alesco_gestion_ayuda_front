@@ -16,4 +16,12 @@ export class UserService {
     postUser(body: PostUser) {
         return this.http.post<User>(`${environment.baseUrl}user`, body, {observe: 'response'});
     }
+
+    getUsers() {
+        return this.http.get<User[]>(`${environment.baseUrl}users`);
+    }
+
+    createUser(body: PostUser) {
+        return this.http.post<User>(`${environment.baseUrl}users`, body, {observe: 'response'});
+    }
 }

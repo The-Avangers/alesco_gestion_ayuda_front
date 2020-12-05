@@ -18,7 +18,8 @@ export class SideBarComponent implements OnInit {
     public ariaExpanded =  {
         project: false,
         aid: false,
-        request: false
+        request: false,
+        user: false
 
     };
     public isAuthenticated = false;
@@ -41,15 +42,23 @@ export class SideBarComponent implements OnInit {
             case 'project': this.ariaExpanded.project = !this.ariaExpanded.project;
                             this.ariaExpanded.aid = false;
                             this.ariaExpanded.request = false;
+                            this.ariaExpanded.user = false;
                             break;
             case 'aid': this.ariaExpanded.aid = !this.ariaExpanded.aid;
                         this.ariaExpanded.project = false;
                         this.ariaExpanded.request = false;
+                        this.ariaExpanded.user = false;
                         break;
             case 'request': this.ariaExpanded.request = !this.ariaExpanded.request;
                             this.ariaExpanded.project = false;
                             this.ariaExpanded.aid = false;
+                            this.ariaExpanded.user = false;
                             break;
+            case 'user': this.ariaExpanded.user = !this.ariaExpanded.user;
+                         this.ariaExpanded.project = false;
+                         this.ariaExpanded.aid = false;
+                         this.ariaExpanded.request = false;
+                         break;
             default: for (let value of Object.values(this.ariaExpanded) ) {
                 value = false;
             }
