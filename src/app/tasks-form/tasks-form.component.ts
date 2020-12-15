@@ -103,7 +103,15 @@ export class TasksFormComponent implements OnInit {
         let maxDate: Date;
         maxDate = new Date();
         maxDate.setDate(maxDate.getDate());
+        console.log('max', maxDate);
         return getDateString(maxDate);
+    }
+
+    getMinProgressDate() {
+        const minDate = new Date(this.project.startDate);
+        minDate.setDate(minDate.getDate());
+        console.log('min', minDate);
+        return getDateString(minDate);
     }
 
     get f() {

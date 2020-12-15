@@ -61,7 +61,8 @@
                                         <input class="form-control"
                                                formControlName="completionDate"
                                                [ngClass]="{'is-invalid': submitted && f.completionDate.errors }"
-                                               type="date" [max]="getMaxProgressDate()">
+                                               type="date" [max]="getMaxProgressDate()"
+                                               [min]="getMinProgressDate()">
                                         <div *ngIf="submitted && f.completionDate.errors" class="invalid-feedback">
                                             <div *ngIf="f.completionDate.errors.required">La fecha de completación es requerida
                                             </div>

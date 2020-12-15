@@ -71,6 +71,11 @@ export class PaymentFormComponent implements OnInit {
         return getDateString(minDate);
     }
 
+    getMaxPaymentDate() {
+        const maxDate = new Date();
+        return getDateString(maxDate);
+    }
+
     get f() {
         return this.paymentForm.controls;
     }

@@ -46,7 +46,8 @@
                                         <input class="form-control"
                                                formControlName="date"
                                                [ngClass]="{'is-invalid': submitted && f.date.errors }"
-                                               type="date" [min]="getMinPaymentDate()">
+                                               type="date" [max]="getMaxPaymentDate()"
+                                               [min]="getMinPaymentDate()">
                                         <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
                                             <div *ngIf="f.date.errors.required">La fecha del hito es
                                                 requerida

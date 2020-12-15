@@ -49,7 +49,7 @@
                                         <input class="form-control"
                                                formControlName="startDate"
                                                [ngClass]="{'is-invalid': submitted && f.startDate.errors }"
-                                               type="date" [min]="getMinStartDate()"
+                                               type="date"
                                                (change)="startDateChanged($event)">
                                         <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
                                             <div *ngIf="f.startDate.errors.required">La fecha de inicio del proyecto es
