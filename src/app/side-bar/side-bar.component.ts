@@ -3,6 +3,9 @@ import 'metismenu';
 import {Router} from '@angular/router';
 import {User} from '../services/user/user.interface';
 import {AuthService} from '../services/auth.service';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {LoginComponent} from '../login/login.component';
+import {ChangePasswordComponent} from '../change-password/change-password.component';
 
 // tslint:disable-next-line:no-any
 declare let $: any;
@@ -26,7 +29,7 @@ export class SideBarComponent implements OnInit {
     public user: User;
     public miniNavBar: boolean;
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private modalService: NgbModal) {
     }
 
 
@@ -76,6 +79,11 @@ export class SideBarComponent implements OnInit {
     logout() {
         localStorage.removeItem('isAuthenticated');
         this.router.navigate([ '/register']).then();
+    }
+
+    openChangePasswordModal() {
+        const modalRef: NgbModalRef = this.modalService.open(ChangePasswordComponent, { centered: true });
+        modalRef.componentInstance.isClient = true;
     }
 
 }

@@ -14,5 +14,11 @@ export interface PostUser {
     lastname: string;
     email: string;
     role: string;
-    password: string;
+    ci?: string;
+    password?: string;
+}
+
+export interface ChangeUserPassword {
+    oldPassword: string;
+    newPassword: string;
 }

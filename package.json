@@ -40,7 +40,7 @@
     "chart.js": "^2.9.3",
     "express": "^4.17.1",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.1",
     "metismenu": "^3.0.5",
     "ng-select": "^1.0.2",
     "ng-select2": "^1.2.2",
@@ -73,7 +73,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.5.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "protractor": "^5.4.3",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0"

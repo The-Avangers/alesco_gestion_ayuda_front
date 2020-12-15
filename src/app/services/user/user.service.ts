@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Login, User, PostUser} from './user.interface';
+import {Login, User, PostUser, ChangeUserPassword} from './user.interface';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 
@@ -23,5 +23,11 @@ export class UserService {
 
     createUser(body: PostUser) {
         return this.http.post<User>(`${environment.baseUrl}users`, body, {observe: 'response'});
+    }
+
+    changePassword(body: ChangeUserPassword) {
+        return this.http.post<User>(
+            `${environment.baseUrl}users/changePassword`, body, {observe: 'response'}
+        );
     }
 }

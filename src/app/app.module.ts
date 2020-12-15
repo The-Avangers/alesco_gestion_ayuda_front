@@ -44,6 +44,7 @@ import { TaskViewComponent } from './task-view/task-view.component';
 import {ChartsModule, ThemeService} from 'ng2-charts';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { UserFormComponent } from './user-form/user-form.component';
         TaskListComponent,
         TaskViewComponent,
         UserListComponent,
-        UserFormComponent
+        UserFormComponent,
+        ChangePasswordComponent
     ],
     imports: [
         BrowserModule,
@@ -146,7 +148,7 @@ import { UserFormComponent } from './user-form/user-form.component';
         }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [LoginComponent],
+    entryComponents: [LoginComponent, ChangePasswordComponent],
 })
 export class AppModule {
 }

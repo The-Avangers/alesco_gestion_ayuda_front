@@ -55,7 +55,7 @@ export class UserRegisterComponent implements OnInit {
 
   login() {
       this.submitted = true;
-      this.isLoading = true
+      this.isLoading = true;
       const body: PostUser = {
           name : this.RegisterForm.value.name,
           lastname : this.RegisterForm.value.lastname,

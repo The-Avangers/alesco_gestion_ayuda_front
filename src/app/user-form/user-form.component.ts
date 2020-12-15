@@ -13,6 +13,7 @@ import {PostUser} from '../services/user/user.interface';
 })
 export class UserFormComponent implements OnInit {
     notsame = true;
+    buttonDisabled = false;
     role: string;
     roleOptions: string;
     roles: string[];
@@ -23,8 +24,7 @@ export class UserFormComponent implements OnInit {
         lastname: new FormControl('', [Validators.required, Validators.maxLength(20)]),
         email: new FormControl('', [Validators.required, Validators.email]),
         role: new FormControl('', [Validators.required, Validators.maxLength(20)]),
-        password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-        confirmed_password: new FormControl('', Validators.required)
+        ci: new FormControl('', [Validators.required, Validators.maxLength(20)]),
     });
 
     constructor(private userService: UserService, private notifierService: NotifierService,
@@ -66,12 +66,18 @@ export class UserFormComponent implements OnInit {
     submit() {
         this.submitted = true;
         this.isLoading = true;
+        this.buttonDisabled = true;
+        for (const key in this.userForm.controls) {
+            if (key in this.userForm.controls) {
+                this.userForm.controls[key].disable();
+            }
+        }
         const body: PostUser = {
             name : this.userForm.value.name,
             lastname : this.userForm.value.lastname,
             email : this.userForm.value.email,
             role : this.userForm.value.role,
-            password : this.userForm.value.password
+            ci: this.userForm.value.ci,
         };
         this.userService.createUser(body)
             .subscribe(response => {
@@ -86,6 +92,12 @@ export class UserFormComponent implements OnInit {
             }, error => {
                 this.isLoading = false;
                 console.log(error);
+                for (const key in this.userForm.controls) {
+                    if (key in this.userForm.controls) {
+                        this.userForm.controls[key].enable();
+                    }
+                }
+                this.buttonDisabled = false;
                 this.notifierService.show({
                     type : 'error',
                     message: 'Error al Crear el Usuario'
