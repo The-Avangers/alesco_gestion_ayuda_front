@@ -43,6 +43,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
+                                        <th>Cédula de Identidad</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>Email</th>
@@ -51,6 +52,7 @@
                                     </thead>
                                     <tbody>
                                     <tr *ngFor="let user of currentPage">
+                                        <td>{{ user.ci }}</td>
                                         <td>{{ user.name }}</td>
                                         <td>{{ user.lastname }}</td>
                                         <td>{{ user.email }}</td>
