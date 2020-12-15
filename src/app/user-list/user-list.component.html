@@ -59,9 +59,9 @@
                                         <td>{{ user.role }}</td>
                                         <td>
                                             <a *ngIf="role === 'Administrador'"
-                                               [routerLink]="['/users/edit', user.id]"
-                                               class="btn btn-sm btn-outline-warning">
-                                                <span class="fa fa-pencil"></span>
+                                               (click)="deleteUser(user.id)"
+                                               class="btn btn-sm btn-danger">
+                                                <span class="fa fa-trash"></span>
                                             </a>
                                         </td>
                                     </tr>

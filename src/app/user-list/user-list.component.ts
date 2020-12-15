@@ -33,6 +33,10 @@ export class UserListComponent implements OnInit {
                      ofrecemos en la barra lateral`
             });
         }
+        this.getUsers();
+    }
+
+    getUsers() {
         this.service.getUsers()
             .subscribe(response => {
                 this.isLoading = false;
@@ -57,6 +61,20 @@ export class UserListComponent implements OnInit {
 
     onPageChanged(event: PageEvent) {
         this.currentPage = this.paginatedUsers[event.pageIndex];
+    }
+
+
+    deleteUser(id: number) {
+        console.log('id = ', id);
+        this.service.deleteUser(id)
+            .subscribe(() => {
+                this.notifierService.show({
+                    type : 'success',
+                    message: 'Usuario borrado exitosamente'
+                });
+                this.isLoading = true;
+                this.getUsers();
+            });
     }
 
 }

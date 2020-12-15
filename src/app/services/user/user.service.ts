@@ -30,4 +30,8 @@ export class UserService {
             `${environment.baseUrl}users/changePassword`, body, {observe: 'response'}
         );
     }
+
+    deleteUser(id: number) {
+        return this.http.delete<User>(`${environment.baseUrl}users/${id}`, {observe: 'response'});
+    }
 }
