@@ -5,6 +5,7 @@ import {UserService} from '../services/user/user.service';
 import {NotifierService} from 'angular-notifier';
 import {filterTable, paginateObject} from '../utils';
 import {PageEvent} from '@angular/material';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-list',
@@ -65,16 +66,27 @@ export class UserListComponent implements OnInit {
 
 
     deleteUser(id: number) {
-        console.log('id = ', id);
-        this.service.deleteUser(id)
-            .subscribe(() => {
-                this.notifierService.show({
-                    type : 'success',
-                    message: 'Usuario borrado exitosamente'
-                });
-                this.isLoading = true;
-                this.getUsers();
-            });
+        console.log('Before swal');
+        Swal.fire({
+            title: '¿Está seguro que quiere eliminar el usuario?',
+            icon: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#d33'
+        }).then( (result) => {
+            if (result.value) {
+                this.service.deleteUser(id)
+                    .subscribe(() => {
+                        this.notifierService.show({
+                            type: 'success',
+                            message: 'Usuario borrado exitosamente'
+                        });
+                        this.isLoading = true;
+                        this.getUsers();
+                    });
+            }
+        });
     }
-
 }
