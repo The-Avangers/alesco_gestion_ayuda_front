@@ -52,7 +52,7 @@
                                     </thead>
                                     <tbody>
                                     <tr *ngFor="let institution of (institutions | filterTable:search)">
-                                        <td><a href="">{{ institution.id }}</a></td>
+                                        <td>{{ institution.id }}</td>
                                         <td>{{ institution.name }}</td>
                                         <td class="align-items-end">
                                             <a *ngIf="role === 'Administrador'"
